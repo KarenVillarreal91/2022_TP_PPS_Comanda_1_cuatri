@@ -1,0 +1,108 @@
+.grid1 {
+    height: 100%;
+    padding: 0px;
+}
+
+.contaier-login {
+    width: 90%;
+    padding: 10px;
+    background: #ffffffe0;
+    border-radius: 5px;
+    margin: auto; 
+    text-align: center;
+    margin-top: 15%;
+}
+
+.titulo{
+    width: 90%;
+    margin: auto;
+    margin-top: 20%;
+    padding: 10px;
+}
+
+.ion-color-enviar {
+	--ion-color-base: #25190f;
+	--ion-color-base-rgb: rgb(48, 43, 35);
+	--ion-color-contrast: #ffffff;
+	--ion-color-contrast-rgb: rgb(255, 255, 255);
+	--ion-color-shade: #25190f;
+	--ion-color-tint: #25190f;
+}
+
+.ion-color-campos {
+	--ion-color-base: #ffffff00;
+	--ion-color-base-rgb: rgb(221, 221, 221);
+	--ion-color-contrast: #000000;
+	--ion-color-contrast-rgb: rgb(0,0,0);
+	--ion-color-shade: #272727;
+	--ion-color-tint: #252525;
+}
+
+.ion-color-transp {
+    --ion-color-base: #ffc5885c;
+	--ion-color-base-rgb: rgba(255, 197, 136, 0.361);
+	--ion-color-contrast: #ffffff;
+	--ion-color-contrast-rgb: rgb(255, 255, 255);
+	--ion-color-shade: #ffc5885c;
+	--ion-color-tint: #ffc5885c;
+}
+
+
+ion-content{
+  --overflow:hidden;
+ 
+  --background: none;
+  background: url("../../../assets/fondo2.png");
+  background-size: cover;
+  background-position: center center;                                                                                           
+}
+
+ion-icon {
+    margin-right: 15px;
+}
+
+ion-item {
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  margin-bottom: 7px;
+}
+
+ion-button {
+    margin-top: 5px;
+    margin-bottom: 15px;
+}
+
+.ingreso{
+  height: 50px; 
+  width: 150px;
+  margin: auto;
+}
+
+.logo{
+    height: 108px; 
+    margin-top: 6%; 
+    float: right; 
+    margin-right: 8%;
+}
+
+ion-slide {
+    width: 100%;
+    height: 100%;
+    position: absolute !important;
+    top: 0px !important;
+}
+
+ion-icon{
+  margin:auto;
+  padding-right: 10px;
+}
+
+
+.rotate-center {
+	-webkit-animation: rotate-center 1s ease-in-out infinite both;
+	        animation: rotate-center 1s ease-in-out infinite both;
+}
+
+@-webkit-keyframes rotate-center{0%{-webkit-transform:rotate(0);transform:rotate(0)}100%{-webkit-transform:rotate(360deg);transform:rotate(360deg)}}@keyframes rotate-center{0%{-webkit-transform:rotate(0);transform:rotate(0)}100%{-webkit-transform:rotate(360deg);transform:rotate(360deg)}}

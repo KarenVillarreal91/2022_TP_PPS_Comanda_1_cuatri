@@ -1,0 +1,15 @@
+{
+	"appId": "io.ionic.starter",
+	"appName": "LoQueSeTeAntoje",
+	"webDir": "www",
+	"bundledWebRuntime": false,
+	"plugins": {
+		"SplashScreen": {
+			"launchAutoHide": false,
+			"androidScaleType": "CENTER_CROP",
+			"splashFullScreen": true,
+			"splashImmersive": false,
+			"backgroundColor": "#ffffff"
+		}
+	}
+}

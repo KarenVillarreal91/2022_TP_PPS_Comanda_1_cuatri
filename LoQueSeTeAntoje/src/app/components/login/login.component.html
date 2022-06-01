@@ -1,0 +1,33 @@
+<ion-content>  
+  <ion-img class="logo rotate-center" *ngIf="logged" src='assets/iconTransp.png'></ion-img>
+  <ion-img class="logo" *ngIf="!logged" src='assets/iconTransp.png'></ion-img>
+  
+  <div class="titulo">
+      <h1 style="margin-top: 110px;">Inicio de sesión</h1>
+  </div>
+  <div class="contaier-login">
+    <ion-item color="campos">
+      <ion-icon name="mail-open"></ion-icon>
+      <ion-input type='text' [(ngModel)]="email" required placeholder="Correo electrónico"></ion-input>
+    </ion-item>
+  
+    <ion-item color="campos">
+      <ion-icon name="key"></ion-icon>
+      <ion-input type='password' [(ngModel)]="password" required placeholder="Contraseña"></ion-input>
+    </ion-item>
+
+    <ion-button type="submit" fill="solid" shape="round" color="enviar" style="height: 45px;" (click)='Login()'><ion-icon style="padding-left: 15px;" name="send"></ion-icon></ion-button>
+  </div>
+
+<div style="text-align: center; padding-top: 10%;">
+  <div>
+    <ion-button type="button" color="transp" shape="round" (click)='InicioAutomatico("cliente@cliente.com","111111")'><ion-icon name="person"></ion-icon>Cliente</ion-button>
+    <ion-button type="button" color="transp" shape="round" (click)='InicioAutomatico("anonimo@anonimo.com","111111")'><ion-icon name="glasses"></ion-icon>Anonimo</ion-button>
+  </div>
+  <div>
+    <ion-button type="button" color="transp" shape="round" (click)='InicioAutomatico("mozo@mozo.com","111111")'><ion-icon name="wine"></ion-icon>Mozo</ion-button>
+    <ion-button type="button" color="transp" shape="round" (click)='InicioAutomatico("supervisor@supervisor.com","111111")'><ion-icon name="star"></ion-icon>Supervisor</ion-button>
+  </div>
+</div>
+</ion-content>
+

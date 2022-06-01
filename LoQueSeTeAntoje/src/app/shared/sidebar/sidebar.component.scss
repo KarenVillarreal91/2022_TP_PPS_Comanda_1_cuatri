@@ -1,0 +1,53 @@
+.ion-color-transp {
+	--ion-color-base: #ffeed62e;
+	--ion-color-base-rgb: rgba(163, 163, 163, 0.452);
+	--ion-color-contrast: #ffffff;
+	--ion-color-contrast-rgb: rgb(255, 255, 255);
+	--ion-color-shade: #ffeed62e;
+	--ion-color-tint: #ffeed62e;
+}
+
+.ion-color-header {
+	--ion-color-base: #140c02;
+	--ion-color-base-rgb: rgb(20, 12, 2);
+	--ion-color-contrast: #ffffff;
+	--ion-color-contrast-rgb: rgb(255, 255, 255);
+	--ion-color-shade: #140c02;
+	--ion-color-tint: #140c02;
+}
+
+.ion-color-enviar {
+	--ion-color-base: #ffc577;
+	--ion-color-base-rgb: rgb(255, 197, 119);
+	--ion-color-contrast: #000000;
+	--ion-color-contrast-rgb: rgb(0,0,0);
+	--ion-color-shade: #ffc577;
+	--ion-color-tint: #ffc577;
+}
+
+.ion-color-escanear {
+	--ion-color-base: #f1e0c9;
+	--ion-color-base-rgb: rgb(241, 224, 201);
+	--ion-color-contrast: #140c02;
+	--ion-color-contrast-rgb: rgb(20, 12, 2);
+	--ion-color-shade: #f1e0c9;
+	--ion-color-tint: #f1e0c9;
+}
+
+
+.cerrar{
+	margin-right: 4px;
+	font-size: 25px;
+}
+
+ion-icon{
+    margin:auto;
+    font-size: 43px;
+}
+
+.rotate-center {
+	-webkit-animation: rotate-center 1s ease-in-out infinite both;
+	        animation: rotate-center 1s ease-in-out infinite both;
+}
+
+@-webkit-keyframes rotate-center{0%{-webkit-transform:rotate(0);transform:rotate(0)}100%{-webkit-transform:rotate(360deg);transform:rotate(360deg)}}@keyframes rotate-center{0%{-webkit-transform:rotate(0);transform:rotate(0)}100%{-webkit-transform:rotate(360deg);transform:rotate(360deg)}}

@@ -7,9 +7,10 @@
 ## Karen Villarreal (Alfa)
 #### Primer semana
 * Icono + Splash ✔ 
-* Alta empleados
-* QR mesa
+* Inicio de sesión ✔
+* Alta empleados ✔
 * Encuesta empleados
+* QR mesa
 
 #### Segunda semana
 * Realizar pedidos (gestion)

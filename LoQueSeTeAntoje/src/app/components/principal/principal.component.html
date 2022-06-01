@@ -1,0 +1,17 @@
+<ion-header>
+  <ion-toolbar color="header">
+    <ion-title>
+      <ion-img style="width: 55px; height: 55px;" *ngIf="!spinner" src='assets/iconTransp2.png'></ion-img>
+      <ion-img class="rotate-center" style="width: 55px; height: 55px;" *ngIf="spinner" src='assets/iconTransp2.png'></ion-img>
+    </ion-title>
+    <ion-buttons slot="end">
+      <ion-menu-button style="margin: auto;" type="button" menu="menu" color="escanear"><ion-icon name="menu"></ion-icon></ion-menu-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <h1>Testeo</h1><br>
+  <ion-button type="button" fill="solid" expand="block" color="success" routerLink="../altaEmpleados">Alta Empleados</ion-button>
+
+</ion-content>
