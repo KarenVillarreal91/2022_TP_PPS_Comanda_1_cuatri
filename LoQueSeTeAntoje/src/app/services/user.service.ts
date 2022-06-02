@@ -49,6 +49,30 @@ export class UserService {
     }
   }
 
+  async SubirCliente(user: any, foto: any)
+  {
+    if(foto != 'assets/default.png')
+    {
+      let path = `${Date.now()}`;
+      let referencia = this.storage.ref(`fotosClientes/${path}`);
+  
+      referencia.putString(foto, 'data_url',{
+        contentType: 'image/jpeg'
+      }).then(()=>{
+        let storage = this.storage.ref('fotosClientes').child(path);
+        storage.getDownloadURL().toPromise()
+        .then((url:any) =>{
+          user.foto = url;
+          this.firestore.collection('clientes').add(user);
+        });
+      });
+    }
+    else
+    {
+      user.foto = 'https://firebasestorage.googleapis.com/v0/b/loqueseteantojeapp.appspot.com/o/fotosEmpleados%2Fdefault.png?alt=media&token=b6704ee2-175a-4943-971b-94fe6c8d990f';
+      this.firestore.collection('clientes').add(user);
+    }
+  }
 
   async SubirSupervisorDuenio(user: any, foto: any)
   {

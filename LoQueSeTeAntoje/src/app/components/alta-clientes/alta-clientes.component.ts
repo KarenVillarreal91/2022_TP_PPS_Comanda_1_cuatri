@@ -4,37 +4,38 @@ import { Router } from '@angular/router';
 import { UserService } from 'src/app/services/user.service';
 import { ScandniService } from 'src/app/services/scandni.service';
 import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
+import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { SendEmailService } from 'src/app/services/send-email.service';
-
 
 @Component({
-  selector: 'app-alta-supervisor-duenio',
-  templateUrl: './alta-supervisor-duenio.component.html',
-  styleUrls: ['./alta-supervisor-duenio.component.scss'],
+  selector: 'app-alta-clientes',
+  templateUrl: './alta-clientes.component.html',
+  styleUrls: ['./alta-clientes.component.scss'],
 })
-export class AltaSupervisorDuenioComponent implements OnInit {
+export class AltaClientesComponent implements OnInit {
 
   spinner:boolean = false;
   scan:boolean = false;
   formData: FormData = new FormData();
   dataUrl = 'assets/default.png';
   form !: FormGroup;
+
   constructor(private router:Router, 
     public userService:UserService, 
     public scanService:ScandniService,
-    private fb:FormBuilder,
-    public emailService:SendEmailService) {
-      this.form = this.fb.group({
-        'nombre':['', Validators.required],
-        'apellido':['', Validators.required],
-        'dni':['',[Validators.required, Validators.min(1000000), Validators.max(99999999)]],
-        'cuil':['',[Validators.required, Validators.min(10000000000), Validators.max(99999999999)]],
-        'tipo':['', Validators.required]
-      });
-     }
-
+    private fb:FormBuilder) 
+  { 
+    this.form = this.fb.group({
+      'email':['',[Validators.required, Validators.email]],
+      'password':['', Validators.required],
+      'nombre':['', Validators.required],
+      'apellido':['', Validators.required],
+      'dni':['',[Validators.required, Validators.min(1000000), Validators.max(99999999)]],
+    });
+  }
+  
   ngOnInit() {}
+
   async Escanear()
   {
     this.scan = true;
@@ -44,7 +45,6 @@ export class AltaSupervisorDuenioComponent implements OnInit {
       document.getElementById('nombre').innerText = datos?.nombre;
       document.getElementById('apellido').innerText = datos.apellido;
       document.getElementById('dni').innerText = datos.dni;
-      document.getElementById('cuil').innerText = datos.cuil;
 
       Swal.fire({
         title: "Datos escaneados correctamente.",
@@ -84,6 +84,7 @@ export class AltaSupervisorDuenioComponent implements OnInit {
 
     this.dataUrl = foto.dataUrl;
   }
+  
   Reiniciar()
   {
     this.form.reset();
@@ -97,20 +98,19 @@ export class AltaSupervisorDuenioComponent implements OnInit {
       this.form.value.nombre = document.getElementById('nombre').innerText;
       this.form.value.apellido = document.getElementById('apellido').innerText;
       this.form.value.dni = document.getElementById('dni').innerText;
-      this.form.value.cuil = document.getElementById('cuil').innerText;
   
       this.scan = false;
     }
 
-      let usuario = {nombre: this.form.value.nombre, apellido: this.form.value.apellido, dni: this.form.value.dni, cuil: this.form.value.cuil, tipo: this.form.value.tipo};
+      let usuario = {nombre: this.form.value.nombre, apellido: this.form.value.apellido, dni: this.form.value.dni, habilitado: false, tipo: 'cliente'};
 
-      this.userService.SubirSupervisorDuenio(usuario, this.dataUrl)
+      this.userService.SubirCliente(usuario, this.dataUrl)
         .then(()=>{
           this.spinner = true;
 
           setTimeout(() => {
             Swal.fire({
-              title: 'Supervisor/Dueño dado de alta correctamente.',
+              title: 'Cliente dado de alta correctamente. A la espera de habilitación.',
               icon: 'success',
               timer: 2000,
               toast: true,
@@ -128,7 +128,4 @@ export class AltaSupervisorDuenioComponent implements OnInit {
           console.log(error);
         });
   }
-
-
-  
 }

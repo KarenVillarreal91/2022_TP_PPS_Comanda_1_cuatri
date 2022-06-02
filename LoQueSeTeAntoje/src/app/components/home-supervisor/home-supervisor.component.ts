@@ -53,4 +53,8 @@ export class HomeSupervisorComponent implements OnInit {
    this.emailService.enviarEmail(item.nombre,item.email,"Su cuenta fue rechazada.")
   }
 
+  EnviarEmail()
+  {
+    this.emailService.enviarEmail("Daniela","denu.moreno.1990@gmail.com","Prueba de email");
+  }
 }
