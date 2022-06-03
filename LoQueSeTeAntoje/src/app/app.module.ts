@@ -19,6 +19,7 @@ import { HomeSupervisorComponent } from './components/home-supervisor/home-super
 import { AltaClientesComponent } from './components/alta-clientes/alta-clientes.component';
 import { AltaClienteAnonimoComponent } from './components/alta-cliente-anonimo/alta-cliente-anonimo.component';
 import { AltaMesaComponent } from './components/alta-mesa/alta-mesa.component';
+import { EncuestaEmpleadosComponent } from './components/encuesta-empleados/encuesta-empleados.component';
 
 @NgModule({
   declarations: [AppComponent,
@@ -30,7 +31,8 @@ import { AltaMesaComponent } from './components/alta-mesa/alta-mesa.component';
   PrincipalComponent,
   SidebarComponent,
   AltaSupervisorDuenioComponent,
-  HomeSupervisorComponent],
+  HomeSupervisorComponent,
+  EncuestaEmpleadosComponent],
   entryComponents: [],
   imports: [BrowserModule, 
     IonicModule.forRoot(), 

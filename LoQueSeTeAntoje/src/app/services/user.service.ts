@@ -35,6 +35,18 @@ export class UserService {
     return this.firestore.collection('mesas').add(mesa);
   }
 
+  async SubirEncuestaEmpleado(datos:any, foto:FormData)
+  {
+    let path = `fotosEncuestas/${Date.now()}`;
+
+    await this.storage.upload(path, foto.get('foto'));
+
+    this.storage.ref(path).getDownloadURL().subscribe((data)=>{
+      datos.foto = data;
+      this.firestore.collection('encuestaEmpleados').add(datos);
+    });
+  }
+
   async SubirEmpleado(user: any, foto: any) {
     if (foto != 'assets/default.png') {
       let path = `${Date.now()}`;
@@ -99,5 +111,10 @@ export class UserService {
       user.foto = 'https://firebasestorage.googleapis.com/v0/b/loqueseteantojeapp.appspot.com/o/fotosEmpleados%2Fdefault.png?alt=media&token=b6704ee2-175a-4943-971b-94fe6c8d990f';
       this.firestore.collection('supervisorDuenio').add(user);
     }
+  }
+
+  GetColeccion(coleccion:any)
+  {
+    return this.firestore.collection<any>(coleccion).valueChanges({idField: "id"});
   }
 }
