@@ -76,7 +76,7 @@ export class EncuestaEmpleadosComponent implements OnInit {
 
       setTimeout(() => {
         this.MostrarEncuestas();
-      }, 3000);
+      }, 4000);
     }).catch(error=>{
       Swal.fire({
         title: 'Error',

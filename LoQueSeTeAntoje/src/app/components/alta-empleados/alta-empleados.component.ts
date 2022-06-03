@@ -102,7 +102,7 @@ export class AltaEmpleadosComponent implements OnInit {
       this.form.value.apellido = document.getElementById('apellido').innerText;
       this.form.value.dni = document.getElementById('dni').innerText;
       this.form.value.cuil = document.getElementById('cuil').innerText;
-  
+      
       this.scan = false;
     }
 
