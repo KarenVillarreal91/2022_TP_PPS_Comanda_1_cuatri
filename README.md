@@ -37,7 +37,7 @@
 
 ## Matias Gravante (Gamma)
 #### Primer semana
-* Alta clientes
+* Alta clientes heavy_check_mark
 * Alta mesa
 * QR propina
 
