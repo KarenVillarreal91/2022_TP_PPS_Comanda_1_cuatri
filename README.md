@@ -9,10 +9,10 @@
 * Icono + Splash ✔ 
 * Inicio de sesión ✔
 * Alta empleados ✔
-* Encuesta empleados
-* QR mesa
+* Encuesta empleados ✔
 
 #### Segunda semana
+* QR mesa
 * Realizar pedidos (gestion)
 * Confirmar pedidos (gestion)
 * Consultar mozo (push n)
