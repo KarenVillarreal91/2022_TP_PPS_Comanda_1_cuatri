@@ -2,13 +2,10 @@
   <ion-toolbar color="header">
     <ion-title>
       <ion-img style="width: 55px; height: 55px;" *ngIf="!spinner" src='assets/iconTransp2.png'></ion-img>
-      <ion-img class="rotate-center" style="width: 55px; height: 55px;" *ngIf="spinner" src='assets/iconTransp2.png'>
-      </ion-img>
+      <ion-img class="rotate-center" style="width: 55px; height: 55px;" *ngIf="spinner" src='assets/iconTransp2.png'></ion-img>
     </ion-title>
     <ion-buttons slot="end">
-      <ion-menu-button style="margin: auto;" type="button" menu="menu" color="escanear">
-        <ion-icon name="menu"></ion-icon>
-      </ion-menu-button>
+      <ion-menu-button style="margin: auto;" type="button" menu="menu" color="escanear"><ion-icon name="menu"></ion-icon></ion-menu-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
@@ -35,8 +32,7 @@
           <ion-item color="transp" style="width: 140px;">
             <ion-input type='password' required id="password" formControlName="password"></ion-input>
           </ion-item>
-          <ion-label class="invalid"
-            *ngIf="form.controls['password'].errors?.['required'] && form.controls['password'].touched">
+          <ion-label class="invalid" *ngIf="form.controls['password'].errors?.['required'] && form.controls['password'].touched">
             Contraseña inválida.
           </ion-label>
         </div>
@@ -48,8 +44,7 @@
           <ion-item color="transp" style="width: 140px;">
             <ion-input type='text' required id="nombre" formControlName="nombre"></ion-input>
           </ion-item>
-          <ion-label class="invalid"
-            *ngIf="form.controls['nombre'].errors?.['required'] && form.controls['nombre'].touched">
+          <ion-label class="invalid" *ngIf="form.controls['nombre'].errors?.['required'] && form.controls['nombre'].touched">
             Nombre inválido.
           </ion-label>
         </div>
@@ -59,14 +54,12 @@
           <ion-item color="transp" style="width: 140px;">
             <ion-input type='text' required id="apellido" formControlName="apellido"></ion-input>
           </ion-item>
-          <ion-label class="invalid"
-            *ngIf="form.controls['apellido'].errors?.['required'] && form.controls['apellido'].touched">
+          <ion-label class="invalid" *ngIf="form.controls['apellido'].errors?.['required'] && form.controls['apellido'].touched">
             Apellido inválido.
           </ion-label>
         </div>
       </div>
 
-      <div>
         <div class="inputdiv">
           <ion-label>DNI</ion-label>
           <ion-item color="transp" style="width: 130px;">
@@ -74,22 +67,17 @@
           </ion-item>
           <ion-label class="invalid" *ngIf="form.controls['dni'].errors?.['required'] && form.controls['dni'].touched
           || (form.controls['dni'].errors?.['min'] || form.controls['dni'].errors?.['max'])">
-            DNI inválido.
+              DNI inválido.
           </ion-label>
         </div>
-      </div>
 
       <div>
         <ion-label>Foto</ion-label>
-        <ion-button type="button" class="ingreso" fill="solid" expand="block" color="escanear"
-          style="width: 80px; height: 45px" (click)="SacarFoto()">
-          <ion-icon name="camera"></ion-icon>
-        </ion-button>
+        <ion-button type="button" class="ingreso" fill="solid" expand="block" color="escanear" style="width: 80px; height: 45px" (click)="SacarFoto()"><ion-icon name="camera"></ion-icon></ion-button>
         <ion-img class="foto" [src]='this.dataUrl' id="foto"></ion-img>
       </div>
 
-      <ion-button type="submit" class="ingreso" fill="solid" expand="block" color="enviar" style="margin-top: 23px;"
-        [disabled]="form.invalid">Enviar</ion-button>
+      <ion-button type="submit" class="ingreso" fill="solid" expand="block" color="enviar" style="margin-top: 23px;" [disabled]="form.invalid">Enviar</ion-button>
     </form>
   </div>
 </ion-content>
@@ -105,6 +93,6 @@
   </ion-fab-button>
 </ion-fab>
 <ion-footer>
-  <ion-toolbar color="header">
+  <ion-toolbar color="header">  
   </ion-toolbar>
 </ion-footer>

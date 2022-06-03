@@ -3,6 +3,7 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { AltaClienteAnonimoComponent } from './components/alta-cliente-anonimo/alta-cliente-anonimo.component';
 import { AltaClientesComponent } from './components/alta-clientes/alta-clientes.component';
 import { AltaEmpleadosComponent } from './components/alta-empleados/alta-empleados.component';
+import { AltaMesaComponent } from './components/alta-mesa/alta-mesa.component';
 import { AltaSupervisorDuenioComponent } from './components/alta-supervisor-duenio/alta-supervisor-duenio.component';
 import { HomeSupervisorComponent } from './components/home-supervisor/home-supervisor.component';
 import { LoginComponent } from './components/login/login.component';
@@ -18,6 +19,7 @@ const routes: Routes = [
   {path: 'homeSupervisor', component: HomeSupervisorComponent},
   {path: 'altaClientes', component: AltaClientesComponent},
   {path: 'altaClienteAnonimo', component: AltaClienteAnonimoComponent},
+  {path: 'altaMesa', component: AltaMesaComponent},
 
 ];
 

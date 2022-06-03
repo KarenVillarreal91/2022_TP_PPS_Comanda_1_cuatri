@@ -30,7 +30,7 @@ export class AltaClientesComponent implements OnInit {
       'password':['', Validators.required],
       'nombre':['', Validators.required],
       'apellido':['', Validators.required],
-      'dni':['',[Validators.required, Validators.min(1000000), Validators.max(99999999)]],
+      'dni':['',[Validators.required, Validators.min(1000000), Validators.max(99999999)]]
     });
   }
   
