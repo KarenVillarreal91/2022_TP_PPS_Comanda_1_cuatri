@@ -14,6 +14,30 @@
   <div class="container-datos">
     <form [formGroup]="form" (ngSubmit)="Registro()">
       <h3>Alta de supervisor/dueño</h3><br>
+
+      <div>
+        <div class="inputdiv">
+          <ion-label>Correo electrónico</ion-label>
+          <ion-item color="transp" style="width: 160px;">
+            <ion-input type='email' required id="email" formControlName="email"></ion-input>
+          </ion-item>
+          <ion-label class="invalid" *ngIf="form.controls['email'].errors?.['required'] && form.controls['email'].touched
+          || form.controls['email'].errors?.['email']">
+            Correo inválido.
+          </ion-label>
+        </div>
+
+        <div class="inputdiv" style="margin-left: 5%;">
+          <ion-label>Contraseña</ion-label>
+          <ion-item color="transp" style="width: 140px;">
+            <ion-input type='password' required id="password" formControlName="password"></ion-input>
+          </ion-item>
+          <ion-label class="invalid" *ngIf="form.controls['password'].errors?.['required'] && form.controls['password'].touched">
+            Contraseña inválida.
+          </ion-label>
+        </div>
+      </div>
+      
       <div>
         <div class="inputdiv">
           <ion-label>Nombre</ion-label>

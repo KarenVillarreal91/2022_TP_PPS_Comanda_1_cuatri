@@ -26,6 +26,8 @@ export class AltaSupervisorDuenioComponent implements OnInit {
     private fb:FormBuilder,
     public emailService:SendEmailService) {
       this.form = this.fb.group({
+        'email':['',[Validators.required, Validators.email]],
+        'password':['', Validators.required],
         'nombre':['', Validators.required],
         'apellido':['', Validators.required],
         'dni':['',[Validators.required, Validators.min(1000000), Validators.max(99999999)]],
