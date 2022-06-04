@@ -55,6 +55,8 @@ export class EncuestaEmpleadosComponent implements OnInit {
   {
     this.userService.SubirEncuestaEmpleado(this.form.value, this.foto)
     .then(()=>{
+      document.getElementById('enviar').setAttribute('disabled', 'disabled');
+
       this.spinner = true;
       
       setTimeout(() => {

@@ -100,13 +100,13 @@
         </ion-item>
       </div>
 
-      <ion-button type="submit" class="ingreso" fill="solid" expand="block" color="enviar" style="margin-top: 23px;" [disabled]="form.invalid">Enviar</ion-button>
+      <ion-button type="submit" class="ingreso" fill="solid" expand="block" color="enviar" id="enviar" style="margin-top: 23px;" [disabled]="form.invalid">Enviar</ion-button>
     </form>
   </div>
 
   <div class="container-datos" *ngIf="verEncuestas">
     <ion-button type="button" fill="solid" expand="block" color="enviar" (click)="Omitir()">Continuar</ion-button>
-    
+
     <ion-card>
       <ion-card-header>
         Limpieza
