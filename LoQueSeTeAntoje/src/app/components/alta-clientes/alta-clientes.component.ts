@@ -14,69 +14,65 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class AltaClientesComponent implements OnInit {
 
-  spinner:boolean = false;
-  scan:boolean = false;
+  spinner: boolean = false;
   formData: FormData = new FormData();
   dataUrl = 'assets/default.png';
   form !: FormGroup;
 
-  constructor(private router:Router, 
-    public userService:UserService, 
-    public scanService:ScandniService,
-    private fb:FormBuilder) 
-  { 
+  constructor(private router: Router,
+    public userService: UserService,
+    public scanService: ScandniService,
+    private fb: FormBuilder) {
     this.form = this.fb.group({
-      'email':['',[Validators.required, Validators.email]],
-      'password':['', Validators.required],
-      'nombre':['', Validators.required],
-      'apellido':['', Validators.required],
-      'dni':['',[Validators.required, Validators.min(1000000), Validators.max(99999999)]],
+      'email': ['', [Validators.required, Validators.email]],
+      'password': ['', Validators.required],
+      'nombre': ['', Validators.required],
+      'apellido': ['', Validators.required],
+      'dni': ['', [Validators.required, Validators.min(1000000), Validators.max(99999999)]]
     });
   }
-  
-  ngOnInit() {}
 
-  async Escanear()
-  {
-    this.scan = true;
+  ngOnInit() { }
 
+  async Escanear() {
     this.scanService.scanDNI()
-    .then((datos)=>{
-      document.getElementById('nombre').innerText = datos?.nombre;
-      document.getElementById('apellido').innerText = datos.apellido;
-      document.getElementById('dni').innerText = datos.dni;
+      .then((datos) => {
+        this.form.controls['nombre'].setValue(datos?.nombre);
+        this.form.controls['apellido'].setValue(datos.apellido);
+        this.form.controls['dni'].setValue(datos.dni);
+        this.form.controls['cuil'].setValue(datos.cuil);
 
-      Swal.fire({
-        title: "Datos escaneados correctamente.",
-        icon: 'success',
-        timer: 4000,
-        toast: true,
-        backdrop: false,
-        position: 'bottom',
-        grow: 'row',
-        timerProgressBar: true,
-        showConfirmButton: false
+        Swal.fire({
+          title: "Datos escaneados correctamente.",
+          icon: 'success',
+          timer: 4000,
+          toast: true,
+          backdrop: false,
+          position: 'bottom',
+          grow: 'row',
+          timerProgressBar: true,
+          showConfirmButton: false
+        });
+      }).catch(error => {
+        Swal.fire({
+          title: "Error al escanear el DNI.",
+          icon: 'error',
+          timer: 4000,
+          toast: true,
+          backdrop: false,
+          position: 'bottom',
+          grow: 'row',
+          timerProgressBar: true,
+          showConfirmButton: false
+        });
       });
-    }).catch(error=>{
-      Swal.fire({
-        title: "Error al escanear el DNI.",
-        icon: 'error',
-        timer: 4000,
-        toast: true,
-        backdrop: false,
-        position: 'bottom',
-        grow: 'row',
-        timerProgressBar: true,
-        showConfirmButton: false
-      });
-    });
   }
 
-  async SacarFoto(){
-    let foto =  await Camera.getPhoto({
+  async SacarFoto() {
+    let foto = await Camera.getPhoto({
       quality: 100,
-      width : 800,
-      height : 800,
+      width: 800,
+      height: 800,
       resultType: CameraResultType.DataUrl,
       source: CameraSource.Camera,
       webUseInput: true,
@@ -84,48 +80,106 @@ export class AltaClientesComponent implements OnInit {
 
     this.dataUrl = foto.dataUrl;
   }
-  
-  Reiniciar()
-  {
+
+  Reiniciar() {
     this.form.reset();
     this.dataUrl = 'assets/default.png';
   }
 
-  async Registro()
-  {
-    if(this.scan)
-    {
-      this.form.value.nombre = document.getElementById('nombre').innerText;
-      this.form.value.apellido = document.getElementById('apellido').innerText;
-      this.form.value.dni = document.getElementById('dni').innerText;
-  
-      this.scan = false;
+  async Registro() {
+    let usuario = { nombre: this.form.value.nombre, apellido: this.form.value.apellido, dni: this.form.value.dni, habilitado: false, tipo: 'cliente' };
+
+    this.userService.Registro(this.form.value)
+      .then((res: any) => {
+
+        this.userService.SubirCliente(usuario, this.dataUrl)
+          .then(() => {
+            document.getElementById('enviar').setAttribute('disabled', 'disabled');
+
+            this.spinner = true;
+
+            setTimeout(() => {
+              Swal.fire({
+                title: 'Cliente dado de alta correctamente. A la espera de habilitación.',
+                icon: 'success',
+                timer: 2000,
+                toast: true,
+                backdrop: false,
+                position: 'bottom',
+                grow: 'row',
+                timerProgressBar: true,
+                showConfirmButton: false
+              });
+
+              this.Reiniciar();
+              this.spinner = false;
+            }, 2000);
+          }).catch(error => {
+            console.log(error);
+          });
+      }).catch(error => {
+        this.Errores(error);
+      });
+  }
+
+  Errores(error: any) {
+    if (error.code == 'auth/email-already-in-use') {
+      Swal.fire({
+        title: 'Error',
+        text: 'El correo ya está en uso.',
+        icon: 'error',
+        timer: 2000,
+        toast: true,
+        backdrop: false,
+        position: 'bottom',
+        grow: 'row',
+        timerProgressBar: true,
+        showConfirmButton: false
+      });
+    }
+    else if (error.code == 'auth/missing-email' || error.code == 'auth/internal-error') {
+      Swal.fire({
+        title: 'Error',
+        text: 'No pueden quedar campos vacíos.',
+        icon: 'error',
+        timer: 2000,
+        toast: true,
+        backdrop: false,
+        position: 'bottom',
+        grow: 'row',
+        timerProgressBar: true,
+        showConfirmButton: false
+      });
+    }
+    else if (error.code == 'auth/weak-password') {
+      Swal.fire({
+        title: 'Error',
+        text: 'La contraseña debe contener al menos 6 caracteres.',
+        icon: 'error',
+        timer: 2000,
+        toast: true,
+        backdrop: false,
+        position: 'bottom',
+        grow: 'row',
+        timerProgressBar: true,
+        showConfirmButton: false
+      });
+    }
+    else {
+      Swal.fire({
+        title: 'Error',
+        text: 'El mail o la contraseña no son válidos.',
+        icon: 'error',
+        timer: 2000,
+        toast: true,
+        backdrop: false,
+        position: 'bottom',
+        grow: 'row',
+        timerProgressBar: true,
+        showConfirmButton: false
+      });
     }
 
-      let usuario = {nombre: this.form.value.nombre, apellido: this.form.value.apellido, dni: this.form.value.dni, habilitado: false, tipo: 'cliente'};
-
-      this.userService.SubirCliente(usuario, this.dataUrl)
-        .then(()=>{
-          this.spinner = true;
-
-          setTimeout(() => {
-            Swal.fire({
-              title: 'Cliente dado de alta correctamente. A la espera de habilitación.',
-              icon: 'success',
-              timer: 2000,
-              toast: true,
-              backdrop: false,
-              position: 'bottom',
-              grow: 'row',
-              timerProgressBar: true,
-              showConfirmButton: false
-            });
-            
-            this.Reiniciar();
-            this.spinner = false;
-          }, 2000);
-        }).catch(error=>{
-          console.log(error);
-        });
+    console.log(error.code);
   }
 }

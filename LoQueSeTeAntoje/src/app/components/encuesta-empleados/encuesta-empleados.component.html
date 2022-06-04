@@ -1,0 +1,146 @@
+<ion-header>
+  <ion-toolbar color="header">
+    <ion-title>
+      <ion-img style="width: 55px; height: 55px;" *ngIf="!spinner" src='assets/iconTransp2.png'></ion-img>
+      <ion-img class="rotate-center" style="width: 55px; height: 55px;" *ngIf="spinner" src='assets/iconTransp2.png'></ion-img>
+    </ion-title>
+    <ion-buttons slot="end">
+      <ion-menu-button style="margin: auto;" type="button" menu="menu" color="escanear"><ion-icon name="menu"></ion-icon></ion-menu-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content slot="fixed">
+  <div class="container-datos">
+    <form [formGroup]="form" (ngSubmit)="EnviarEncuesta()" *ngIf="!verEncuestas">
+      <h3>Encuesta de empleados</h3><br>
+
+      <ion-button type="button" class="omitir" fill="solid" expand="block" color="omitir" (click)="Omitir()">Omitir</ion-button>
+
+      <div>
+        <div class="inputdiv">
+          <ion-label class="label">Limpieza del establecimiento</ion-label>
+          <ion-item color="transp2">
+            <ion-range color="dark" pin="true" min="1" max="10" step="1" snaps="true" formControlName="limpieza">
+              <ion-icon slot="start" name="trash"></ion-icon>
+              <ion-icon slot="end" name="sparkles"></ion-icon>
+            </ion-range>
+          </ion-item>
+          <ion-label class="invalid" *ngIf="form.controls['limpieza'].errors?.['required'] && form.controls['limpieza'].touched">
+            Coloque en un valor.
+          </ion-label>
+        </div>
+
+        <div class="inputdiv">
+          <ion-item color="transp2">
+            <ion-radio-group value="biff" formControlName="inconvenientes" style="width: 100%;">
+              <ion-label class="label" style="margin-bottom: 10px;">Inconvenientes con otros empleados</ion-label>
+              <ion-item color="transp">
+                <ion-icon class="iconEst" style="color:#59c96c;" name="happy-outline"></ion-icon>
+                <ion-label>Ninguno</ion-label>
+                <ion-radio slot="start" value="ninguno" color="dark"></ion-radio>
+              </ion-item>
+          
+              <ion-item color="transp">
+                <ion-icon class="iconEst" style="color:#e0cb4f;" name="alert-circle-outline"></ion-icon>
+                <ion-label>Algunos</ion-label>
+                <ion-radio slot="start" value="algunos" color="dark"></ion-radio>
+              </ion-item>
+          
+              <ion-item color="transp">
+                <ion-icon class="iconEst" style="color:#db5252;" name="sad-outline"></ion-icon>
+                <ion-label>Muchos</ion-label>
+                <ion-radio slot="start" value="muchos" color="dark"></ion-radio>
+              </ion-item>
+            </ion-radio-group>
+          </ion-item>
+          <ion-label class="invalid" *ngIf="form.controls['inconvenientes'].errors?.['required'] && form.controls['inconvenientes'].touched">
+            Seleccione una opción.
+          </ion-label>
+        </div>
+      </div>
+
+      <div class="inputdiv" style="padding-top: 6px;">
+        <ion-item color="transp2">
+          <ion-checkbox color="dark" formControlName="orden"></ion-checkbox>
+          <ion-label class="label" style="margin-left: 20px;">¿Se ordenaron las mesas?</ion-label>
+        </ion-item>
+      </div>
+
+      <div class="inputdiv" style="padding-top: 6px;">
+        <ion-item color="transp2">
+          <ion-label color='dark' position="floating" class="label">Quejas de los clientes</ion-label>
+            <ion-select value="0" formControlName="quejas" okText="Confirmar" cancelText="Cancelar">
+              <ion-select-option value="0">Ninguna</ion-select-option>
+              <ion-select-option value="1">1</ion-select-option>
+              <ion-select-option value="2">2</ion-select-option>
+              <ion-select-option value="3">3</ion-select-option>
+              <ion-select-option value="4">Más de 3</ion-select-option>
+            </ion-select>
+        </ion-item>
+        <ion-label class="invalid" *ngIf="form.controls['quejas'].errors?.['required'] && form.controls['quejas'].touched">
+          Campo requerido.
+        </ion-label>
+      </div>
+
+      <div class="inputdiv">
+        <ion-label color='dark' class="label">Cargar foto</ion-label>
+        <ion-item color="transp2">
+          <ion-input type="file" accept="image/*" formControlName="foto" (change)="SubirFoto($event)"></ion-input>
+        </ion-item>
+        <ion-label class="invalid" *ngIf="form.controls['foto'].errors?.['required'] && form.controls['foto'].touched">
+          Cargue una foto.
+        </ion-label>
+      </div>
+
+      <div class="inputdiv">
+        <ion-label color='dark' class="label">¿Algún comentario?</ion-label>
+        <ion-item color="transp" style="padding: 10px">
+          <ion-textarea formControlName="comentario"></ion-textarea>
+        </ion-item>
+      </div>
+
+      <ion-button type="submit" class="ingreso" fill="solid" expand="block" color="enviar" id="enviar" style="margin-top: 23px;" [disabled]="form.invalid">Enviar</ion-button>
+    </form>
+  </div>
+
+  <div class="container-datos" *ngIf="verEncuestas">
+    <ion-button type="button" fill="solid" expand="block" color="enviar" (click)="Omitir()">Continuar</ion-button>
+
+    <ion-card>
+      <ion-card-header>
+        Limpieza
+      </ion-card-header>
+      <ion-card-content>
+        <canvas #limpiezaCanvas style="position: relative; height:20vh; width:40vw"></canvas>
+      </ion-card-content>
+    </ion-card>
+
+    <ion-card>
+      <ion-card-header>
+        Inconvenientes con otros empleados
+      </ion-card-header>
+      <ion-card-content>
+        <canvas #inconvenientesCanvas style="position: relative; height:20vh; width:40vw"></canvas>
+      </ion-card-content>
+    </ion-card>
+
+    <ion-card>
+      <ion-card-header>
+        ¿Se ordenaron las mesas?
+      </ion-card-header>
+      <ion-card-content>
+        <canvas #ordenCanvas style="position: relative; height:20vh; width:40vw"></canvas>
+      </ion-card-content>
+    </ion-card>
+
+    <ion-card>
+      <ion-card-header>
+        Quejas de los clientes
+      </ion-card-header>
+      <ion-card-content>
+        <canvas #quejasCanvas style="position: relative; height:20vh; width:40vw"></canvas>
+      </ion-card-content>
+    </ion-card>
+  </div>
+</ion-content>

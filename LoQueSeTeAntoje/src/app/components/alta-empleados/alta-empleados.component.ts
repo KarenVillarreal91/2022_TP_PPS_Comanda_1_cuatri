@@ -15,7 +15,6 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class AltaEmpleadosComponent implements OnInit {
 
   spinner:boolean = false;
-  scan:boolean = false;
   formData: FormData = new FormData();
   dataUrl = 'assets/default.png';
   form !: FormGroup;
@@ -40,14 +39,12 @@ export class AltaEmpleadosComponent implements OnInit {
 
   async Escanear()
   {
-    this.scan = true;
-
     this.scanService.scanDNI()
     .then((datos)=>{
-      document.getElementById('nombre').innerText = datos?.nombre;
-      document.getElementById('apellido').innerText = datos.apellido;
-      document.getElementById('dni').innerText = datos.dni;
-      document.getElementById('cuil').innerText = datos.cuil;
+      this.form.controls['nombre'].setValue(datos?.nombre);
+      this.form.controls['apellido'].setValue(datos.apellido);
+      this.form.controls['dni'].setValue(datos.dni);
+      this.form.controls['cuil'].setValue(datos.cuil);
 
       Swal.fire({
         title: "Datos escaneados correctamente.",
@@ -96,40 +93,104 @@ export class AltaEmpleadosComponent implements OnInit {
 
   async Registro()
   {
-    if(this.scan)
-    {
-      this.form.value.nombre = document.getElementById('nombre').innerText;
-      this.form.value.apellido = document.getElementById('apellido').innerText;
-      this.form.value.dni = document.getElementById('dni').innerText;
-      this.form.value.cuil = document.getElementById('cuil').innerText;
-  
-      this.scan = false;
-    }
+    let usuario = {nombre: this.form.value.nombre, apellido: this.form.value.apellido, dni: this.form.value.dni, cuil: this.form.value.cuil, tipo: this.form.value.tipo};
 
-      let usuario = {nombre: this.form.value.nombre, apellido: this.form.value.apellido, dni: this.form.value.dni, cuil: this.form.value.cuil, tipo: this.form.value.tipo};
+    this.userService.Registro(this.form.value)
+    .then((res:any)=>{
 
       this.userService.SubirEmpleado(usuario, this.dataUrl)
-        .then(()=>{
-          this.spinner = true;
+      .then(()=>{
+        document.getElementById('enviar').setAttribute('disabled', 'disabled');
 
-          setTimeout(() => {
-            Swal.fire({
-              title: 'Empleado dado de alta correctamente.',
-              icon: 'success',
-              timer: 2000,
-              toast: true,
-              backdrop: false,
-              position: 'bottom',
-              grow: 'row',
-              timerProgressBar: true,
-              showConfirmButton: false
-            });
+        this.spinner = true;
+
+        setTimeout(() => {
+          Swal.fire({
+            title: 'Empleado dado de alta correctamente.',
+            icon: 'success',
+            timer: 2000,
+            toast: true,
+            backdrop: false,
+            position: 'bottom',
+            grow: 'row',
+            timerProgressBar: true,
+            showConfirmButton: false
+          });
             
-            this.Reiniciar();
-            this.spinner = false;
-          }, 2000);
-        }).catch(error=>{
-          console.log(error);
+          this.Reiniciar();
+          this.spinner = false;
+        }, 2000);
+      }).catch(error=>{
+        console.log(error);
+      });
+    }).catch(error=>{
+      this.Errores(error);
+    });
+  }
+
+  Errores(error:any)
+  {
+    if(error.code == 'auth/email-already-in-use')
+      {
+        Swal.fire({
+          title: 'Error',
+          text: 'El correo ya está en uso.',
+          icon: 'error',
+          timer: 2000,
+          toast: true,
+          backdrop: false,
+          position: 'bottom',
+          grow: 'row',
+          timerProgressBar: true,
+          showConfirmButton: false
         });
+      }
+      else if(error.code == 'auth/missing-email' || error.code == 'auth/internal-error')
+      {
+        Swal.fire({
+          title: 'Error',
+          text: 'No pueden quedar campos vacíos.',
+          icon: 'error',
+          timer: 2000,
+          toast: true,
+          backdrop: false,
+          position: 'bottom',
+          grow: 'row',
+          timerProgressBar: true,
+          showConfirmButton: false
+        });
+      }
+      else if(error.code == 'auth/weak-password')
+      {
+        Swal.fire({
+          title: 'Error',
+          text: 'La contraseña debe contener al menos 6 caracteres.',
+          icon: 'error',
+          timer: 2000,
+          toast: true,
+          backdrop: false,
+          position: 'bottom',
+          grow: 'row',
+          timerProgressBar: true,
+          showConfirmButton: false
+        });
+      }
+      else
+      {
+        Swal.fire({
+          title: 'Error',
+          text: 'El mail o la contraseña no son válidos.',
+          icon: 'error',
+          timer: 2000,
+          toast: true,
+          backdrop: false,
+          position: 'bottom',
+          grow: 'row',
+          timerProgressBar: true,
+          showConfirmButton: false
+        });
+      }
+      
+      console.log(error.code);
   }
 }
