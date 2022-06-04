@@ -40,22 +40,12 @@
         <ion-img class="foto" [src]='this.dataUrl' id="foto"></ion-img>
       </div>
 
-      <ion-button type="submit" class="ingreso" fill="solid" expand="block" color="enviar" style="margin-top: 23px;"
-        [disabled]="form.invalid">Enviar</ion-button>
+      <ion-button type="submit" class="ingreso" fill="solid" expand="block" color="enviar" id="enviar"
+        style="margin-top: 23px;" [disabled]="form.invalid">Enviar</ion-button>
     </form>
   </div>
 </ion-content>
 
-<ion-fab horizontal="center" vertical="bottom">
-  <ion-fab-button data-desc2="" color="header">
-  </ion-fab-button>
-</ion-fab>
-
-<ion-fab horizontal="center" vertical="bottom">
-  <ion-fab-button data-desc="Escanear DNI" color="escanear" (click)="Escanear()">
-    <ion-icon name="barcode-outline"></ion-icon>
-  </ion-fab-button>
-</ion-fab>
 <ion-footer>
   <ion-toolbar color="header">
   </ion-toolbar>

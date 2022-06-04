@@ -13,7 +13,6 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class AltaClienteAnonimoComponent implements OnInit {
   spinner:boolean = false;
-  scan:boolean = false;
   formData: FormData = new FormData();
   dataUrl = 'assets/default.png';
   form !: FormGroup;
@@ -29,40 +28,6 @@ export class AltaClienteAnonimoComponent implements OnInit {
   }
   
   ngOnInit() {}
-
-  async Escanear()
-  {
-    this.scan = true;
-
-    this.scanService.scanDNI()
-    .then((datos)=>{
-      document.getElementById('nombre').innerText = datos?.nombre;
-
-      Swal.fire({
-        title: "Datos escaneados correctamente.",
-        icon: 'success',
-        timer: 4000,
-        toast: true,
-        backdrop: false,
-        position: 'bottom',
-        grow: 'row',
-        timerProgressBar: true,
-        showConfirmButton: false
-      });
-    }).catch(error=>{
-      Swal.fire({
-        title: "Error al escanear el DNI.",
-        icon: 'error',
-        timer: 4000,
-        toast: true,
-        backdrop: false,
-        position: 'bottom',
-        grow: 'row',
-        timerProgressBar: true,
-        showConfirmButton: false
-      });
-    });
-  }
 
   async SacarFoto(){
     let foto =  await Camera.getPhoto({
@@ -85,38 +50,33 @@ export class AltaClienteAnonimoComponent implements OnInit {
 
   async Registro()
   {
-    if(this.scan)
-    {
-      this.form.value.nombre = document.getElementById('nombre').innerText;
- 
-      this.scan = false;
-    }
-
       let usuario = {nombre: this.form.value.nombre, habilitado: true, tipo: 'cliente'};
 
       this.userService.SubirCliente(usuario, this.dataUrl)
-        .then(()=>{
-          this.spinner = true;
+      .then(()=>{
+        document.getElementById('enviar').setAttribute('disabled', 'disabled');
 
-          setTimeout(() => {
-            Swal.fire({
-              title: 'Cliente dado de alta correctamente.',
-              icon: 'success',
-              timer: 2000,
-              toast: true,
-              backdrop: false,
-              position: 'bottom',
-              grow: 'row',
-              timerProgressBar: true,
-              showConfirmButton: false
-            });
-            
-            this.Reiniciar();
-            this.spinner = false;
-          }, 2000);
-        }).catch(error=>{
-          console.log(error);
-        });
+        this.spinner = true;
+
+        setTimeout(() => {
+          Swal.fire({
+            title: 'Cliente dado de alta correctamente.',
+            icon: 'success',
+            timer: 2000,
+            toast: true,
+            backdrop: false,
+            position: 'bottom',
+            grow: 'row',
+            timerProgressBar: true,
+            showConfirmButton: false
+          });
+
+          this.Reiniciar();
+          this.spinner = false;
+        }, 2000);
+      }).catch(error=>{
+        console.log(error);
+      });
   }
 
 }
