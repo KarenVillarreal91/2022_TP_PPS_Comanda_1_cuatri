@@ -3,7 +3,7 @@
   <ion-img class="logo" *ngIf="!logged" src='assets/iconTransp.png'></ion-img>
   
   <div class="titulo">
-      <h1 style="margin-top: 110px;">Inicio de sesión</h1>
+      <h1 style="margin-top: 25%;">Inicio de sesión</h1>
   </div>
   <div class="contaier-login">
     <ion-item color="campos">
@@ -17,15 +17,20 @@
     </ion-item>
 
     <ion-button type="submit" fill="solid" shape="round" color="enviar" style="height: 45px;" (click)='Login()'><ion-icon style="padding-left: 15px;" name="send"></ion-icon></ion-button>
+    <p style="color:black">¿Necesitas una cuenta? <a routerLink="../altaClientes">Registrarse</a></p>
   </div>
 
 <div style="text-align: center; padding-top: 10%;">
   <div>
     <ion-button type="button" color="transp" shape="round" (click)='InicioAutomatico("cliente@cliente.com","111111")'><ion-icon name="person"></ion-icon>Cliente</ion-button>
-    <ion-button type="button" color="transp" shape="round" (click)='InicioAutomatico("anonimo@anonimo.com","111111")'><ion-icon name="glasses"></ion-icon>Anonimo</ion-button>
+    <ion-button type="button" color="transp" shape="round" (click)='InicioAutomatico("metre@metre.com","111111")'><ion-icon name="clipboard"></ion-icon>Metre</ion-button>
   </div>
   <div>
-    <ion-button type="button" color="transp" shape="round" (click)='InicioAutomatico("mozo@mozo.com","111111")'><ion-icon name="wine"></ion-icon>Mozo</ion-button>
+    <ion-button type="button" color="transp" shape="round" (click)='InicioAutomatico("mozo@mozo.com","111111")'><ion-icon name="fast-food"></ion-icon>Mozo</ion-button>
+    <ion-button type="button" color="transp" shape="round" (click)='InicioAutomatico("cocinero@cocinero.com","111111")'><ion-icon name="restaurant"></ion-icon>Cocinero</ion-button>
+  </div>
+  <div>
+    <ion-button type="button" color="transp" shape="round" (click)='InicioAutomatico("bartender@bartender.com","111111")'><ion-icon name="wine"></ion-icon>Bartender</ion-button>
     <ion-button type="button" color="transp" shape="round" (click)='InicioAutomatico("supervisor@supervisor.com","111111")'><ion-icon name="star"></ion-icon>Supervisor</ion-button>
   </div>
 </div>
