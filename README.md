@@ -4,49 +4,51 @@
 <img src="https://firebasestorage.googleapis.com/v0/b/labpp-2b6b2.appspot.com/o/fotos%2FlogoTransp.png?alt=media&token=449ad5c3-744d-4085-88a1-6df14d313dbb" width="300"/>
 </p>
 
-## Karen Villarreal (Alfa)
-#### Primer semana
+## Primer semana 
+###### Fecha: 28/05/2022 a 04/06/2022
+#### Karen Villarreal (Alfa)
 * Icono + Splash ✔ 
 * Inicio de sesión ✔
 * Alta empleados ✔
 * Encuesta empleados ✔
 
-#### Segunda semana
+#### Daniela Moreno (Beta)
+* Alta supervisor ✔
+* QR ingreso
+* Encuesta supervisor
+
+#### Matias Gravante (Gamma)
+* Alta clientes ✔ 
+* Alta mesa ✔
+* QR propina
+
+## Segunda semana
+###### Fecha: 04/06/2022 a 11/06/2022
+#### Karen Villarreal (Alfa)
 * QR mesa
 * Realizar pedidos (gestion)
 * Confirmar pedidos (gestion)
 * Consultar mozo (push n)
 * Confirmar realizacion pedido (push n)
 
-#### Tercer semana
-* Juego (opcional?)
-
-## Daniela Moreno (Beta)
-#### Primer semana
-* Alta supervisor
-* QR ingreso
-* Encuesta supervisor
-
-#### Segunda semana
+#### Daniela Moreno (Beta)
 * Ingresar al local (gestion)
 * Ingreso local (push n)
 * Confirmar pedido (push n)
 
-#### Tecer semana
-* Juego (opcional?)
-
-## Matias Gravante (Gamma)
-#### Primer semana
-* Alta clientes ✔ 
-* Alta mesa
-* QR propina
-
-#### Segunda semana
+#### Matias Gravante (Gamma)
 * Encuesta cliente
 * Agregar clente registrado (gestion)
 * Agregar cliente (push n)
 
-#### Tercer semana
+## Tercer semana
+###### Fecha: 11/06/2022 a 18/06/2022
+#### Karen Villarreal (Alfa)
 * Juego (opcional?)
 
+#### Daniela Moreno (Beta)
+* Juego (opcional?)
+
+#### Matias Gravante (Gamma)
+* Juego (opcional?)
 
