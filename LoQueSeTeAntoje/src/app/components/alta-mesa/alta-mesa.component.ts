@@ -26,7 +26,8 @@ export class AltaMesaComponent implements OnInit {
       comensales: ['', Validators.required],
       tipo: ['Estandar', Validators.required],
       foto: ['', Validators.required],
-      qr: ['']
+      qr: [''],
+      idCliente:['']
     });
 
     this.barcodeScannerOptions = {
