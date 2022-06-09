@@ -11,6 +11,7 @@ import { HomeSupervisorComponent } from './components/home-supervisor/home-super
 import { LoginComponent } from './components/login/login.component';
 import { PrincipalComponent } from './components/principal/principal.component';
 import { QrIngresoComponent } from './components/qr-ingreso/qr-ingreso.component';
+import { RealizarPedidoComponent } from './components/realizar-pedido/realizar-pedido.component';
 
 const routes: Routes = [
   {path: 'home', loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)},
@@ -26,6 +27,8 @@ const routes: Routes = [
   {path: 'encuestaEmpleados', component: EncuestaEmpleadosComponent},
   {path: 'encuestaSupervisor', component: EncuestaSupervisorComponent},
   {path: 'qrIngreso', component: QrIngresoComponent},
+  {path: 'realizarPedido', component: RealizarPedidoComponent}
+
 ];
 
 @NgModule({

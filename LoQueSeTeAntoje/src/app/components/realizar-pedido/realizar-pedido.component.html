@@ -1,0 +1,28 @@
+<ion-header>
+  <ion-toolbar color="header">
+    <ion-title>
+      <ion-img style="width: 55px; height: 55px;" *ngIf="!spinner" src='assets/iconTransp2.png'></ion-img>
+      <ion-img class="rotate-center" style="width: 55px; height: 55px;" *ngIf="spinner" src='assets/iconTransp2.png'></ion-img>
+    </ion-title>
+    <ion-buttons slot="end">
+      <ion-menu-button style="margin: auto;" type="button" menu="menu" color="escanear"><ion-icon name="menu"></ion-icon></ion-menu-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content slot="fixed">
+  <div class="container-datos">
+    <div class="card-body">
+      <div class="datos">
+          <img src="assets/iconTransp.png">
+          <p style="font-size: 20px;">Hamburguesa</p>
+          <p style="color:#a9a9a9;">$300</p>
+          <div style="text-align: center;">
+            <ion-icon name="remove-circle-outline" style="color: #858585; height: 35px; margin-right: 15px;"></ion-icon>
+            <ion-icon name="add-circle-outline" style="color: #ffc577; height: 35px; margin-left: 15px;" ></ion-icon>
+            <h4 style="margin-top: -33px;">0</h4>
+          </div>
+      </div>
+    </div> 
+  </div>
+</ion-content>

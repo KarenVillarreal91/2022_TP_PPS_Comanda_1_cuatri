@@ -21,6 +21,8 @@ import { AltaClienteAnonimoComponent } from './components/alta-cliente-anonimo/a
 import { AltaMesaComponent } from './components/alta-mesa/alta-mesa.component';
 import { EncuestaEmpleadosComponent } from './components/encuesta-empleados/encuesta-empleados.component';
 import { EncuestaSupervisorComponent } from './components/encuesta-supervisor/encuesta-supervisor.component';
+import { QrIngresoComponent } from './components/qr-ingreso/qr-ingreso.component';
+import { RealizarPedidoComponent } from './components/realizar-pedido/realizar-pedido.component';
 
 @NgModule({
   declarations: [AppComponent,
@@ -34,7 +36,9 @@ import { EncuestaSupervisorComponent } from './components/encuesta-supervisor/en
   AltaSupervisorDuenioComponent,
   HomeSupervisorComponent,
   EncuestaEmpleadosComponent,
-  EncuestaSupervisorComponent],
+  EncuestaSupervisorComponent,
+  QrIngresoComponent,
+  RealizarPedidoComponent],
   entryComponents: [],
   imports: [BrowserModule, 
     IonicModule.forRoot(), 

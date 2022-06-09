@@ -89,8 +89,9 @@
         <ion-item color="transp" style="width: 130px;">
           <ion-select id="tipo" placeholder="Seleccione" interface="action-sheet" formControlName="tipo" required>
             <ion-select-option value="mozo">Mozo</ion-select-option>
-            <ion-select-option value="chef">Chef</ion-select-option>
+            <ion-select-option value="cocinero">Cocinero</ion-select-option>
             <ion-select-option value="metre">Metre</ion-select-option>
+            <ion-select-option value="bartender">Bartender</ion-select-option>
           </ion-select>
         </ion-item>
         <ion-label class="invalid" *ngIf="form.controls['tipo'].errors?.['required'] && form.controls['tipo'].touched">
