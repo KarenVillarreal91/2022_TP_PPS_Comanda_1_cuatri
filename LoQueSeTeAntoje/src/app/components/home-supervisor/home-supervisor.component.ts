@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { SendEmailService } from 'src/app/services/send-email.service';
+import { UserService } from 'src/app/services/user.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-home-supervisor',
@@ -14,7 +16,7 @@ export class HomeSupervisorComponent implements OnInit {
   clientesValidos : any[] = [];
 
 
-  constructor(private db : AngularFirestore, public emailService:SendEmailService)
+  constructor(private db : AngularFirestore, public emailService:SendEmailService,private userS : UserService)
   {
     this.coleccion = this.db.collection<any>('clientes');
     this.clientes = this.coleccion.valueChanges({idField: 'id'});
@@ -42,15 +44,38 @@ export class HomeSupervisorComponent implements OnInit {
 
   habilitarCliente(item : any){
     item.habilitado = true;
-    //Update cliente
+    this.userS.updateUser(item.id, item,"clientes");
     this.emailService.enviarEmail(item.nombre,item.email,"Su cuenta fue habilitada exitosamente.")
-    
+    Swal.fire({
+      title: 'Correcto',
+      text: 'Habilito al cliente con exito.',
+      icon: 'success',
+      timer: 2000,
+      toast: true,
+      backdrop: false,
+      position: 'bottom',
+      grow: 'row',
+      timerProgressBar: true,
+      showConfirmButton: false
+    });
   }
 
   rechazarCliente(item : any){
-    item.rechazado = true;
-   //update cliente
-   this.emailService.enviarEmail(item.nombre,item.email,"Su cuenta fue rechazada.")
+    item.habilitado = true;
+    this.userS.updateUser(item.id, item,"clientes");
+    this.emailService.enviarEmail(item.nombre,item.email,"Su cuenta fue rechazada.")
+    Swal.fire({
+      title: 'Correcto',
+      text: 'Rechazo al cliente con exito.',
+      icon: 'success',
+      timer: 2000,
+      toast: true,
+      backdrop: false,
+      position: 'bottom',
+      grow: 'row',
+      timerProgressBar: true,
+      showConfirmButton: false
+    });
   }
 
   EnviarEmail()

@@ -117,4 +117,28 @@ export class UserService {
   {
     return this.firestore.collection<any>(coleccion).valueChanges({idField: "id"});
   }
+  getUsers(coleccion:any){
+    return this.firestore.collection(coleccion).valueChanges({idField: 'id'});
+  }
+
+  updateUser(id:any,data:any,coleccion:any){
+    return this.firestore.collection(coleccion).doc(id).update(data);
+  }
+
+  async SubirEncuestaClienteDesdeSupervisor(datos:any)
+  {
+    this.firestore.collection('encuestaClientesDesdeSupervisor').add(datos);
+  }
+
+  async SubirEncuestaEmpleadosDesdeSupervisor(datos:any)
+  {
+    this.firestore.collection('encuestaEmpleadosDesdeSupervisor').add(datos);
+  }
+
+  getUsuarioActual(){
+    return this.usuarioActual;
+  }
+  SubirUsuarioALaListaDeEspera(datos:any){
+    this.firestore.collection('listaDeEspera').add(datos);
+  }
 }

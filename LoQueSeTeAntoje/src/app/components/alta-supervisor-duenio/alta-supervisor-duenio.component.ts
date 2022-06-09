@@ -4,8 +4,8 @@ import { Router } from '@angular/router';
 import { UserService } from 'src/app/services/user.service';
 import { ScandniService } from 'src/app/services/scandni.service';
 import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
+import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { SendEmailService } from 'src/app/services/send-email.service';
 
 
 @Component({
@@ -16,15 +16,13 @@ import { SendEmailService } from 'src/app/services/send-email.service';
 export class AltaSupervisorDuenioComponent implements OnInit {
 
   spinner:boolean = false;
-  scan:boolean = false;
   formData: FormData = new FormData();
   dataUrl = 'assets/default.png';
   form !: FormGroup;
   constructor(private router:Router, 
     public userService:UserService, 
     public scanService:ScandniService,
-    private fb:FormBuilder,
-    public emailService:SendEmailService) {
+    private fb:FormBuilder) {
       this.form = this.fb.group({
         'email':['',[Validators.required, Validators.email]],
         'password':['', Validators.required],
@@ -39,14 +37,15 @@ export class AltaSupervisorDuenioComponent implements OnInit {
   ngOnInit() {}
   async Escanear()
   {
-    this.scan = true;
-
     this.scanService.scanDNI()
     .then((datos)=>{
+      this.form.controls['nombre'].setValue(datos?.nombre);
       document.getElementById('nombre').innerText = datos?.nombre;
+      this.form.controls['apellido'].setValue(datos.apellido);
       document.getElementById('apellido').innerText = datos.apellido;
+      this.form.controls['dni'].setValue(datos.dni);
       document.getElementById('dni').innerText = datos.dni;
-      document.getElementById('cuil').innerText = datos.cuil;
+      this.form.controls['cuil'].setValue(datos.cuil);
 
       Swal.fire({
         title: "Datos escaneados correctamente.",
@@ -94,20 +93,13 @@ export class AltaSupervisorDuenioComponent implements OnInit {
 
   async Registro()
   {
-    if(this.scan)
-    {
-      this.form.value.nombre = document.getElementById('nombre').innerText;
-      this.form.value.apellido = document.getElementById('apellido').innerText;
-      this.form.value.dni = document.getElementById('dni').innerText;
-      this.form.value.cuil = document.getElementById('cuil').innerText;
-  
-      this.scan = false;
-    }
+    let usuario = {nombre: this.form.value.nombre, apellido: this.form.value.apellido, dni: this.form.value.dni, cuil: this.form.value.cuil, tipo: this.form.value.tipo};
 
-      let usuario = {nombre: this.form.value.nombre, apellido: this.form.value.apellido, dni: this.form.value.dni, cuil: this.form.value.cuil, tipo: this.form.value.tipo};
-
+    this.userService.Registro(this.form.value)
+    .then((res:any)=>{
       this.userService.SubirSupervisorDuenio(usuario, this.dataUrl)
         .then(()=>{
+          document.getElementById('enviar').setAttribute('disabled', 'disabled');
           this.spinner = true;
 
           setTimeout(() => {
@@ -129,8 +121,74 @@ export class AltaSupervisorDuenioComponent implements OnInit {
         }).catch(error=>{
           console.log(error);
         });
+      }).catch(error=>{
+        this.Errores(error);
+      });
   }
 
-
+  Errores(error:any)
+  {
+    if(error.code == 'auth/email-already-in-use')
+      {
+        Swal.fire({
+          title: 'Error',
+          text: 'El correo ya está en uso.',
+          icon: 'error',
+          timer: 2000,
+          toast: true,
+          backdrop: false,
+          position: 'bottom',
+          grow: 'row',
+          timerProgressBar: true,
+          showConfirmButton: false
+        });
+      }
+      else if(error.code == 'auth/missing-email' || error.code == 'auth/internal-error')
+      {
+        Swal.fire({
+          title: 'Error',
+          text: 'No pueden quedar campos vacíos.',
+          icon: 'error',
+          timer: 2000,
+          toast: true,
+          backdrop: false,
+          position: 'bottom',
+          grow: 'row',
+          timerProgressBar: true,
+          showConfirmButton: false
+        });
+      }
+      else if(error.code == 'auth/weak-password')
+      {
+        Swal.fire({
+          title: 'Error',
+          text: 'La contraseña debe contener al menos 6 caracteres.',
+          icon: 'error',
+          timer: 2000,
+          toast: true,
+          backdrop: false,
+          position: 'bottom',
+          grow: 'row',
+          timerProgressBar: true,
+          showConfirmButton: false
+        });
+      }
+      else
+      {
+        Swal.fire({
+          title: 'Error',
+          text: 'El mail o la contraseña no son válidos.',
+          icon: 'error',
+          timer: 2000,
+          toast: true,
+          backdrop: false,
+          position: 'bottom',
+          grow: 'row',
+          timerProgressBar: true,
+          showConfirmButton: false
+        });
+      }
+      console.log(error.code);
+  }
   
 }
