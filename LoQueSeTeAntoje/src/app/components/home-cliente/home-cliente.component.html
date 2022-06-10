@@ -14,13 +14,14 @@
     <img src="assets/iconTransp.png" *ngIf="!spinner" style="margin-top: 10%;" width="120px">
     <img class="rotate-center" src="assets/iconTransp.png" *ngIf="spinner" style="margin-top: 10%;" width="120px">
     <div>
-      <ion-icon name="qr-code-outline" style="margin-top: 20%; font-size: 150px;" color="claro"></ion-icon>
+      <ion-icon name="qr-code-outline" style="margin-top: 20%; font-size: 150px;" color="claro" (click)="this.Escanear()"></ion-icon>
     </div>
     <div class="texto">
-      <h4>Escanea el QR de la mesa para acceder a diferentes opciones y al estado de su pedido.</h4>
+      <h4>Escanea el QR del local para entrar en la lista de espera.</h4>
+      <!-- <h4>Escanea el QR de la mesa para acceder a diferentes opciones y al estado de su pedido.</h4> -->
     </div>
-    <div>
+    <!-- <div>
       <ion-button type="button" fill="solid" expand="block" color="enviar" style="margin-top: 20%;" [disabled]="true">Recibí el pedido</ion-button>
-    </div>
+    </div> -->
   </div>
 </ion-content>
