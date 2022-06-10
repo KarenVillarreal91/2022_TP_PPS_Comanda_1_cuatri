@@ -35,6 +35,11 @@ export class UserService {
     return this.firestore.collection('mesas').add(mesa);
   }
 
+  SubirDatos(datos:any, coleccion:string)
+  {
+    return this.firestore.collection(coleccion).add(datos);
+  }
+
   async SubirEncuestaEmpleado(datos:any, foto:FormData)
   {
     let path = `fotosEncuestas/${Date.now()}`;

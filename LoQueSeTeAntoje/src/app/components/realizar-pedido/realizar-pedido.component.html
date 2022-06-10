@@ -5,24 +5,135 @@
       <ion-img class="rotate-center" style="width: 55px; height: 55px;" *ngIf="spinner" src='assets/iconTransp2.png'></ion-img>
     </ion-title>
     <ion-buttons slot="end">
-      <ion-menu-button style="margin: auto;" type="button" menu="menu" color="escanear"><ion-icon name="menu"></ion-icon></ion-menu-button>
+      <ion-menu-button style="margin: auto;" type="button" menu="menu" color="claro"><ion-icon name="menu"></ion-icon></ion-menu-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content slot="fixed">
   <div class="container-datos">
-    <div class="card-body">
+    <h3 class="titulo">Platos</h3>
+    <div class="card-body" *ngFor="let plato of this.platos">
       <div class="datos">
-          <img src="assets/iconTransp.png">
-          <p style="font-size: 20px;">Hamburguesa</p>
-          <p style="color:#a9a9a9;">$300</p>
-          <div style="text-align: center;">
-            <ion-icon name="remove-circle-outline" style="color: #858585; height: 35px; margin-right: 15px;"></ion-icon>
-            <ion-icon name="add-circle-outline" style="color: #ffc577; height: 35px; margin-left: 15px;" ></ion-icon>
-            <h4 style="margin-top: -33px;">0</h4>
-          </div>
+
+        <div class="foto">
+          <ion-slides mode="md" pager="md" scrollbar="md">
+            <ion-slide>
+              <div class="slide">
+                <img [src]="plato.fotos[0]" style="width: 126px; height: 126px; border-radius: 5%;"/>
+              </div>
+            </ion-slide>
+            <ion-slide>
+              <div class="slide">
+                <img [src]="plato.fotos[1]" style="width: 126px; height: 126px; border-radius: 5%;"/>
+              </div>
+            </ion-slide>
+            <ion-slide>
+              <div class="slide">
+                <img [src]="plato.fotos[2]" style="width: 126px; height: 126px; border-radius: 5%;"/>
+              </div>
+            </ion-slide>
+          </ion-slides>
+        </div>
+        
+        <p style="font-size: 20px; height: 46px;">{{plato.nombre}}</p>
+        <p style="color:#a9a9a9; margin-top: -5px;">${{plato.precio}}</p>
+        <div style="text-align: center;">
+          <ion-icon name="remove-circle-outline" style="color: #a9a9a9; height: 45px; margin-right: 17px;" (click)="Eliminar(plato)"></ion-icon>
+          <ion-icon name="add-circle-outline" style="color: #ffc577; height: 45px; margin-left: 17px;" (click)="Agregar(plato)"></ion-icon>
+          <h4 style="margin-top: -39px;">{{plato.cantidad}}</h4>
+        </div>
+      </div>
+    </div>
+    <h3 class="titulo">Bebidas</h3>
+    <div class="card-body" *ngFor="let bebida of this.bebidas">
+      <div class="datos">
+
+        <div class="foto">
+          <ion-slides mode="md" pager="md" scrollbar="md">
+            <ion-slide>
+              <div class="slide">
+                <img [src]="bebida.fotos[0]" style="width: 126px; height: 126px; border-radius: 5%;"/>
+              </div>
+            </ion-slide>
+            <ion-slide>
+              <div class="slide">
+                <img [src]="bebida.fotos[1]" style="width: 126px; height: 126px; border-radius: 5%;"/>
+              </div>
+            </ion-slide>
+            <ion-slide>
+              <div class="slide">
+                <img [src]="bebida.fotos[2]" style="width: 126px; height: 126px; border-radius: 5%;"/>
+              </div>
+            </ion-slide>
+          </ion-slides>
+        </div>
+        
+        <p style="font-size: 20px; height: 46px;">{{bebida.nombre}}</p>
+        <p style="color:#a9a9a9; margin-top: -5px;">${{bebida.precio}}</p>
+        <div style="text-align: center;">
+          <ion-icon name="remove-circle-outline" style="color: #a9a9a9; height: 45px; margin-right: 17px;" (click)="Eliminar(bebida)"></ion-icon>
+          <ion-icon name="add-circle-outline" style="color: #ffc577; height: 45px; margin-left: 17px;" (click)="Agregar(bebida)"></ion-icon>
+          <h4 style="margin-top: -39px;">{{bebida.cantidad}}</h4>
+        </div>
       </div>
     </div> 
   </div>
+
+  <div *ngIf="this.detalles" class="container-detalle">  
+    <h3 class="titulo" style="margin: auto; margin-top: 15%; width:80%;">Detalle del pedido</h3>
+
+    <ion-row class="ion-justify-content-center" style="margin-top: 50px; margin-bottom: 15px;">
+      <ion-col size="3">Cantidad</ion-col>
+      <ion-col size="6">Producto</ion-col>
+      <ion-col size="3">Importe</ion-col>
+    </ion-row>
+    <ion-row class="ion-justify-content-center" >
+      <ion-col size="10">
+        <div style="width: 100%; height: 2px;"></div>
+      </ion-col>
+    </ion-row>
+    <ion-row *ngFor="let producto of this.productos" style="margin-top: 13px;" class="ion-justify-content-center">
+      <ion-col size="3">x{{producto.cantidad}}</ion-col>
+      <ion-col size="6">{{producto.nombre}}</ion-col>
+      <ion-col size="3">${{producto.precio * producto.cantidad}}</ion-col>
+    </ion-row>
+    <ion-row class="ion-justify-content-center" style="margin-top: 20%;">
+      <ion-col size="2"></ion-col>
+      <ion-col size="5" style="text-align: center; font-size: 25px;" >Total</ion-col>
+      <ion-col size="3" style="font-size: 25px;">${{this.precioTotal}}</ion-col>
+    </ion-row>
+    <ion-row class="ion-justify-content-center" style="margin-top: 10%;">
+      <ion-col size="2"></ion-col>
+      <ion-col size="6">Tiempo estimado</ion-col>
+      <ion-col size="3">{{this.tiempoTotal}}Min.</ion-col>
+    </ion-row>
+
+    <ion-row class="ion-justify-content-around" style="margin-top: 20%;">
+      <ion-col size="4">
+        <ion-button color="transp" (click)="this.detalles = false">Cancelar</ion-button>
+      </ion-col>
+      <ion-col size="4">
+        <ion-button color="enviar" (click)="Enviar()">Confirmar</ion-button>
+      </ion-col>
+    </ion-row>
+  </div>
 </ion-content>
+
+<ion-fab horizontal="end" vertical="bottom" *ngIf="this.productos.length > 0 && !this.detalles">
+  <ion-fab-button data-desc="" color="claro" (click)="this.detalles = true">
+    <ion-icon name="arrow-forward"></ion-icon>
+  </ion-fab-button>
+</ion-fab>
+
+<ion-footer *ngIf="!this.detalles">
+  <ion-toolbar color="header">
+    <div style="padding: 10px; width: 15%; display: inline-block;">
+      <ion-icon name="cart"></ion-icon>
+    </div>
+    <div style="width: 60%; display: inline-block; margin-left: 15px;">
+      <h4>Total: ${{this.precioTotal}}</h4>
+      <h5>Tiempo estimado: {{this.tiempoTotal}} Min.</h5>
+    </div>
+  </ion-toolbar>
+</ion-footer>

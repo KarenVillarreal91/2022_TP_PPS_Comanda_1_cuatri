@@ -1,0 +1,26 @@
+<ion-header>
+  <ion-toolbar color="header">
+    <ion-title>
+      <ion-img style="width: 55px; height: 55px;" src='assets/iconTransp2.png'></ion-img>
+    </ion-title>
+    <ion-buttons slot="end">
+      <ion-menu-button style="margin: auto;" type="button" menu="menu" color="claro"><ion-icon name="menu"></ion-icon></ion-menu-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content slot="fixed">
+  <div class="container-datos">
+    <img src="assets/iconTransp.png" *ngIf="!spinner" style="margin-top: 10%;" width="120px">
+    <img class="rotate-center" src="assets/iconTransp.png" *ngIf="spinner" style="margin-top: 10%;" width="120px">
+    <div>
+      <ion-icon name="qr-code-outline" style="margin-top: 20%; font-size: 150px;" color="claro"></ion-icon>
+    </div>
+    <div class="texto">
+      <h4>Escanea el QR de la mesa para acceder a diferentes opciones y al estado de su pedido.</h4>
+    </div>
+    <div>
+      <ion-button type="button" fill="solid" expand="block" color="enviar" style="margin-top: 20%;" [disabled]="true">Recibí el pedido</ion-button>
+    </div>
+  </div>
+</ion-content>

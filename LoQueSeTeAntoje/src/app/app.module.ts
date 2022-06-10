@@ -23,6 +23,8 @@ import { EncuestaEmpleadosComponent } from './components/encuesta-empleados/encu
 import { EncuestaSupervisorComponent } from './components/encuesta-supervisor/encuesta-supervisor.component';
 import { QrIngresoComponent } from './components/qr-ingreso/qr-ingreso.component';
 import { RealizarPedidoComponent } from './components/realizar-pedido/realizar-pedido.component';
+import { HomeClienteComponent } from './components/home-cliente/home-cliente.component';
+import { HomeMozoComponent } from './components/home-mozo/home-mozo.component';
 
 @NgModule({
   declarations: [AppComponent,
@@ -35,6 +37,8 @@ import { RealizarPedidoComponent } from './components/realizar-pedido/realizar-p
   SidebarComponent,
   AltaSupervisorDuenioComponent,
   HomeSupervisorComponent,
+  HomeClienteComponent,
+  HomeMozoComponent,
   EncuestaEmpleadosComponent,
   EncuestaSupervisorComponent,
   QrIngresoComponent,
