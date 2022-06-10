@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "474222220826",
+    "firebase_url": "https://loqueseteantojeapp-default-rtdb.firebaseio.com",
+    "project_id": "loqueseteantojeapp",
+    "storage_bucket": "loqueseteantojeapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:474222220826:android:b8c5ead60dbb981804e3a3",
+        "android_client_info": {
+          "package_name": "io.ionic.starter"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "474222220826-bcpc87rahjgb1jj8s18sgtcu50tjff7s.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA1RPd9c__UXkebLeO9kgVWDhEOzsHZzEs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "474222220826-bcpc87rahjgb1jj8s18sgtcu50tjff7s.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

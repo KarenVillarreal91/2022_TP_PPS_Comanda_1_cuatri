@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { BarcodeScanner, BarcodeScannerOptions } from '@awesome-cordova-plugins/barcode-scanner/ngx';
+import { PushNotificationService } from 'src/app/services/push-notification.service';
 import { ScandniService } from 'src/app/services/scandni.service';
 import { UserService } from 'src/app/services/user.service';
 import Swal from 'sweetalert2';
@@ -11,7 +12,10 @@ import Swal from 'sweetalert2';
 })
 export class QrIngresoComponent implements OnInit {
 
-  constructor(private barcode: BarcodeScanner, public scanService: ScandniService, public userService: UserService) { }
+  constructor(private barcode: BarcodeScanner, public scanService: ScandniService, public userService: UserService, public pushNotificationService: PushNotificationService) 
+  { 
+
+  }
 
   ngOnInit() {}
 
@@ -67,5 +71,27 @@ export class QrIngresoComponent implements OnInit {
           console.log('Error occured : ' + err);
         }
       )
+  }
+
+  EnviarNotification(){
+    
+    this.pushNotificationService.getUser();
+    this.pushNotificationService.sendPushNotification({
+      registration_ids:[
+      'AAAAbmnY1ho:APA91bHz7Tjn1rchhUqoGeIxPK5fyYBjy3Nnnsnv2-9YrKq_lrJNoS5snVZctp1tkuJtL_IbURVPF8TpOrZ8Kngf5GKtXgymhPBeHqGAVtr8r6c7GbqvyukJGGJWmq49UyoCBgaa_FJv'
+      ],
+      notification:{
+        title:'prueba',
+        body:'body prueba'
+      },
+      data:{
+        id:1,
+        nombre:'daniela'
+      }
+    })
+    .subscribe((data)=>{
+     alert(data);
+     console.log(data);
+    });
   }
 }

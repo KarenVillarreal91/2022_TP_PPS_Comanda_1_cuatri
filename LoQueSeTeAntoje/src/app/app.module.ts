@@ -26,6 +26,9 @@ import { RealizarPedidoComponent } from './components/realizar-pedido/realizar-p
 import { HomeClienteComponent } from './components/home-cliente/home-cliente.component';
 import { HomeMozoComponent } from './components/home-mozo/home-mozo.component';
 
+import { getFirestore, provideFirestore } from '@angular/fire/firestore';
+import { HttpClientModule } from '@angular/common/http';
+
 @NgModule({
   declarations: [AppComponent,
   LoginComponent,
@@ -50,7 +53,8 @@ import { HomeMozoComponent } from './components/home-mozo/home-mozo.component';
     AngularFireModule.initializeApp(environment.firebaseConfig),
     RouterModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpClientModule
   ],
   providers: [BarcodeScanner,{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
   bootstrap: [AppComponent],
