@@ -35,18 +35,16 @@ export class UserService {
     return this.firestore.collection('mesas').add(mesa);
   }
 
-  SubirDatos(datos:any, coleccion:string)
-  {
+  SubirDatos(datos: any, coleccion: string) {
     return this.firestore.collection(coleccion).add(datos);
   }
 
-  async SubirEncuestaEmpleado(datos:any, foto:FormData)
-  {
+  async SubirEncuestaEmpleado(datos: any, foto: FormData) {
     let path = `fotosEncuestas/${Date.now()}`;
 
     await this.storage.upload(path, foto.get('foto'));
 
-    this.storage.ref(path).getDownloadURL().subscribe((data)=>{
+    this.storage.ref(path).getDownloadURL().subscribe((data) => {
       datos.foto = data;
       this.firestore.collection('encuestaEmpleados').add(datos);
     });
@@ -86,7 +84,10 @@ export class UserService {
         storage.getDownloadURL().toPromise()
           .then((url: any) => {
             user.foto = url;
-            this.firestore.collection('clientes').add(user);
+            this.firestore.collection('clientes').add(user)
+              .then((dbUser) => {
+                localStorage.setItem('idUsuario', JSON.stringify(dbUser.id));
+              });
           });
       });
     }
@@ -118,32 +119,29 @@ export class UserService {
     }
   }
 
-  GetColeccion(coleccion:any)
-  {
-    return this.firestore.collection<any>(coleccion).valueChanges({idField: "id"});
+  GetColeccion(coleccion: any) {
+    return this.firestore.collection<any>(coleccion).valueChanges({ idField: "id" });
   }
-  getUsers(coleccion:any){
-    return this.firestore.collection(coleccion).valueChanges({idField: 'id'});
+  getUsers(coleccion: any) {
+    return this.firestore.collection(coleccion).valueChanges({ idField: 'id' });
   }
 
-  updateUser(id:any,data:any,coleccion:any){
+  updateUser(id: any, data: any, coleccion: any) {
     return this.firestore.collection(coleccion).doc(id).update(data);
   }
 
-  async SubirEncuestaClienteDesdeSupervisor(datos:any)
-  {
+  async SubirEncuestaClienteDesdeSupervisor(datos: any) {
     this.firestore.collection('encuestaClientesDesdeSupervisor').add(datos);
   }
 
-  async SubirEncuestaEmpleadosDesdeSupervisor(datos:any)
-  {
+  async SubirEncuestaEmpleadosDesdeSupervisor(datos: any) {
     this.firestore.collection('encuestaEmpleadosDesdeSupervisor').add(datos);
   }
 
-  getUsuarioActual(){
-    return this.usuarioActual;
+  getUsuarioActual() {
+    return this.firestore.collection("clientes", ref => ref.where('email', '==', this.usuarioActual.email)).snapshotChanges();
   }
-  SubirUsuarioALaListaDeEspera(datos:any){
+  SubirUsuarioALaListaDeEspera(datos: any) {
     this.firestore.collection('listaDeEspera').add(datos);
   }
 }

@@ -55,7 +55,6 @@ export class AltaClienteAnonimoComponent implements OnInit {
       this.userService.SubirCliente(usuario, this.dataUrl)
       .then(()=>{
         document.getElementById('enviar').setAttribute('disabled', 'disabled');
-
         this.spinner = true;
 
         setTimeout(() => {
