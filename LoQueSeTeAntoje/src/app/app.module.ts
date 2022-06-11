@@ -28,6 +28,7 @@ import { HomeMozoComponent } from './components/home-mozo/home-mozo.component';
 
 import { getFirestore, provideFirestore } from '@angular/fire/firestore';
 import { HttpClientModule } from '@angular/common/http';
+import { ClientesListaDeEsperaComponent } from './components/clientes-lista-de-espera/clientes-lista-de-espera.component';
 
 @NgModule({
   declarations: [AppComponent,
@@ -45,7 +46,8 @@ import { HttpClientModule } from '@angular/common/http';
   EncuestaEmpleadosComponent,
   EncuestaSupervisorComponent,
   QrIngresoComponent,
-  RealizarPedidoComponent],
+  RealizarPedidoComponent,
+  ClientesListaDeEsperaComponent],
   entryComponents: [],
   imports: [BrowserModule, 
     IonicModule.forRoot(), 

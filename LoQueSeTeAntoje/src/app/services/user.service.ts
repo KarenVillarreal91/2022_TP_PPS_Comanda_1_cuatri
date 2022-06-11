@@ -144,4 +144,15 @@ export class UserService {
   SubirUsuarioALaListaDeEspera(datos: any) {
     this.firestore.collection('listaDeEspera').add(datos);
   }
+  getuserIdLocal(){
+    var userId = localStorage.getItem('idUsuario');
+    if (userId!=null) return userId;
+    else return null;
+  }
+
+  UsuarioYaEstaEnListaDeEspera(userId:any) {
+    let user = this.firestore.collection("clientes", ref => ref.where('id', '==', userId)).snapshotChanges();
+    if (user==null) return false;
+    else return true;
+  }
 }

@@ -33,13 +33,11 @@ export class HomeSupervisorComponent implements OnInit {
   MapClientesNoHabilitados(){
 
     this.clientesValidos = [];
-//estoy suponiendo que va a tener este campo, sujeto a cambio
     for(let item of this.clientesBD){
       if(item.habilitado == false){
         this.clientesValidos.push(item);
       }
     }
-    console.log(this.clientesValidos)
   }
 
   habilitarCliente(item : any){
@@ -78,8 +76,4 @@ export class HomeSupervisorComponent implements OnInit {
     });
   }
 
-  EnviarEmail()
-  {
-    this.emailService.enviarEmail("Daniela","denu.moreno.1990@gmail.com","Prueba de email");
-  }
 }

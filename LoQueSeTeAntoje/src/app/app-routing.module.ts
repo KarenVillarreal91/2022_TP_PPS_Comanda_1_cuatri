@@ -5,6 +5,7 @@ import { AltaClientesComponent } from './components/alta-clientes/alta-clientes.
 import { AltaEmpleadosComponent } from './components/alta-empleados/alta-empleados.component';
 import { AltaMesaComponent } from './components/alta-mesa/alta-mesa.component';
 import { AltaSupervisorDuenioComponent } from './components/alta-supervisor-duenio/alta-supervisor-duenio.component';
+import { ClientesListaDeEsperaComponent } from './components/clientes-lista-de-espera/clientes-lista-de-espera.component';
 import { EncuestaEmpleadosComponent } from './components/encuesta-empleados/encuesta-empleados.component';
 import { EncuestaSupervisorComponent } from './components/encuesta-supervisor/encuesta-supervisor.component';
 import { HomeClienteComponent } from './components/home-cliente/home-cliente.component';
@@ -31,7 +32,8 @@ const routes: Routes = [
   {path: 'encuestaEmpleados', component: EncuestaEmpleadosComponent},
   {path: 'encuestaSupervisor', component: EncuestaSupervisorComponent},
   {path: 'qrIngreso', component: QrIngresoComponent},
-  {path: 'realizarPedido', component: RealizarPedidoComponent}
+  {path: 'realizarPedido', component: RealizarPedidoComponent},
+  {path: 'listaDeEspera', component: ClientesListaDeEsperaComponent}
 
 ];
 

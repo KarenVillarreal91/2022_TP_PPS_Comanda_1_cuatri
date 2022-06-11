@@ -93,7 +93,7 @@ export class AltaSupervisorDuenioComponent implements OnInit {
 
   async Registro()
   {
-    let usuario = {nombre: this.form.value.nombre, apellido: this.form.value.apellido, dni: this.form.value.dni, cuil: this.form.value.cuil, tipo: this.form.value.tipo};
+    let usuario = { email: this.form.value.email, password: this.form.value.password, nombre: this.form.value.nombre, apellido: this.form.value.apellido, dni: this.form.value.dni, cuil: this.form.value.cuil, tipo: this.form.value.tipo};
 
     this.userService.Registro(this.form.value)
     .then((res:any)=>{

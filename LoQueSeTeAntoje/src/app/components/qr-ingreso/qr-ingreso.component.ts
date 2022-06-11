@@ -24,23 +24,37 @@ export class QrIngresoComponent implements OnInit {
       .then((datos) => {
         if (datos.text=='qrIngresoAListaDeEspera')
         {
-          let user = this.userService.getUsuarioActual();
-          alert(user);
-          this.userService.SubirUsuarioALaListaDeEspera(user);
-          Swal.fire({
-            title: "Ha ingresado a la lista de espera.",
-            icon: 'success',
-            timer: 4000,
-            toast: true,
-            backdrop: false,
-            position: 'bottom',
-            grow: 'row',
-            timerProgressBar: true,
-            showConfirmButton: false
-          });
+          let userId = this.CreateUserWithId();
+          if (userId!=null && !this.userService.UsuarioYaEstaEnListaDeEspera(userId))
+          {
+            this.userService.SubirUsuarioALaListaDeEspera(userId);
+            Swal.fire({
+              title: "Ha ingresado a la lista de espera.",
+              icon: 'success',
+              timer: 4000,
+              toast: true,
+              backdrop: false,
+              position: 'bottom',
+              grow: 'row',
+              timerProgressBar: true,
+              showConfirmButton: false
+            });
+          }else{
+            Swal.fire({
+              title: "Error ya se encuentra en la lista de espera.",
+              icon: 'error',
+              timer: 4000,
+              toast: true,
+              backdrop: false,
+              position: 'bottom',
+              grow: 'row',
+              timerProgressBar: true,
+              showConfirmButton: false
+            });
+          }
+          
         }
       }).catch(error => {
-        alert(error);
         Swal.fire({
           title: "Error al escanear el qr de ingreso.",
           icon: 'error',
@@ -60,7 +74,7 @@ export class QrIngresoComponent implements OnInit {
   barcodeScannerOptions: BarcodeScannerOptions;
   generarQR() {
     this.encodeData = "qrIngresoAListaDeEspera";
-
+   
     this.barcode.encode(this.barcode.Encode.TEXT_TYPE, this.encodeData)
       .then(
         encodedData => {
@@ -94,4 +108,21 @@ export class QrIngresoComponent implements OnInit {
      console.log(data);
     });
   }
+
+  CreateUserWithId(){
+    let userId = JSON.parse(this.userService.getuserIdLocal());
+    let userDb = this.userService.GetColeccion('clientes').subscribe((data)=>{
+      for(let item of data)
+      {
+        
+      }
+    });
+    let user = new UserWithId();
+    user.id = userId;
+    return JSON.parse(JSON.stringify(user));
+  }
+}
+
+export class UserWithId{
+  id:string;
 }

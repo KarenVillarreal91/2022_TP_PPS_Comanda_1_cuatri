@@ -1,0 +1,23 @@
+<ion-content slot="fixed">
+  <div class="container-datos">
+    <h3>Clientes en lista de espera</h3>
+    <hr style="background-color: var(--light-orange)">
+    <ion-grid class="ion-margin">
+      <ion-row *ngFor="let item of clientesEnEspera" style="justify-content: center">
+        <ion-card >
+          <ion-item>
+            <ion-label style="text-align: center">{{item.id}}</ion-label>
+          </ion-item>
+          <ion-item>
+            <ion-row class="ion-justify-content-around">
+              <ion-col>
+                <ion-button color="warning" (click)="AsignarMesa(item)">Asignar Mesa</ion-button>
+              </ion-col>
+            </ion-row>
+          </ion-item>
+        </ion-card>
+      </ion-row>
+    </ion-grid>
+  </div>
+</ion-content>
+
