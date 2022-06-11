@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-home-mozo',
@@ -7,7 +9,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeMozoComponent implements OnInit {
 
-  constructor() { }
+  spinner:boolean = false;
+
+  constructor(private router:Router, public userService:UserService) 
+  {  }
 
   ngOnInit() {}
 
