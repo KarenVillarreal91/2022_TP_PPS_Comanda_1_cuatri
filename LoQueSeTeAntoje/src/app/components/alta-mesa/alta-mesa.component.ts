@@ -27,7 +27,7 @@ export class AltaMesaComponent implements OnInit {
       tipo: ['Estandar', Validators.required],
       foto: ['', Validators.required],
       qr: [''],
-      idCliente:['']
+      ocupada:[false]
     });
 
     this.barcodeScannerOptions = {
@@ -90,11 +90,6 @@ export class AltaMesaComponent implements OnInit {
     this.dataUrl = 'assets/default_table.png';
   }
 
-
-  /** Sube la foto al storage
-   * 
-   * @param nombre 
-   */
   async agregarFotoAlStorage(nombre: any) {
     //Obtiene el dataUrl de la foto y la referencia a donde la tiene que subir
     let ref = this.userS.reference(nombre);
@@ -108,7 +103,6 @@ export class AltaMesaComponent implements OnInit {
         ref.getDownloadURL().toPromise().then((url: any) => {
           //Setea el valor de esa url en el form
           this.form.get('foto').setValue(url);
-          //let qr = numero-comensales-tipo-mesa
           let codigoQR = this.form.get('numero').value + '-' + this.form.get('comensales').value + '-' + this.form.get('tipo').value + '-mesa';
           this.form.get('qr').setValue(codigoQR);
           console.info('VALORES DEL FORM', this.form.value);
