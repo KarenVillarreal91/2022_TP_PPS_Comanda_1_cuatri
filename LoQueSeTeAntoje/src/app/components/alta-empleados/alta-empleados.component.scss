@@ -61,10 +61,11 @@ ion-fab-button[data-desc]::after {
   position: absolute;
   content: attr(data-desc);
   z-index: 1;
-  right: -20px;
-  bottom: -27px;
+  right: -16px;
+  bottom: -29px;
   padding: 9px;
   border-radius: 15px;
+  color: white;
 }
 
 ion-icon{
