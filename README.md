@@ -14,29 +14,29 @@
 
 #### Daniela Moreno (Beta)
 * Alta supervisor ✔
-* QR ingreso
-* Encuesta supervisor
+* Encuesta supervisor ✔
 
 #### Matias Gravante (Gamma)
 * Alta clientes ✔ 
 * Alta mesa ✔
-* QR propina
 
 ## Segunda semana
 ###### Fecha: 04/06/2022 a 11/06/2022
 #### Karen Villarreal (Alfa)
 * QR mesa
-* Realizar pedidos (gestion)
+* Realizar pedidos (gestion) ✔
 * Confirmar pedidos (gestion)
 * Consultar mozo (push n)
 * Confirmar realizacion pedido (push n)
 
 #### Daniela Moreno (Beta)
+* QR ingreso
 * Ingresar al local (gestion)
 * Ingreso local (push n)
 * Confirmar pedido (push n)
 
 #### Matias Gravante (Gamma)
+* QR propina
 * Encuesta cliente
 * Agregar clente registrado (gestion)
 * Agregar cliente (push n)

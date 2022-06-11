@@ -29,6 +29,7 @@ export class LoginComponent implements OnInit {
         localStorage.setItem('idUsuario', JSON.stringify(us[0].payload.doc.id));
       });
       setTimeout(() => {
+        this.userService.usuarioActual.mesa = '';
         this.router.navigateByUrl('principal');
         this.logged = false;
       }, 2000);

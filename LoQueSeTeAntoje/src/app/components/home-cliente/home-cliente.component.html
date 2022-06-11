@@ -10,18 +10,64 @@
 </ion-header>
 
 <ion-content slot="fixed">
-  <div class="container-datos">
-    <img src="assets/iconTransp.png" *ngIf="!spinner" style="margin-top: 10%;" width="120px">
-    <img class="rotate-center" src="assets/iconTransp.png" *ngIf="spinner" style="margin-top: 10%;" width="120px">
-    <div>
-      <ion-icon name="qr-code-outline" style="margin-top: 20%; font-size: 150px;" color="claro" (click)="this.Escanear()"></ion-icon>
+  <div class="container-datos" *ngIf="!escaneoMesa"> <!-- Asignado o no asignado es this.userService.usuarioActual.mesa != 'ingreso' -->
+    <img src="assets/iconTransp.png" *ngIf="this.userService.usuarioActual.mesa == '' || this.userService.usuarioActual.mesa != 'ingreso'" style="margin-top: 10%;" width="120px"> <!-- No ingreso -->
+    <div class="slide-bottom" *ngIf="this.userService.usuarioActual.mesa == 'ingreso'"> <!-- No asignado y si ingreso -->
+      <img class="rotate-center" src="assets/iconTransp.png" style="margin-top: 10%;" width="120px">
+    </div>
+    <div style="height: 250px;">
+      <ion-icon *ngIf="this.userService.usuarioActual.mesa == ''" name="qr-code-outline" style="margin-top: 20%; font-size: 150px;" color="claro" (click)="this.Ingreso()"></ion-icon> <!-- No ingreso -->
+      <ion-icon *ngIf="this.userService.usuarioActual.mesa != 'ingreso' && this.userService.usuarioActual.mesa != ''" name="qr-code-outline" style="margin-top: 20%; font-size: 150px;" color="claro" (click)="this.EscanearMesa()"></ion-icon> <!-- No asignado y si ingreso -->
     </div>
     <div class="texto">
-      <h4>Escanea el QR del local para entrar en la lista de espera.</h4>
-      <!-- <h4>Escanea el QR de la mesa para acceder a diferentes opciones y al estado de su pedido.</h4> -->
+      <h4 *ngIf="this.userService.usuarioActual.mesa == ''">Escanea el QR del local para entrar en la lista de espera.</h4> <!-- No ingreso -->
+      <h4 *ngIf="this.userService.usuarioActual.mesa == 'ingreso'">Espera a que se te asigne una mesa.</h4> <!-- No asignado y si ingreso -->
+      <div *ngIf="this.userService.usuarioActual.mesa != 'ingreso' && this.userService.usuarioActual.mesa != ''"> <!-- Si asignado y si ingreso -->
+        <h1>Mesa <b>{{this.userService.usuarioActual.mesa}}</b></h1>
+        <h4>Escanea el QR de la mesa para realizar su pedido o ver el estado de su pedido y hacer consultas al mozo.</h4>
+      </div>
     </div>
-    <!-- <div>
-      <ion-button type="button" fill="solid" expand="block" color="enviar" style="margin-top: 20%;" [disabled]="true">Recibí el pedido</ion-button>
-    </div> -->
+  </div>
+
+  <div class="container-datos" *ngIf="escaneoMesa">
+    <img src="assets/iconTransp.png" style="margin-top: 10%;" width="120px">
+    <div *ngIf="this.pedido == ''">
+      <ion-button type="button" fill="solid" expand="block" color="claro" style="height: 170px; margin-top: 20%;" (click)="RealizarPedido()">
+        <ion-icon class="iconBoton" name="cart-outline"></ion-icon>
+        <h3>Realizar pedido</h3>
+      </ion-button>
+      <ion-button type="button" fill="solid" expand="block" color="claro" style="height: 170px; margin-top: 10%;">
+        <ion-icon class="iconBoton" name="chatbubbles-outline"></ion-icon>
+        <h3>Consultar al mozo</h3>
+      </ion-button>
+    </div>
+
+    <div *ngIf="this.pedido != '' && !verEstado">
+      <ion-button type="button" fill="solid" expand="block" color="claro" style="height: 170px; margin-top: 20%;" (click)="verEstado = true;">
+        <ion-icon class="iconBoton" name="document-text-outline"></ion-icon>
+        <h3>Ver estado<br>del pedido</h3>
+      </ion-button>
+      <ion-button type="button" fill="solid" expand="block" color="claro" style="height: 170px; margin-top: 10%;">
+        <ion-icon class="iconBoton" name="chatbubbles-outline"></ion-icon>
+        <h3>Consultar al mozo</h3>
+      </ion-button>
+    </div>
+
+    <div *ngIf="verEstado">
+      <div class="estado" >
+        <h2>Estado de su pedido</h2>
+        <h1><b class={{this.pedido.estado}}>{{this.pedido.estado}}</b></h1> <!-- Solicitado - Aceptado - En preparación - Listo - Entregado - Recibido - Pagado - Finalizado -->
+      </div>
+      
+      <ion-button *ngIf="this.pedido.estado == 'Entregado'" type="button" fill="solid" expand="block" color="claro" style="height: 80px; margin-top: 20%;">
+        <ion-icon class="iconBoton" name="checkmark"></ion-icon>
+        <h4>Recibí mi pedido</h4>
+      </ion-button>
+
+      <ion-button *ngIf="this.pedido.estado == 'Recibido'" type="button" fill="solid" expand="block" color="claro" style="height: 80px; margin-top: 20%;">
+        <ion-icon class="iconBoton" name="receipt-outline"></ion-icon>
+        <h4>Pedir la cuenta</h4>
+      </ion-button>
+    </div>
   </div>
 </ion-content>
