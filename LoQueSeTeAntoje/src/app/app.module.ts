@@ -56,7 +56,8 @@ import { ClientesListaDeEsperaComponent } from './components/clientes-lista-de-e
     RouterModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    provideFirestore(() => getFirestore()),
   ],
   providers: [BarcodeScanner,{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
   bootstrap: [AppComponent],

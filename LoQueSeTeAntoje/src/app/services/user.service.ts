@@ -2,8 +2,6 @@ import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
-import { take } from 'rxjs/operators';
-
 
 @Injectable({
   providedIn: 'root'
@@ -141,18 +139,9 @@ export class UserService {
   getUsuarioActual() {
     return this.firestore.collection("clientes", ref => ref.where('email', '==', this.usuarioActual.email)).snapshotChanges();
   }
-  SubirUsuarioALaListaDeEspera(datos: any) {
-    this.firestore.collection('listaDeEspera').add(datos);
-  }
+
   getuserIdLocal(){
-    var userId = localStorage.getItem('idUsuario');
-    if (userId!=null) return userId;
-    else return null;
+    return localStorage.getItem('idUsuario');
   }
 
-  UsuarioYaEstaEnListaDeEspera(userId:any) {
-    let user = this.firestore.collection("clientes", ref => ref.where('id', '==', userId)).snapshotChanges();
-    if (user==null) return false;
-    else return true;
-  }
 }

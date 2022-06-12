@@ -87,7 +87,7 @@ export class AltaClientesComponent implements OnInit {
   }
 
   async Registro() {
-    let usuario = { email: this.form.value.email, password: this.form.value.password, nombre: this.form.value.nombre, apellido: this.form.value.apellido, dni: this.form.value.dni, habilitado: false, tipo: 'cliente' };
+    let usuario = { email: this.form.value.email, password: this.form.value.password, nombre: this.form.value.nombre, apellido: this.form.value.apellido, dni: this.form.value.dni, habilitado: 'noHabilitado', tipo: 'cliente', enListaDeEspera: false, mesa: '' };
 
     this.userService.Registro(this.form.value)
       .then((res: any) => {

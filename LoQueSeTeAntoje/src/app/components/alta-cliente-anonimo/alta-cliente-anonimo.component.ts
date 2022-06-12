@@ -50,7 +50,7 @@ export class AltaClienteAnonimoComponent implements OnInit {
 
   async Registro()
   {
-      let usuario = {nombre: this.form.value.nombre, habilitado: true, tipo: 'cliente'};
+      let usuario = {nombre: this.form.value.nombre, habilitado: 'habilitado', tipo: 'cliente',  enListaDeEspera: false, mesa: ''};
 
       this.userService.SubirCliente(usuario, this.dataUrl)
       .then(()=>{

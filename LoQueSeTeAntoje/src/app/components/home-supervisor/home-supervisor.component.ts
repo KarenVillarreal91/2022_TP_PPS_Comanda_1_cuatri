@@ -34,14 +34,14 @@ export class HomeSupervisorComponent implements OnInit {
 
     this.clientesValidos = [];
     for(let item of this.clientesBD){
-      if(item.habilitado == false){
+      if(item.habilitado == 'noHabilitado'){
         this.clientesValidos.push(item);
       }
     }
   }
 
   habilitarCliente(item : any){
-    item.habilitado = true;
+    item.habilitado = 'habilitado';
     this.userS.updateUser(item.id, item,"clientes");
     this.emailService.enviarEmail(item.nombre,item.email,"Su cuenta fue habilitada exitosamente.")
     Swal.fire({
@@ -59,7 +59,7 @@ export class HomeSupervisorComponent implements OnInit {
   }
 
   rechazarCliente(item : any){
-    item.habilitado = true;
+    item.habilitado = 'rechazado';
     this.userS.updateUser(item.id, item,"clientes");
     this.emailService.enviarEmail(item.nombre,item.email,"Su cuenta fue rechazada.")
     Swal.fire({

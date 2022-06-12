@@ -10,6 +10,13 @@
 			"splashFullScreen": true,
 			"splashImmersive": false,
 			"backgroundColor": "#ffffff"
+		},
+		"PushNotifications": {
+			"presentationOptions": [
+				"badge",
+				"sound",
+				"alert"
+			]
 		}
 	}
 }

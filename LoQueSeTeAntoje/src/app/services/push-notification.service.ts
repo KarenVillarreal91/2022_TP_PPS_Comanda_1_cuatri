@@ -41,31 +41,27 @@ export class PushNotificationService {
     // }
     const result = await PushNotifications.requestPermissions();
     if (result.receive === 'granted') {
-      alert("en result "+result.receive);
+      //alert("en result "+result.receive);
        PushNotifications.register();
     }
   }
 
   getUser(): void {
-    const aux = this.firestore.doc('supervisorDuenio/spNNdRz3Ib5S8jybrtsk');
-    let sub = this.firestore.collection('supervisorDuenio').valueChanges({idField: 'id'}).subscribe(async(user)=>{
+    // const aux = this.firestore.doc('supervisorDuenio/spNNdRz3Ib5S8jybrtsk');
+      let sub = this.firestore.collection('supervisorDuenio').valueChanges({idField: 'id'}).subscribe(async(user)=>{
       this.user=user[0];
-      console.log("en get user "+this.user);
-      //alert("en get user "+this.user.nombre);
       this.inicializar();
-      sub.unsubscribe();
+      //sub.unsubscribe();
+      alert (`${environment.fcmServerKey}`);
     });
   }
 
     sendPushNotification(req): Observable<any> {
-      //alert("en send"+req);
       return this.http.post<Observable<any>>(environment.fcmUrl, req, {
         headers: {
-          // eslint-disable-next-line @typescript-eslint/naming-convention
           Authorization: `key=${environment.fcmServerKey}`,
-          // eslint-disable-next-line @typescript-eslint/naming-convention
           'Content-Type': 'application/json',
-        },
+        }
       });
     }
 
