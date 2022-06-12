@@ -93,7 +93,7 @@ export class AltaEmpleadosComponent implements OnInit {
 
   async Registro()
   {
-    let usuario = {nombre: this.form.value.nombre, apellido: this.form.value.apellido, dni: this.form.value.dni, cuil: this.form.value.cuil, tipo: this.form.value.tipo};
+    let usuario = {nombre: this.form.value.nombre, apellido: this.form.value.apellido, email: this.form.value.email, dni: this.form.value.dni, cuil: this.form.value.cuil, tipo: this.form.value.tipo};
 
     this.userService.Registro(this.form.value)
     .then((res:any)=>{
