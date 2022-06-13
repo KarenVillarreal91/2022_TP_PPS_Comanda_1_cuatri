@@ -15,7 +15,7 @@ export class QrIngresoComponent implements OnInit {
 
   constructor(private barcode: BarcodeScanner, public scanService: ScandniService, public userService: UserService, public pushNotificationService: PushNotificationService, public firestore:AngularFirestore) 
   { 
-    this.pushNotificationService.getUser();
+
   }
 
   ngOnInit() {}
@@ -29,6 +29,7 @@ export class QrIngresoComponent implements OnInit {
           let user:any;
           let coleccion = this.firestore.collection("clientes").doc(userId).valueChanges({idField: 'id'});
           coleccion.forEach((data:any)=>{user = data;});
+          //no me gusta, se aceptan sugerencias
           setTimeout(() => {
             if (!user.enListaDeEspera)
             {
@@ -93,22 +94,10 @@ export class QrIngresoComponent implements OnInit {
       )
   }
 
-  EnviarNotification(){
-    
-    
-    this.pushNotificationService.sendPushNotification({
-      to:[
-      'fhRNR5QKSmOEFWjUNBqfo9:APA91bFMBmE0G0HeAL9zSuOyDNn1Qi7tOpN4A5aVA27RAZRdUeZ4ykMKGji233vepQzJlusgCfKQyYZ0aKmyIgHFv0m8n6kTibpkF5MmzU_wlEe-jwKl-STkFz0UCn2toLq5pO4StgZY'
-      ],
-      notification:{
-        title:'prueba',
-        body:'body prueba'
-      }
-    })
-    .subscribe((data)=>{
-     alert(data);
-     console.log(data);
-    });
+  probarNotification(){
+    let idUser = JSON.parse(this.userService.getuserIdLocal());
+    this.pushNotificationService.EnviarNotificationAUnUsuario(idUser,"PRUEBA PRUEBA","PROBANDO PROBANDO");
   }
+
 
 }

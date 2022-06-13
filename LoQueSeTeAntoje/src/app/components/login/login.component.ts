@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { PushNotificationService } from 'src/app/services/push-notification.service';
 import { UserService } from 'src/app/services/user.service';
 import Swal from 'sweetalert2';
 
@@ -15,7 +16,7 @@ export class LoginComponent implements OnInit {
   logged:boolean = false;
   error:string;
 
-  constructor(private userService:UserService, private router:Router) { }
+  constructor(private userService:UserService, private router:Router, private pushNotificationService:PushNotificationService) { }
 
   ngOnInit() {}
 
@@ -25,9 +26,12 @@ export class LoginComponent implements OnInit {
     this.userService.Login(usuario)
     .then((res:any)=>{
       this.logged = true;
-      this.userService.getUsuarioActual().subscribe((us:any)=>{
-        localStorage.setItem('idUsuario', JSON.stringify(us[0].payload.doc.id));
-      });
+      // this.userService.getUsuarioActual().subscribe((us:any)=>{
+      //   //localStorage.setItem('idUsuario', JSON.stringify(us[0].payload.doc.id));
+      // });
+      
+      this.userService.setearIdUsuario();
+      this.pushNotificationService.getUserForNotifications();
       setTimeout(() => {
         this.userService.usuarioActual.mesa = '';
         this.router.navigateByUrl('principal');

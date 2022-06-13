@@ -91,7 +91,7 @@ export class AltaClientesComponent implements OnInit {
 
     this.userService.Registro(this.form.value)
       .then((res: any) => {
-
+        console.log("res registro "+res);
         this.userService.SubirCliente(usuario, this.dataUrl)
           .then(() => {
             document.getElementById('enviar').setAttribute('disabled', 'disabled');
