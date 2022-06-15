@@ -2,27 +2,30 @@
   <ion-toolbar color="header">
     <ion-title>
       <ion-img style="width: 55px; height: 55px;" *ngIf="!spinnerLoad.isLoading" src='assets/iconTransp2.png'></ion-img>
-      <ion-img class="rotate-center" style="width: 55px; height: 55px;" *ngIf="spinnerLoad.isLoading" src='assets/iconTransp2.png'></ion-img>
+      <ion-img class="rotate-center" style="width: 55px; height: 55px;" *ngIf="spinnerLoad.isLoading"
+        src='assets/iconTransp2.png'></ion-img>
     </ion-title>
     <ion-buttons slot="end">
-      <ion-menu-button style="margin: auto;" type="button" menu="menu" color="escanear"><ion-icon name="menu"></ion-icon></ion-menu-button>
+      <ion-menu-button style="margin: auto;" type="button" menu="menu" color="escanear">
+        <ion-icon name="menu"></ion-icon>
+      </ion-menu-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content color="ligth">
-  <h3>Alta de mesa</h3><br>
+<ion-content slot="fixed">
+  <div class="container-datos">
+    <h3>Alta de mesa</h3><br>
+
+    <div class="inputdiv">
+      <ion-label>Mesa Nº</ion-label>
+      <ion-item color="transp" style="width: 160px;">
+        <ion-input type="number" style="height: 500;" id="numeroMesa"></ion-input>
+      </ion-item>
+    </div>
+  </div>
 
   <ion-grid>
-    <ion-row  class="ion-justify-content-center">
-      <ion-col size="10" class="d-flex ion-justify-content-center">
-        <h2>Mesa Nº</h2>
-        <ion-item>
-          <ion-input type="number" style="height: 500;" id="numeroMesa" ></ion-input>
-        </ion-item>
-      </ion-col>
-    </ion-row>
-
 
     <ion-row class="ion-justify-content-center" style="margin-top: 25px;">
       <ion-text>
@@ -35,15 +38,17 @@
       <ion-row class="ion-justify-content-center">
 
         <ion-col size=3 class="d-flex ion-justify-content-center">
-          <ion-icon (click)="restarComensal()" name="remove-circle-outline" style="height: 100%; width: 100%; color: #434343;"></ion-icon>
+          <ion-icon (click)="restarComensal()" name="remove-circle-outline"
+            style="height: 100%; width: 100%; color: #434343;"></ion-icon>
         </ion-col>
 
         <ion-col size=3 class="d-flex ion-justify-content-center" align="center">
-          <h1> <strong>{{comensales}} </strong>  </h1>
+          <h1> <strong>{{comensales}} </strong> </h1>
         </ion-col>
 
-        <ion-col size=3 class="d-flex ion-justify-content-center" >
-            <ion-icon (click)="sumarComensal()" name="add-circle-outline" style="height: 100%; width: 100%; color: #FE7200;" ></ion-icon>
+        <ion-col size=3 class="d-flex ion-justify-content-center">
+          <ion-icon (click)="sumarComensal()" name="add-circle-outline"
+            style="height: 100%; width: 100%; color: #FE7200;"></ion-icon>
         </ion-col>
 
       </ion-row>
@@ -56,33 +61,40 @@
 
       <ion-row class="ion-justify-content-center">
         <ion-col size="6">
-          <ion-button (click)="seleccionarTipo('Estandar')" id="Estandar" expand="block" class="pepe" style="--background: #FC8038;" shape="round">
+          <ion-button (click)="seleccionarTipo('Estandar')" id="Estandar" expand="block" class="pepe"
+            style="--background: #FC8038;" shape="round">
             ESTANDAR
           </ion-button>
         </ion-col>
         <ion-col size="6">
-          <ion-button (click)="seleccionarTipo('Discapacitados')" id="Discapacitados" class="pepe" expand="block" style="--background: gray;" shape="round">
+          <ion-button (click)="seleccionarTipo('Discapacitados')" id="Discapacitados" class="pepe" expand="block"
+            style="--background: gray;" shape="round">
             DISCAPACITADOS
           </ion-button>
         </ion-col>
         <ion-col size="6">
-          <ion-button (click)="seleccionarTipo('VIP')" expand="block" class="pepe" id="VIP" style="--background: gray;"  shape="round">
+          <ion-button (click)="seleccionarTipo('VIP')" expand="block" class="pepe" id="VIP" style="--background: gray;"
+            shape="round">
             VIP
           </ion-button>
         </ion-col>
         <ion-col size="6">
-          <ion-button (click)="seleccionarTipo('otros')" id="otros" expand="block" class="pepe" style="--background: gray;" shape="round">
+          <ion-button (click)="seleccionarTipo('otros')" id="otros" expand="block" class="pepe"
+            style="--background: gray;" shape="round">
             OTROS
           </ion-button>
         </ion-col>
 
       </ion-row>
 
-      <ion-row >
+      <ion-row>
         <ion-col size="12">
           <div>
             <ion-label>Foto</ion-label>
-            <ion-button type="button" class="ingreso" fill="solid" expand="block" color="escanear" style="width: 80px; height: 45px" (click)="takePhoto()"><ion-icon name="camera"></ion-icon></ion-button>
+            <ion-button type="button" class="ingreso" fill="solid" expand="block" color="escanear"
+              style="width: 80px; height: 45px" (click)="takePhoto()">
+              <ion-icon name="camera"></ion-icon>
+            </ion-button>
             <ion-img class="foto" [src]='this.dataUrl' id="foto"></ion-img>
           </div>
         </ion-col>
@@ -90,7 +102,8 @@
 
       <ion-row>
         <ion-col size="12">
-          <ion-button class="ingreso" fill="solid" expand="block" color="enviar" style="margin-top: 23px;" (click)="enviar()">
+          <ion-button class="ingreso" fill="solid" expand="block" color="enviar" style="margin-top: 23px;"
+            (click)="enviar()">
             <ion-spinner *ngIf="spinnerLoad.isLoading" name="dots"></ion-spinner>
             {{this.spinnerLoad.btn}}
           </ion-button>
@@ -98,7 +111,7 @@
       </ion-row>
 
 
-    </form> 
+    </form>
 
   </ion-grid>
 

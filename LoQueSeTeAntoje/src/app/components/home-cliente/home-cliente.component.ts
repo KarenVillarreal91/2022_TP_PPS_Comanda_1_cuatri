@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ScandniService } from 'src/app/services/scandni.service';
 import { UserService } from 'src/app/services/user.service';
+import { BarcodeScanner } from '@awesome-cordova-plugins/barcode-scanner/ngx';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -14,8 +15,10 @@ export class HomeClienteComponent implements OnInit {
   escaneoMesa:boolean = false;
   pedido:any = "";
   verEstado:boolean = false;
+  propina = 0;
+  propinaEscaneada = false;
 
-  constructor(public userService:UserService, private scanService:ScandniService, private router: Router) 
+  constructor(private barcodeScanner: BarcodeScanner, public userService:UserService, private scanService:ScandniService, private router: Router) 
   { 
   }
 
@@ -96,4 +99,41 @@ export class HomeClienteComponent implements OnInit {
   {
     this.router.navigateByUrl('realizarPedido');
   }
+
+  escanearQrPropina(){
+    this.barcodeScanner.scan({formats:"QR_CODE,PDF_417"})
+    .then((data:any) => {
+      this.propina = parseInt(data.text);
+      this.propinaEscaneada = true;
+      this.userService.updatePedido(this.userService.usuarioActual.mesa, this.propina);
+      setTimeout(() => {
+        Swal.fire({
+          title: 'Propina agregada correctamente.',
+          icon: 'success',
+          timer: 2000,
+          toast: true,
+          backdrop: false,
+          position: 'bottom',
+          grow: 'row',
+          timerProgressBar: true,
+          showConfirmButton: false
+        });
+      }, 2000);
+    }).catch(error => {
+
+      Swal.fire({
+        title: "Error al agregar propina.",
+        icon: 'error',
+        timer: 4000,
+        toast: true,
+        backdrop: false,
+        position: 'bottom',
+        grow: 'row',
+        timerProgressBar: true,
+        showConfirmButton: false
+      });
+      console.log(error);
+    });
+  }
+
 }

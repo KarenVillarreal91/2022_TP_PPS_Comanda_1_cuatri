@@ -49,6 +49,21 @@ export class UserService {
     });
   }
 
+  async SubirEncuestaCliente(datos: any, fotos: FormData) {
+    let path = `fotosEncuestas/${Date.now()}`;
+
+    await this.storage.upload(path, fotos.get('foto1'));
+    await this.storage.upload(path, fotos.get('foto2'));
+    await this.storage.upload(path, fotos.get('foto3'));
+
+    let storageSub = this.storage.ref(path).getDownloadURL().subscribe((data) => {
+      datos.foto = data;
+      this.firestore.collection('encuestaClientes').add(datos);
+      storageSub.unsubscribe();
+    });
+  }
+
+
   async SubirEmpleado(user: any, foto: any) {
     if (foto != 'assets/default.png') {
       let path = `${Date.now()}`;
@@ -200,4 +215,12 @@ export class UserService {
     });
    
   }
+
+  updatePedido(mesa:number, propina:number){
+    let pedidosSubscription= this.firestore.collection("pedidos", ref => ref.where('mesa', '==', mesa).where('estado', '==', "Entregado")).snapshotChanges().subscribe(async (pedido) => {
+      this.firestore.collection('pedidos').doc(`${pedido[0].payload.doc.id}`).update({ propina: propina });
+      pedidosSubscription.unsubscribe();
+    });
+  }
+
 }

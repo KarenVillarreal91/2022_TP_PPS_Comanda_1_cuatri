@@ -15,6 +15,7 @@ export class RealizarPedidoComponent implements OnInit {
   platos:Array<any> = [];
   bebidas:Array<any> = [];
   precioTotal:number = 0;
+  propina:number = 0;
   tiempos:Array<number> = [0];
   tiempoTotal:number = 0;
   detalles:boolean = false;
@@ -82,7 +83,7 @@ export class RealizarPedidoComponent implements OnInit {
 
   Enviar()
   {
-    this.userService.SubirDatos({total: this.precioTotal, tiempo: this.tiempoTotal, productos: this.productos, estado: 'Solicitado', mesa: this.userService.usuarioActual.mesa}, 'pedidos')
+    this.userService.SubirDatos({total: this.precioTotal, propina: this.propina, tiempo: this.tiempoTotal, productos: this.productos, estado: 'Solicitado', mesa: this.userService.usuarioActual.mesa}, 'pedidos')
     .then(()=>{
 
       this.spinner = true;
