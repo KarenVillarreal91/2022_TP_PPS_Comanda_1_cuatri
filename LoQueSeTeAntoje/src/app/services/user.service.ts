@@ -42,9 +42,10 @@ export class UserService {
 
     await this.storage.upload(path, foto.get('foto'));
 
-    this.storage.ref(path).getDownloadURL().subscribe((data) => {
+    let storageSub = this.storage.ref(path).getDownloadURL().subscribe((data) => {
       datos.foto = data;
       this.firestore.collection('encuestaEmpleados').add(datos);
+      storageSub.unsubscribe();
     });
   }
 
@@ -88,7 +89,7 @@ export class UserService {
             user.foto = url;
             this.firestore.collection('clientes').add(user)
               .then((dbUser) => {
-                localStorage.setItem('idUsuario', JSON.stringify(dbUser.id));
+                localStorage.setItem('idUsuario', JSON.stringify(dbUser.id));//solo anonimo
                 let usuarioConTokenYTipo = {id:dbUser.id,tipo:user.tipo,token:''};
                 this.SubirUsuario(usuarioConTokenYTipo);
               });
@@ -161,15 +162,42 @@ export class UserService {
     this.firestore.collection('usuarios').add(user);
   }
 
-  setearIdUsuario(){
-    this.firestore.collection("clientes", ref => ref.where('email', '==', this.usuarioActual.email)).snapshotChanges().subscribe((us:any)=>{
-     if(us[0]!=undefined) localStorage.setItem('idUsuario', JSON.stringify(us[0].payload.doc.id));
+  async setearIdUsuario(){
+    let clientesSub = this.firestore.collection("clientes", ref => ref.where('email', '==', this.usuarioActual.email)).snapshotChanges().subscribe((us:any)=>{
+     if(us[0]!=undefined) {
+      localStorage.setItem('idUsuario', JSON.stringify(us[0].payload.doc.id));
+      console.log("clientes "+JSON.stringify(us[0].payload.doc.id));
+     }else{
+      let empleadosSub =this.firestore.collection("empleados", ref => ref.where('email', '==', this.usuarioActual.email)).snapshotChanges().subscribe((us:any)=>{
+        if(us[0]!=undefined) {
+          localStorage.setItem('idUsuario', JSON.stringify(us[0].payload.doc.id));
+          console.log("empleados "+JSON.stringify(us[0].payload.doc.id));
+         }else{
+          let supervisorDuenioSub =this.firestore.collection("supervisorDuenio", ref => ref.where('email', '==', this.usuarioActual.email)).snapshotChanges().subscribe((us:any)=>{
+            if(us[0]!=undefined) {
+              localStorage.setItem('idUsuario', JSON.stringify(us[0].payload.doc.id));
+              console.log("supervisor "+JSON.stringify(us[0].payload.doc.id));
+             }
+             supervisorDuenioSub.unsubscribe()
+           });
+         }
+         empleadosSub.unsubscribe()
+       });
+     }
+     clientesSub.unsubscribe()
     });
-    this.firestore.collection("empleados", ref => ref.where('email', '==', this.usuarioActual.email)).snapshotChanges().subscribe((us:any)=>{
-      if(us[0]!=undefined) localStorage.setItem('idUsuario', JSON.stringify(us[0].payload.doc.id));
-     });
-     this.firestore.collection("supervisorDuenio", ref => ref.where('email', '==', this.usuarioActual.email)).snapshotChanges().subscribe((us:any)=>{
-      if(us[0]!=undefined) localStorage.setItem('idUsuario', JSON.stringify(us[0].payload.doc.id));
-     });
+     
+  }
+
+  Desloguear(){
+    let id = JSON.parse(this.getuserIdLocal());
+    console.log(localStorage.getItem('idUsuario'));
+    localStorage.removeItem('idUsuario');
+    console.log(localStorage.getItem('idUsuario'));
+    let subUsuarios= this.firestore.collection("usuarios", ref => ref.where('id', '==', id)).snapshotChanges().subscribe(async (user) => {
+      this.firestore.collection('usuarios').doc(`${user[0].payload.doc.id}`).update({ token: '' });
+      subUsuarios.unsubscribe();
+    });
+   
   }
 }

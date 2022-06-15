@@ -77,7 +77,7 @@ export class HomeClienteComponent implements OnInit {
       });
     }); */
 
-    this.userService.GetColeccion('pedidos').subscribe((pedidos)=>{
+    let pedidosSub = this.userService.GetColeccion('pedidos').subscribe((pedidos)=>{
       for(let pedido of pedidos)
       {
         if(pedido.mesa == this.userService.usuarioActual.mesa)
@@ -86,6 +86,7 @@ export class HomeClienteComponent implements OnInit {
           break;
         }
       }
+      pedidosSub.unsubscribe();
     });
 
     this.escaneoMesa = true;

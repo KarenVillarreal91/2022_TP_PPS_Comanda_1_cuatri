@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MenuController } from '@ionic/angular';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -11,7 +12,7 @@ export class SidebarComponent implements OnInit {
 
   spinner:boolean = false;
 
-  constructor(public router:Router, public menu:MenuController) 
+  constructor(public router:Router, public menu:MenuController, public userService:UserService) 
   { }
 
   ngOnInit() {}
@@ -27,6 +28,7 @@ export class SidebarComponent implements OnInit {
 
     setTimeout(() => {
       this.spinner = false;
+      this.userService.Desloguear();
       this.menu.close();
       this.router.navigateByUrl('login');
     }, 2000);

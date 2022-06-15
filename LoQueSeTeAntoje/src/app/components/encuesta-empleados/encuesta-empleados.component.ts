@@ -97,12 +97,13 @@ export class EncuestaEmpleadosComponent implements OnInit {
 
   MostrarEncuestas()
   {
-    this.userService.GetColeccion('encuestaEmpleados').subscribe((data)=>{
+    let encuentasSub = this.userService.GetColeccion('encuestaEmpleados').subscribe((data)=>{
       this.encuestas = data;  
       this.barChartEncuestaLimpieza();   
       this.doughnutChartInconvenientes();
       this.doughnutChartOrden(); 
       this.doughnutChartQuejas();
+      encuentasSub.unsubscribe();
     });
   }
 

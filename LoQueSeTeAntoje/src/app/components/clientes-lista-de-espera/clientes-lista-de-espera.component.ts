@@ -11,13 +11,14 @@ export class ClientesListaDeEsperaComponent implements OnInit {
   clientesEnEspera:Array<any> = [];
   constructor(private db : AngularFirestore, private userS : UserService) 
   {
-    userS.GetColeccion('clientes').subscribe((data)=>{
+    let sub = userS.GetColeccion('clientes').subscribe((data)=>{
       for(let item of data)
       {
         if (item.enListaDeEspera){
           this.clientesEnEspera.push(item);
         }
       }
+      sub.unsubscribe();
     });
   }
 

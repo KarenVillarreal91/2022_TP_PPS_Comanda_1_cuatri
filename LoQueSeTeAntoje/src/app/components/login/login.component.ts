@@ -25,14 +25,10 @@ export class LoginComponent implements OnInit {
     let usuario = {email:this.email, password:this.password};
     this.userService.Login(usuario)
     .then((res:any)=>{
-      this.logged = true;
-      // this.userService.getUsuarioActual().subscribe((us:any)=>{
-      //   //localStorage.setItem('idUsuario', JSON.stringify(us[0].payload.doc.id));
-      // });
-      
+      this.logged = true;      
       this.userService.setearIdUsuario();
-      this.pushNotificationService.getUserForNotifications();
       setTimeout(() => {
+        this.pushNotificationService.getUserForNotifications();
         this.userService.usuarioActual.mesa = '';
         this.router.navigateByUrl('principal');
         this.logged = false;

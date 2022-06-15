@@ -24,9 +24,10 @@ export class HomeSupervisorComponent implements OnInit {
 
   ngOnInit() 
   {
-    this.clientes.subscribe((clientes : any) => {
+    let clientesSub = this.clientes.subscribe((clientes : any) => {
       this.clientesBD = clientes;
       this.MapClientesNoHabilitados();
+      clientesSub.unsubscribe();
     });
   }
 

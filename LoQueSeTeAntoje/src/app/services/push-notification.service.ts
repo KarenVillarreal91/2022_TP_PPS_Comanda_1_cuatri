@@ -38,6 +38,7 @@ export class PushNotificationService {
 
   getUserForNotifications(): void {
     this.idUser = JSON.parse(this.userService.getuserIdLocal());
+    console.log("en get noti "+this.idUser);
     this.inicializar();
   }
 
@@ -56,14 +57,14 @@ export class PushNotificationService {
       'registration',
       async (token: Token) => {
         // alert(token.value);
-        this.firestore.collection("usuarios", ref => ref.where('id', '==', this.idUser)).snapshotChanges().subscribe(async (user) => {
-          this.usuarioId = user[0].payload.doc.id;
-        });
-        //no me gusta, se aceptan sugerencias
-        setTimeout(() => {
-          this.firestore.collection('usuarios').doc(`${this.usuarioId}`).update({ token: token.value });
-        }, 3000);
-        
+        let subs = this.firestore.collection("usuarios", ref => ref.where('id', '==', this.idUser)).snapshotChanges().subscribe( (user) => {
+          let usuarioForUpdate = this.firestore.collection('usuarios').doc(`${user[0].payload.doc.id}`);
+          console.log("token "+token);
+          usuarioForUpdate.update({ token: token.value })
+          .then(() => { })
+          .catch((error) => { });
+          subs.unsubscribe()
+        })
       }
     );
 
@@ -122,14 +123,10 @@ export class PushNotificationService {
    async EnviarNotificationAUnUsuario(id: string, titulo: string, body: string) {
     console.log(id);
     let token;
-    let usuario = this.userService.getUsuarioActualByID(id)
-    usuario.subscribe((resp:any) => {
+    let usuario = this.userService.getUsuarioActualByID(id).subscribe((resp:any) => {
       console.log(resp[0].payload.doc.data().id);
       console.log(resp[0].payload.doc.data().token);
       if(resp[0]!=undefined) token = resp[0].payload.doc.data().token;
-    });
-    //no me gusta, se aceptan sugerencias
-    setTimeout(() => {
       this.sendPushNotification({
         to:token,
         notification: {
@@ -137,32 +134,23 @@ export class PushNotificationService {
           body: body,
           image_url: 'assets/iconTransp2.png'
         }
-      })
-        .subscribe((data) => {
-          //  alert(data);
-          console.log(data);
-        });
-    }, 3000);
-
+      });
+      usuario.unsubscribe();
+    });
     
   }
   EnviarNotificationAVariosUsuarios(tipo: string, titulo: string, body: string) {
     let usuariosTokens: Array<any> = [];
-    this.userService.GetColeccion('usuarios').subscribe((data) => {
-      for (let item of data) {
-        if (item.tipo == tipo) usuariosTokens.push(item.token);
-      }
+    let sub = this.firestore.collection("usuarios", ref => ref.where('tipo', '==', tipo)).snapshotChanges().subscribe(async (user:any) => {
+      usuariosTokens.push(user[0].payload.doc.data().token);
+      this.sendPushNotification({
+        registration_ids: usuariosTokens,
+        notification: {
+          title: titulo,
+          body: body
+        }
+      })
+      sub.unsubscribe();
     });
-    this.sendPushNotification({
-      registration_ids: usuariosTokens,
-      notification: {
-        title: titulo,
-        body: body
-      }
-    })
-      .subscribe((data) => {
-        //  alert(data);
-        console.log(data);
-      });
   }
 }

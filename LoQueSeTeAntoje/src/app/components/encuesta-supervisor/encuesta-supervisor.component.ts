@@ -65,13 +65,15 @@ export class EncuestaSupervisorComponent implements OnInit {
 
   ngOnInit() 
   {
-    this.clientes.subscribe((clientes : any) => {
+    let clientesSub = this.clientes.subscribe((clientes : any) => {
       this.clientesBD = clientes;
       this.MapClientesHabilitados();
+      clientesSub.unsubscribe();
     });
-    this.empleados.subscribe((empleados : any) => {
+    let empleadosSub = this.empleados.subscribe((empleados : any) => {
       this.empleadosBD = empleados;
       this.MapEmpleados();
+      empleadosSub.unsubscribe();
     });
   }
 
@@ -202,23 +204,25 @@ export class EncuestaSupervisorComponent implements OnInit {
   }
   MostrarEncuestas()
   {
-    this.userService.GetColeccion('encuestaClientesDesdeSupervisor').subscribe((data)=>{
+    let encuestas = this.userService.GetColeccion('encuestaClientesDesdeSupervisor').subscribe((data)=>{
       this.encuestas = data;  
       this.barChartEncuestaComportamiento();   
       this.doughnutChartVecesQueViene();
       this.doughnutChartPropina(); 
       this.doughnutChartComensales();
+      encuestas.unsubscribe();
     });
   }
 
   MostrarEncuestasEmpleados()
   {
-    this.userService.GetColeccion('encuestaEmpleadosDesdeSupervisor').subscribe((data)=>{
+    let encuestasSub = this.userService.GetColeccion('encuestaEmpleadosDesdeSupervisor').subscribe((data)=>{
       this.encuestasEmpleados = data;  
       this.barChartEncuestaComportamientoEmpleados();   
       this.doughnutChartFalta();
       this.doughnutChartLlegaTarde(); 
       this.doughnutChartInconvenientes();
+      encuestasSub.unsubscribe();
     });
   }
 
