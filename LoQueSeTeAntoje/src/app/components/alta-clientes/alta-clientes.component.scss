@@ -61,15 +61,26 @@ ion-fab-button[data-desc]::after {
   position: absolute;
   content: attr(data-desc);
   z-index: 1;
-  right: -20px;
-  bottom: -27px;
+  right: -14px;
+  bottom: -30px;
   padding: 9px;
   border-radius: 15px;
+  color: #ffffff;
 }
 
 ion-icon{
   margin:auto;
   font-size: 43px;
+}
+
+.toggle{
+  --background: #00000000;
+  --border-color: #00000000;
+}
+
+ion-toggle{
+  --background-checked: #ffb76d6b;
+  --handle-background-checked: #ffb76d;
 }
 
 .enviar{

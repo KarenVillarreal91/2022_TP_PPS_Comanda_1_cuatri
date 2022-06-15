@@ -1,8 +1,7 @@
 <ion-header>
   <ion-toolbar color="header">
     <ion-title>
-      <ion-img style="width: 55px; height: 55px;" *ngIf="!spinner" src='assets/iconTransp2.png'></ion-img>
-      <ion-img class="rotate-center" style="width: 55px; height: 55px;" *ngIf="spinner" src='assets/iconTransp2.png'></ion-img>
+      <ion-img style="width: 55px; height: 55px;" src='assets/iconTransp2.png'></ion-img>
     </ion-title>
     <ion-buttons slot="end">
       <ion-menu-button style="margin: auto;" type="button" menu="menu" color="escanear"><ion-icon name="menu"></ion-icon></ion-menu-button>
@@ -12,22 +11,13 @@
 
 <ion-content slot="fixed">
   <div class="container-datos">
-    <ion-button (click)="probarNotification()">PROBAR PUSH NOTIFICATION</ion-button>
-    <ion-button >ACCEDER A ENCUESTA DEL CLIENTE</ion-button>
+    <img src="assets/iconTransp.png" style="margin-top: 10%;" width="120px">
+  
+    <div style="height: 250px;">
+      <ion-icon name="qr-code-outline" style="margin-top: 20%; font-size: 150px;" color="claro" (click)="this.Escanear()"></ion-icon>
+    </div>
+    <div class="texto">
+      <h4>Escanea el QR del local para entrar en la lista de espera.</h4>
+    </div>
   </div>
 </ion-content>
-
-<ion-fab horizontal="center" vertical="bottom">
-  <ion-fab-button data-desc2="" color="header">
-  </ion-fab-button>
-</ion-fab>
-
-<ion-fab horizontal="center" vertical="bottom">
-  <ion-fab-button data-desc="Escanear Qr de Ingreso" color="escanear" (click)="Escanear()">
-    <ion-icon name="barcode-outline"></ion-icon>
-  </ion-fab-button>
-</ion-fab>
-<ion-footer>
-  <ion-toolbar color="header">  
-  </ion-toolbar>
-</ion-footer>
