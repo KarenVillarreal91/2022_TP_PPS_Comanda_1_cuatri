@@ -17,7 +17,6 @@ import { SidebarComponent } from './shared/sidebar/sidebar.component';
 import { AltaSupervisorDuenioComponent } from './components/alta-supervisor-duenio/alta-supervisor-duenio.component';
 import { HomeSupervisorComponent } from './components/home-supervisor/home-supervisor.component';
 import { AltaClientesComponent } from './components/alta-clientes/alta-clientes.component';
-import { AltaClienteAnonimoComponent } from './components/alta-cliente-anonimo/alta-cliente-anonimo.component';
 import { AltaMesaComponent } from './components/alta-mesa/alta-mesa.component';
 import { EncuestaEmpleadosComponent } from './components/encuesta-empleados/encuesta-empleados.component';
 import { EncuestaClienteComponent } from './components/encuesta-cliente/encuesta-cliente.component';
@@ -36,7 +35,6 @@ import { ClientesListaDeEsperaComponent } from './components/clientes-lista-de-e
   LoginComponent,
   AltaEmpleadosComponent,
   AltaClientesComponent,
-  AltaClienteAnonimoComponent,
   AltaMesaComponent,
   PrincipalComponent,
   SidebarComponent,

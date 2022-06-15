@@ -8,9 +8,25 @@ import { AngularFireStorage } from '@angular/fire/compat/storage';
 })
 export class UserService {
 
-  usuarioActual: any = "";
+  usuarioActual: any = {id: ''};
+  clientes:Array<any> = [];
+  empleados:Array<any> = [];
+  supervisores:Array<any> = [];
 
-  constructor(private auth: AngularFireAuth, private firestore: AngularFirestore, private storage: AngularFireStorage) { }
+  constructor(private auth: AngularFireAuth, private firestore: AngularFirestore, private storage: AngularFireStorage) 
+  { 
+    this.GetColeccion('clientes').subscribe((lista)=>{
+      this.clientes = lista;
+    });
+
+    this.GetColeccion('empleados').subscribe((lista)=>{
+      this.empleados = lista;
+    });
+
+    this.GetColeccion('supervisorDuenio').subscribe((lista)=>{
+      this.supervisores = lista;
+    });
+  }
 
   Login(user: any) {
     this.usuarioActual = user;
@@ -33,15 +49,27 @@ export class UserService {
     return this.firestore.collection('mesas').add(mesa);
   }
 
-  SubirDatos(datos: any, coleccion: string) {
-    return this.firestore.collection(coleccion).add(datos);
+  async SubirDatos(datos: any, coleccion: string) {
+    let ret:any = false;
+
+    this.firestore.collection(coleccion).add(datos).then((res)=>{
+      ret = res.id;
+      this.EditarColeccion(res.id, {id: res.id}, coleccion);
+    });
+
+    return ret;
+  }
+
+  EditarColeccion(id:string, datos:any, tipo:string)
+  {
+    return this.firestore.collection(tipo).doc(id).update(datos);
   }
 
   async SubirEncuestaEmpleado(datos: any, foto: FormData) {
     let path = `fotosEncuestas/${Date.now()}`;
-
+  
     await this.storage.upload(path, foto.get('foto'));
-
+  
     let storageSub = this.storage.ref(path).getDownloadURL().subscribe((data) => {
       datos.foto = data;
       this.firestore.collection('encuestaEmpleados').add(datos);
@@ -102,12 +130,13 @@ export class UserService {
         storage.getDownloadURL().toPromise()
           .then((url: any) => {
             user.foto = url;
-            this.firestore.collection('clientes').add(user)
-              .then((dbUser) => {
-                localStorage.setItem('idUsuario', JSON.stringify(dbUser.id));//solo anonimo
-                let usuarioConTokenYTipo = {id:dbUser.id,tipo:user.tipo,token:''};
-                this.SubirUsuario(usuarioConTokenYTipo);
-              });
+
+            this.SubirDatos(user, 'clientes')
+            .then(()=>{
+              localStorage.setItem('idUsuario', JSON.stringify(this.usuarioActual.id));
+              let usuarioConTokenYTipo = {id: this.usuarioActual.id, tipo: user.tipo, token: ''};
+              this.SubirUsuario(usuarioConTokenYTipo);
+            });
           });
       });
     }
@@ -202,8 +231,8 @@ export class UserService {
      clientesSub.unsubscribe()
     });
      
-  }
-
+  } 
+  
   Desloguear(){
     let id = JSON.parse(this.getuserIdLocal());
     console.log(localStorage.getItem('idUsuario'));
@@ -223,4 +252,51 @@ export class UserService {
     });
   }
 
+  EsCliente()
+  {
+    let encontro = false;
+
+    for(let user of this.clientes)
+    {
+      if(user.id == this.usuarioActual.id)
+      {
+        encontro = user;
+        break;
+      }
+    }
+
+    return encontro;
+  }
+
+  EsEmpleado()
+  {
+    let encontro = false;
+
+    for(let user of this.empleados)
+    {
+      if(user.email == this.usuarioActual.email)
+      {
+        encontro = user;
+        break;
+      }
+    }
+
+    return encontro;
+  }
+
+  EsSurpervisor()
+  {
+    let encontro = false;
+
+    for(let user of this.supervisores)
+    {
+      if(user.email == this.usuarioActual.email)
+      {
+        encontro = user;
+        break;
+      }
+    }
+
+    return encontro
+  }
 }

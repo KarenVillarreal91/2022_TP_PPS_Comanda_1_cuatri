@@ -18,6 +18,8 @@ export class AltaClientesComponent implements OnInit {
   formData: FormData = new FormData();
   dataUrl = 'assets/default.png';
   form !: FormGroup;
+  formAnom !: FormGroup;
+  anonimo:boolean = false;
 
   constructor(private router: Router,
     public userService: UserService,
@@ -29,6 +31,10 @@ export class AltaClientesComponent implements OnInit {
       'nombre': ['', Validators.required],
       'apellido': ['', Validators.required],
       'dni': ['', [Validators.required, Validators.min(1000000), Validators.max(99999999)]]
+    });
+
+    this.formAnom = this.fb.group({
+      'nombre': ['', Validators.required]
     });
   }
 
@@ -87,39 +93,76 @@ export class AltaClientesComponent implements OnInit {
   }
 
   async Registro() {
-    let usuario = { email: this.form.value.email, password: this.form.value.password, nombre: this.form.value.nombre, apellido: this.form.value.apellido, dni: this.form.value.dni, habilitado: 'noHabilitado', tipo: 'cliente', enListaDeEspera: false, mesa: '' };
+    if(this.anonimo)
+    {
+      let usuario = {nombre: this.formAnom.value.nombre, habilitado: 'habilitado', tipo: 'cliente',  enListaDeEspera: false, mesa: ''};
 
-    this.userService.Registro(this.form.value)
-      .then((res: any) => {
-        console.log("res registro "+res);
-        this.userService.SubirCliente(usuario, this.dataUrl)
-          .then(() => {
-            document.getElementById('enviar').setAttribute('disabled', 'disabled');
+      this.userService.SubirDatos(usuario, 'clientes')
+      .then((res)=>{
+        this.userService.usuarioActual.id = res;
+        
+        document.getElementById('enviar').setAttribute('disabled', 'disabled');
+        this.spinner = true;
 
-            this.spinner = true;
-
-            setTimeout(() => {
-              Swal.fire({
-                title: 'Cliente dado de alta correctamente. A la espera de habilitación.',
-                icon: 'success',
-                timer: 2000,
-                toast: true,
-                backdrop: false,
-                position: 'bottom',
-                grow: 'row',
-                timerProgressBar: true,
-                showConfirmButton: false
-              });
-
-              this.Reiniciar();
-              this.spinner = false;
-            }, 2000);
-          }).catch(error => {
-            console.log(error);
+        setTimeout(() => {
+          Swal.fire({
+            title: 'Cliente dado de alta correctamente.',
+            icon: 'success',
+            timer: 2000,
+            toast: true,
+            backdrop: false,
+            position: 'bottom',
+            grow: 'row',
+            timerProgressBar: true,
+            showConfirmButton: false
           });
-      }).catch(error => {
-        this.Errores(error);
+
+          this.Reiniciar();
+          this.spinner = false;
+        }, 2000);
+      }).catch(error=>{
+        console.log(error);
       });
+    }
+    else
+    {
+      let usuario:any = { email: this.form.value.email, password: this.form.value.password, nombre: this.form.value.nombre, apellido: this.form.value.apellido, dni: this.form.value.dni, habilitado: 'noHabilitado', tipo: 'cliente', enListaDeEspera: false, mesa: '' };
+  
+      this.userService.Registro(this.form.value)
+        .then((res: any) => {
+          usuario.id = res.user.uid;
+
+          this.userService.usuarioActual.id = usuario.id;
+
+          this.userService.SubirCliente(usuario, this.dataUrl)
+            .then(() => {
+              document.getElementById('enviar').setAttribute('disabled', 'disabled');
+  
+              this.spinner = true;
+  
+              setTimeout(() => {
+                Swal.fire({
+                  title: 'Cliente dado de alta correctamente. A la espera de habilitación.',
+                  icon: 'success',
+                  timer: 2000,
+                  toast: true,
+                  backdrop: false,
+                  position: 'bottom',
+                  grow: 'row',
+                  timerProgressBar: true,
+                  showConfirmButton: false
+                });
+  
+                this.Reiniciar();
+                this.spinner = false;
+              }, 2000);
+            }).catch(error => {
+              console.log(error);
+            });
+        }).catch(error => {
+          this.Errores(error);
+        });
+    }
   }
 
   Errores(error: any) {

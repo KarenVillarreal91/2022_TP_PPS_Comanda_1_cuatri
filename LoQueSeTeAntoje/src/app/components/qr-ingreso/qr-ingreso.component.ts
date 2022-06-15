@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { Router } from '@angular/router';
 import { BarcodeScanner, BarcodeScannerOptions } from '@awesome-cordova-plugins/barcode-scanner/ngx';
 import { PushNotificationService } from 'src/app/services/push-notification.service';
 import { ScandniService } from 'src/app/services/scandni.service';
@@ -13,7 +14,12 @@ import Swal from 'sweetalert2';
 })
 export class QrIngresoComponent implements OnInit {
 
-  constructor(private barcode: BarcodeScanner, public scanService: ScandniService, public userService: UserService, public pushNotificationService: PushNotificationService, public firestore:AngularFirestore) 
+  constructor(private barcode: BarcodeScanner, 
+    public scanService: ScandniService, 
+    public userService: UserService, 
+    public pushNotificationService: PushNotificationService, 
+    public firestore:AngularFirestore,
+    private router:Router) 
   { 
 
   }
@@ -46,6 +52,7 @@ export class QrIngresoComponent implements OnInit {
                 timerProgressBar: true,
                 showConfirmButton: false
               });
+              this.router.navigateByUrl('homeCliente');
             }else{
               Swal.fire({
                 title: "Error ya se encuentra en la lista de espera.",

@@ -9,21 +9,21 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content slot="fixed">
-  <div class="container-datos" *ngIf="!escaneoMesa"> <!-- Asignado o no asignado es this.userService.usuarioActual.mesa != 'ingreso' -->
-    <img *ngIf="this.userService.usuarioActual.mesa != 'ingreso' && this.userService.usuarioActual.mesa != ''" src="assets/iconTransp.png" style="margin-top: 10%;" width="120px">
+<ion-content slot="fixed" *ngIf="this.usuario">
+  <div class="container-datos" *ngIf="!escaneoMesa">
+    <img *ngIf="!this.usuario.enListaDeEspera && this.usuario.mesa != ''" src="assets/iconTransp.png" style="margin-top: 10%;" width="120px">
 
-    <div class="slide-bottom" *ngIf="this.userService.usuarioActual.mesa == 'ingreso'"> <!-- No asignado y si ingreso -->
+    <div class="slide-bottom" *ngIf="this.usuario.enListaDeEspera"> <!-- No asignado y si ingreso -->
       <img class="rotate-center" src="assets/iconTransp.png" style="margin-top: 10%;" width="120px">
     </div>
     <div style="height: 250px;">
-      <ion-icon *ngIf="this.userService.usuarioActual.mesa != 'ingreso' && this.userService.usuarioActual.mesa != ''" name="qr-code-outline" style="margin-top: 20%; font-size: 150px;" color="claro" (click)="this.EscanearMesa()"></ion-icon> <!-- No asignado y si ingreso -->
+      <ion-icon *ngIf="!this.usuario.enListaDeEspera && this.usuario.mesa != ''" name="qr-code-outline" style="margin-top: 20%; font-size: 150px;" color="claro" (click)="this.EscanearMesa()"></ion-icon> <!-- No asignado y si ingreso -->
     </div>
     <div class="texto">
-      <h4 *ngIf="this.userService.usuarioActual.mesa == 'ingreso'">Espera a que se te asigne una mesa.</h4> <!-- No asignado y si ingreso -->
-      <div *ngIf="this.userService.usuarioActual.mesa != 'ingreso' && this.userService.usuarioActual.mesa != ''"> <!-- Si asignado y si ingreso -->
-        <h1>Mesa <b>{{this.userService.usuarioActual.mesa}}</b></h1>
-        <h4>Escanea el QR de la mesa para realizar su pedido o ver el estado de su pedido y hacer consultas al mozo.</h4>
+      <h4 *ngIf="this.usuario.enListaDeEspera">Espera a que se te asigne una mesa.</h4> <!-- No asignado y si ingreso -->
+      <div *ngIf="!this.usuario.enListaDeEspera && this.usuario.mesa != ''"> <!-- Si asignado y si ingreso -->
+        <h1>Mesa <b>{{this.usuario.mesa}}</b></h1>
+        <h4>Escanee el QR de la mesa para realizar su pedido o ver el estado de su pedido y hacer consultas al mozo.</h4>
       </div>
     </div>
   </div>

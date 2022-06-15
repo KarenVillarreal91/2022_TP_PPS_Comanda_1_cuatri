@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
-import { AltaClienteAnonimoComponent } from './components/alta-cliente-anonimo/alta-cliente-anonimo.component';
 import { AltaClientesComponent } from './components/alta-clientes/alta-clientes.component';
 import { AltaEmpleadosComponent } from './components/alta-empleados/alta-empleados.component';
 import { AltaMesaComponent } from './components/alta-mesa/alta-mesa.component';
@@ -28,7 +27,6 @@ const routes: Routes = [
   {path: 'homeCliente', component: HomeClienteComponent},
   {path: 'homeMozo', component: HomeMozoComponent},
   {path: 'altaClientes', component: AltaClientesComponent},
-  {path: 'altaClienteAnonimo', component: AltaClienteAnonimoComponent},
   {path: 'altaMesa', component: AltaMesaComponent},
   {path: 'encuestaEmpleados', component: EncuestaEmpleadosComponent},
   {path: 'encuestaCliente', component: EncuestaClienteComponent},
