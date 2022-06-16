@@ -38,7 +38,7 @@
 #### Matias Gravante (Gamma)
 * QR propina
 * Encuesta cliente
-* Agregar clente registrado (gestion)
+* Agregar clente registrado (gestion) ✔
 * Agregar cliente (push n)
 
 ## Tercer semana

@@ -14,42 +14,14 @@ export class HomeClienteComponent implements OnInit {
   escaneoMesa:boolean = false;
   pedido:any = "";
   verEstado:boolean = false;
+  usuario:any;
 
   constructor(public userService:UserService, private scanService:ScandniService, private router: Router) 
   { 
+    this.usuario = this.userService.EsCliente();
   }
 
   ngOnInit() {}
-
-  Ingreso()
-  {
-    /*
-    this.scanService.scan()
-    .then((datos) => {
-      if(datos.text == 'qrIngreso')
-      {
-        //Se puede usar la mesa como estado this.userService.usuarioActual.mesa = 'ingreso'
-      }
-    }).catch(error => {
-      Swal.fire({
-        title: "Ocurrió un error al escanear el QR.",
-        icon: 'error',
-        timer: 4000,
-        toast: true,
-        backdrop: false,
-        position: 'bottom',
-        grow: 'row',
-        timerProgressBar: true,
-        showConfirmButton: false
-      });
-    });*/
-
-    this.userService.usuarioActual.mesa = 'ingreso';
-
-    setTimeout(() => {
-      this.userService.usuarioActual.mesa = '2';
-    }, 5000);
-  }
 
   async EscanearMesa() 
   {
@@ -77,7 +49,7 @@ export class HomeClienteComponent implements OnInit {
       });
     }); */
 
-    let pedidosSub = this.userService.GetColeccion('pedidos').subscribe((pedidos)=>{
+    let pedidosS = this.userService.GetColeccion('pedidos').subscribe((pedidos)=>{
       for(let pedido of pedidos)
       {
         if(pedido.mesa == this.userService.usuarioActual.mesa)
@@ -86,7 +58,8 @@ export class HomeClienteComponent implements OnInit {
           break;
         }
       }
-      pedidosSub.unsubscribe();
+
+      pedidosS.unsubscribe();
     });
 
     this.escaneoMesa = true;

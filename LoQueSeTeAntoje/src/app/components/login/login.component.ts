@@ -25,7 +25,10 @@ export class LoginComponent implements OnInit {
     let usuario = {email:this.email, password:this.password};
     this.userService.Login(usuario)
     .then((res:any)=>{
-      this.logged = true;      
+      this.logged = true;
+
+      this.userService.usuarioActual.id = res.user.uid;
+
       this.userService.setearIdUsuario();
       setTimeout(() => {
         this.pushNotificationService.getUserForNotifications();

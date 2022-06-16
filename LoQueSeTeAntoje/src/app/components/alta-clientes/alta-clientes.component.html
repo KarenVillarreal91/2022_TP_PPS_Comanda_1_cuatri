@@ -12,8 +12,15 @@
 
 <ion-content slot="fixed">
   <div class="container-datos">
-    <form [formGroup]="form" (ngSubmit)="Registro()">
-      <h3>Alta de cliente</h3><br>
+    <h1 style="text-align: center;" *ngIf="!anonimo">Registro</h1>
+    <h1 style="text-align: center;" *ngIf="anonimo">Registro anónimo</h1>
+
+    <ion-item class="toggle">
+      <ion-toggle [(ngModel)]="anonimo"></ion-toggle>
+      <ion-label>Anónimo</ion-label>
+    </ion-item>
+
+    <form [formGroup]="form" (ngSubmit)="Registro()" *ngIf="!anonimo">
 
       <div>
         <div class="inputdiv">
@@ -38,7 +45,7 @@
         </div>
       </div>
 
-      <div>
+
         <div class="inputdiv">
           <ion-label>Nombre</ion-label>
           <ion-item color="transp" style="width: 140px;">
@@ -58,7 +65,6 @@
             Apellido inválido.
           </ion-label>
         </div>
-      </div>
 
         <div class="inputdiv">
           <ion-label>DNI</ion-label>
@@ -76,17 +82,32 @@
         <ion-button type="button" class="ingreso" fill="solid" expand="block" color="escanear" style="width: 80px; height: 45px" (click)="SacarFoto()"><ion-icon name="camera"></ion-icon></ion-button>
         <ion-img class="foto" [src]='this.dataUrl' id="foto"></ion-img>
       </div>
+
       <ion-button type="submit" class="ingreso" fill="solid" expand="block" color="enviar" id="enviar" style="margin-top: 23px;" [disabled]="form.invalid">Enviar</ion-button>
+    </form>
+
+    <form [formGroup]="formAnom" (ngSubmit)="Registro()" *ngIf="anonimo">
+        <div class="inputdiv">
+          <ion-label>Nombre</ion-label>
+          <ion-item color="transp" style="width: 140px;">
+            <ion-input type='text' required id="nombre" formControlName="nombre"></ion-input>
+          </ion-item>
+          <ion-label class="invalid" *ngIf="formAnom.controls['nombre'].errors?.['required'] && formAnom.controls['nombre'].touched">
+            Nombre inválido.
+          </ion-label>
+        </div>
+
+      <ion-button type="submit" class="ingreso" fill="solid" expand="block" color="enviar" id="enviar" style="margin-top: 23px;" [disabled]="formAnom.invalid">Enviar</ion-button>
     </form>
   </div>
 </ion-content>
 
-<ion-fab horizontal="center" vertical="bottom">
+<ion-fab horizontal="center" vertical="bottom" *ngIf="!anonimo">
   <ion-fab-button data-desc2="" color="header">
   </ion-fab-button>
 </ion-fab>
 
-<ion-fab horizontal="center" vertical="bottom">
+<ion-fab horizontal="center" vertical="bottom" *ngIf="!anonimo">
   <ion-fab-button data-desc="Escanear DNI" color="escanear" (click)="Escanear()">
     <ion-icon name="barcode-outline"></ion-icon>
   </ion-fab-button>
