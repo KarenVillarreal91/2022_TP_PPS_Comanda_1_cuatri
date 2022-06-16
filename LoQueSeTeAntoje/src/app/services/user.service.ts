@@ -14,7 +14,7 @@ export class UserService {
   empleados:Array<any> = [];
   supervisores:Array<any> = [];
 
-  constructor(private auth: AngularFireAuth, private firestore: AngularFirestore, private storage: AngularFireStorage) 
+  constructor(private auth: AngularFireAuth, private firestore: AngularFirestore, private storage: AngularFireStorage, private router:Router) 
   { 
     this.GetColeccion('clientes').subscribe((lista)=>{
       this.clientes = lista;
@@ -123,7 +123,7 @@ export class UserService {
               if (user.habilitado="habilitado")//es anonimo se debe setear acá id, ademas se debe redireccionar ya que no necesita logueo
               {
                 localStorage.setItem('idUsuario', JSON.stringify(this.usuarioActual.id));
-                //this.router.navigateByUrl('qrIngreso');
+                this.router.navigateByUrl('qrIngreso');
               }
             });
           });
@@ -200,6 +200,7 @@ export class UserService {
      if(us[0]!=undefined) {
       localStorage.setItem('idUsuario', JSON.stringify(us[0].payload.doc.id));
       console.log("clientes "+JSON.stringify(us[0].payload.doc.id));
+      this.usuarioActual.habilitado = us[0].payload.doc.data().habilitado;
      }else{
       let empleadosSub =this.firestore.collection("empleados", ref => ref.where('email', '==', this.usuarioActual.email)).snapshotChanges().subscribe((us:any)=>{
         if(us[0]!=undefined) {
@@ -219,7 +220,6 @@ export class UserService {
      }
      clientesSub.unsubscribe()
     });
-     
   } 
   
   Desloguear(){

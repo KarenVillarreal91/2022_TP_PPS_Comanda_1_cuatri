@@ -51,7 +51,7 @@ export class JuegoUnoComponent implements OnInit {
     }else{
       Swal.fire({
         title: 'Error',
-        text: 'Mal.',
+        text: 'Intentalo de nuevo.',
         icon: 'error',
         timer: 2000,
         toast: true,
@@ -61,7 +61,6 @@ export class JuegoUnoComponent implements OnInit {
         timerProgressBar: true,
         showConfirmButton: false
       });
-      // this.mandarPuntaje();
       this.empezarDeNuevo();
     }
     
@@ -87,7 +86,7 @@ export class JuegoUnoComponent implements OnInit {
     }else{
       Swal.fire({
         title: 'Error',
-        text: 'Mal.',
+        text: 'Intentalo de nuevo.',
         icon: 'error',
         timer: 2000,
         toast: true,
@@ -97,7 +96,6 @@ export class JuegoUnoComponent implements OnInit {
         timerProgressBar: true,
         showConfirmButton: false
       });
-      // this.mandarPuntaje();
       this.empezarDeNuevo();
     }
     
@@ -112,10 +110,6 @@ export class JuegoUnoComponent implements OnInit {
     this.crearColorAleatorio();
     this.puntajeAcumulado=0;
   }
-
-  // mandarPuntaje(){
-  //     this.puntajesService.enviarResultado(this.puntajeAcumulado,this.Usuario.id,this.Usuario.email, "colors");
-  // }
 
 }
 

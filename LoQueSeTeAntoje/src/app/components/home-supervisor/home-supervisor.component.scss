@@ -25,7 +25,7 @@
 	--ion-color-tint: #ffc577;
 }
 
-.ion-color-escanear {
+.ion-color-claro {
 	--ion-color-base: #f1e0c9;
 	--ion-color-base-rgb: rgb(241, 224, 201);
 	--ion-color-contrast: #140c02;
@@ -34,7 +34,13 @@
 	--ion-color-tint: #f1e0c9;
 }
 
+.slides-md{
+  --bullet-background-active: #ffffff;
+  --bullet-background: #ffffff;
+}
+
 .container-datos {
+  z-index: 1000;
   width: 90%;
   padding: 10px;
   background: #bbbbbb00;
@@ -42,29 +48,17 @@
   margin: auto; 
 }
 
-ion-fab-button[data-desc2] {
-  position: relative;
-  width: 81px;
-  height: 74px;
-  margin-bottom: 22%;
-  margin-left: -6.8px;
-}
-
-ion-fab-button[data-desc] {
-  position: relative;
-  width: 68px;
-  height: 68px;
-  margin-bottom: 23%;
-}
-
-ion-fab-button[data-desc]::after {
-  position: absolute;
-  content: attr(data-desc);
-  z-index: 1;
-  right: -20px;
-  bottom: -27px;
-  padding: 9px;
-  border-radius: 15px;
+.container-detalle {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  z-index: 1100;
+  top: 0;
+  left: 0;
+  background-color: #0e0c09eb;
+  backdrop-filter: blur(5px);
+  padding: 50px 0;
+  text-align: center;
 }
 
 ion-icon{
@@ -77,26 +71,6 @@ ion-icon{
   width: 130px;
   margin-top: 20px;
   display: inline-flex;
-}
-
-.listado{
-  height: 40px; 
-  width: 120px;
-  margin-top: 20px;
-  margin-left: 48px;
-}
-
-
-.foto{
-  width: 110px;
-  height: 96px; 
-  display: inline-flex; 
-  margin-left: 50%; 
-  margin-top: -25%;
-}
-
-.invalid{
-  color:#b7444f;
 }
 
 ion-content{
@@ -124,9 +98,49 @@ ion-label{
   color:rgb(201, 201, 201);
 }
 
-.inputdiv{
-  display: inline-table; 
-  height: 96px;
+ion-footer{
+  z-index: 900;
+  height: 10%;
+}
+
+ion-footer ion-toolbar{
+  height: 100%;
+}
+
+ion-fab-button[data-desc] {
+  position: relative;
+  width: 65px;
+  height: 65px;
+}
+
+h4{
+  margin-top: 10px;
+  font-size: 23px;
+}
+
+h5{
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.card-body{
+  width: 50%;
+  padding: 5px;
+  display: inline-block;
+}
+
+.datos{
+  background-color: #ffdfb02e;
+  padding: 15px;
+  border-radius: 5px;
+}
+
+.titulo{
+  text-align: center;
+  background: #ffb3657d;
+  color: white;
+  padding: 5px;
+  border-radius: 5px;
 }
 
 .rotate-center {
@@ -135,3 +149,9 @@ ion-label{
 }
 
 @-webkit-keyframes rotate-center{0%{-webkit-transform:rotate(0);transform:rotate(0)}100%{-webkit-transform:rotate(360deg);transform:rotate(360deg)}}@keyframes rotate-center{0%{-webkit-transform:rotate(0);transform:rotate(0)}100%{-webkit-transform:rotate(360deg);transform:rotate(360deg)}}
+
+.fade-in {
+	-webkit-animation: fade-out 1s cubic-bezier(0.785, 0.135, 0.150, 0.860) reverse both;
+	        animation: fade-out 1s cubic-bezier(0.785, 0.135, 0.150, 0.860) reverse both;
+}
+@-webkit-keyframes fade-out{0%{opacity:1}100%{opacity:0}}@keyframes fade-out{0%{opacity:1}100%{opacity:0}}

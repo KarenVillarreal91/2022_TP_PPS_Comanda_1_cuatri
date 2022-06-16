@@ -52,6 +52,7 @@ export class QrIngresoComponent implements OnInit {
                 timerProgressBar: true,
                 showConfirmButton: false
               });
+              this.pushNotificationService.EnviarNotificationAVariosUsuarios("metre","Cliente en lista de espera","Hay un nuevo cliente a la espera de asignación de mesa.");
               this.router.navigateByUrl('homeCliente');
             }else{
               Swal.fire({
