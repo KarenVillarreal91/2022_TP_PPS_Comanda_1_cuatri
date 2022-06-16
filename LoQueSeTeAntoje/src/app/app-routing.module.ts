@@ -11,6 +11,7 @@ import { EncuestaSupervisorComponent } from './components/encuesta-supervisor/en
 import { HomeClienteComponent } from './components/home-cliente/home-cliente.component';
 import { HomeMozoComponent } from './components/home-mozo/home-mozo.component';
 import { HomeSupervisorComponent } from './components/home-supervisor/home-supervisor.component';
+import { JuegoUnoComponent } from './components/juego-uno/juego-uno.component';
 import { LoginComponent } from './components/login/login.component';
 import { PrincipalComponent } from './components/principal/principal.component';
 import { QrIngresoComponent } from './components/qr-ingreso/qr-ingreso.component';
@@ -33,7 +34,8 @@ const routes: Routes = [
   {path: 'encuestaSupervisor', component: EncuestaSupervisorComponent},
   {path: 'qrIngreso', component: QrIngresoComponent},
   {path: 'realizarPedido', component: RealizarPedidoComponent},
-  {path: 'listaDeEspera', component: ClientesListaDeEsperaComponent}
+  {path: 'listaDeEspera', component: ClientesListaDeEsperaComponent},
+  {path: 'juegoUno', component: JuegoUnoComponent},
 
 ];
 

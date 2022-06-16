@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,7 @@ export class UserService {
 
   usuarioActual: any = "";
 
-  constructor(private auth: AngularFireAuth, private firestore: AngularFirestore, private storage: AngularFireStorage) { }
+  constructor(private auth: AngularFireAuth, private firestore: AngularFirestore, private storage: AngularFireStorage, private router:Router) { }
 
   Login(user: any) {
     this.usuarioActual = user;
@@ -89,9 +90,13 @@ export class UserService {
             user.foto = url;
             this.firestore.collection('clientes').add(user)
               .then((dbUser) => {
-                localStorage.setItem('idUsuario', JSON.stringify(dbUser.id));//solo anonimo
                 let usuarioConTokenYTipo = {id:dbUser.id,tipo:user.tipo,token:''};
                 this.SubirUsuario(usuarioConTokenYTipo);
+                if (user.habilitado="habilitado")//es anonimo y se debe redirigir a qr ingreso
+                {
+                  localStorage.setItem('idUsuario', JSON.stringify(dbUser.id));
+                  this.router.navigateByUrl('qrIngreso');
+                }
               });
           });
       });
@@ -195,9 +200,12 @@ export class UserService {
     localStorage.removeItem('idUsuario');
     console.log(localStorage.getItem('idUsuario'));
     let subUsuarios= this.firestore.collection("usuarios", ref => ref.where('id', '==', id)).snapshotChanges().subscribe(async (user) => {
-      this.firestore.collection('usuarios').doc(`${user[0].payload.doc.id}`).update({ token: '' });
-      subUsuarios.unsubscribe();
-    });
+      let usuarioForUpdate = this.firestore.collection('usuarios').doc(`${user[0].payload.doc.id}`);
+      usuarioForUpdate.update({ token: '' })
+      .then(() => { })
+      .catch((error) => { });
+      subUsuarios.unsubscribe()
+    })
    
   }
 }

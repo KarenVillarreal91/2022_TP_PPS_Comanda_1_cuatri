@@ -1,0 +1,88 @@
+<ion-content slot="fixed">
+  <div class="container-datos">
+<br>
+    <h1 class="titulo"style="margin: auto;">COLORS</h1>
+    <br>
+    <div class="row col-12 datos" style="margin: auto; width: 100%; height: 100%;">
+        <div class="col-6">
+            
+            <div class="card" >
+                <div class="forcard">
+                  <div >
+                    <h2 class="text-center"  [ngClass]="{'text-danger': colorIzquierda.colorReal === 'rojo',
+                    'text-warning': colorIzquierda.colorReal === 'amarillo',
+                    'text-success': colorIzquierda.colorReal === 'verde',
+                    'text-primary': colorIzquierda.colorReal === 'azul'}" ><b>{{colorIzquierda.palabra}}</b></h2>
+                    <!-- <p class="text-center">{{cartaActual.tipoCarta}}</p> -->
+                    
+                  </div>
+                </div>
+            </div>
+            <br>
+            <div class="text-center">
+                <h5>Significado</h5>
+                <br>
+                <div style="text-align: center;">
+                  <ion-icon name="arrow-up-circle-outline" style="color: #ffc577; height: 45px; margin-left: 17px;"></ion-icon>
+                </div>
+                <!-- <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-arrow-up-square-fill" viewBox="0 0 16 16">
+                    <path d="M2 16a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2zm6.5-4.5V5.707l2.146 2.147a.5.5 0 0 0 .708-.708l-3-3a.5.5 0 0 0-.708 0l-3 3a.5.5 0 1 0 .708.708L7.5 5.707V11.5a.5.5 0 0 0 1 0z"/>
+                  </svg> -->
+            </div>
+              
+        </div>
+        <div class="col-6">
+            <div class="card" >
+                <div class="forcard">
+                  <div >
+                    <h2 class="text-center"  [ngClass]="{'text-danger': colorDerecha.colorReal === 'rojo',
+                    'text-warning': colorDerecha.colorReal === 'amarillo',
+                    'text-success': colorDerecha.colorReal === 'verde',
+                    'text-primary': colorDerecha.colorReal === 'azul'}" ><b>{{colorDerecha.palabra}}</b></h2>
+                    <!-- <p class="text-center">{{cartaActual.tipoCarta}}</p> -->
+                    
+                  </div>
+                </div>
+            </div>
+            <br>
+            <div class="text-center">
+            <h5>Color texto</h5>
+            <br>
+            <div style="text-align: center;">
+              <ion-icon name="arrow-up-circle-outline" style="color: #ffc577; height: 45px; margin-left: 17px;"></ion-icon>
+            </div>
+            <!-- <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-arrow-up-square-fill" viewBox="0 0 16 16">
+                <path d="M2 16a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2zm6.5-4.5V5.707l2.146 2.147a.5.5 0 0 0 .708-.708l-3-3a.5.5 0 0 0-.708 0l-3 3a.5.5 0 1 0 .708.708L7.5 5.707V11.5a.5.5 0 0 0 1 0z"/>
+              </svg> -->
+              </div>
+
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-12">
+            <h1 class="text-center">
+                ¿El significado se corresponde con el color del texto?
+            </h1>
+        </div>
+        
+        <div class="col-6 text-center">
+          <ion-icon name="checkmark-circle-outline" style="color: #99ff77; height: 45px; margin-left: 17px;" (click)="ElegirSI();"></ion-icon>
+          <!-- <button class="btn btn-success" (click)="ElegirSI();">SI</button> -->
+        </div>
+        <div class="col-6 text-center">
+          <ion-icon name="close-circle-outline" style="color: #ff8e77; height: 45px; margin-left: 17px;" (click)="ElegirNO();"></ion-icon>
+          <!-- <button class="btn btn-danger" (click)="ElegirNO();">NO</button> -->
+        </div>        
+            
+        <br>
+        <div class="text-center">
+            <span>Puntaje acumulado: {{puntajeAcumulado}}</span>
+        </div>
+        <br>
+        <div class="text-center" style="margin-top: 17px;">
+            <button class="btn btn-warning" (click)="empezarDeNuevo();">Empezar de nuevo</button>
+        </div>
+    </div>
+    </div>
+</ion-content>

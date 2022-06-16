@@ -56,10 +56,8 @@ export class PushNotificationService {
     await PushNotifications.addListener(
       'registration',
       async (token: Token) => {
-        // alert(token.value);
         let subs = this.firestore.collection("usuarios", ref => ref.where('id', '==', this.idUser)).snapshotChanges().subscribe( (user) => {
           let usuarioForUpdate = this.firestore.collection('usuarios').doc(`${user[0].payload.doc.id}`);
-          console.log("token "+token);
           usuarioForUpdate.update({ token: token.value })
           .then(() => { })
           .catch((error) => { });
@@ -127,13 +125,16 @@ export class PushNotificationService {
       console.log(resp[0].payload.doc.data().id);
       console.log(resp[0].payload.doc.data().token);
       if(resp[0]!=undefined) token = resp[0].payload.doc.data().token;
-      this.sendPushNotification({
+      console.log(token)
+      let push = this.sendPushNotification({
         to:token,
         notification: {
           title: titulo,
-          body: body,
-          image_url: 'assets/iconTransp2.png'
+          body: body
         }
+      }).subscribe((data) => {//sin el subscribe la notificacion no llega
+        console.log(data);
+        push.unsubscribe();
       });
       usuario.unsubscribe();
     });
@@ -143,13 +144,16 @@ export class PushNotificationService {
     let usuariosTokens: Array<any> = [];
     let sub = this.firestore.collection("usuarios", ref => ref.where('tipo', '==', tipo)).snapshotChanges().subscribe(async (user:any) => {
       usuariosTokens.push(user[0].payload.doc.data().token);
-      this.sendPushNotification({
+      let push =this.sendPushNotification({
         registration_ids: usuariosTokens,
         notification: {
           title: titulo,
           body: body
         }
-      })
+      }).subscribe((data) => {//sin el subscribe la notificacion no llega
+        console.log(data);
+        push.unsubscribe();
+      });
       sub.unsubscribe();
     });
   }

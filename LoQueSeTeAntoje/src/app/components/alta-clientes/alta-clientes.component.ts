@@ -6,6 +6,7 @@ import { ScandniService } from 'src/app/services/scandni.service';
 import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { PushNotificationService } from 'src/app/services/push-notification.service';
 
 @Component({
   selector: 'app-alta-clientes',
@@ -22,7 +23,8 @@ export class AltaClientesComponent implements OnInit {
   constructor(private router: Router,
     public userService: UserService,
     public scanService: ScandniService,
-    private fb: FormBuilder) {
+    private fb: FormBuilder,
+    private pushNotificationService:PushNotificationService) {
     this.form = this.fb.group({
       'email': ['', [Validators.required, Validators.email]],
       'password': ['', Validators.required],
@@ -110,7 +112,8 @@ export class AltaClientesComponent implements OnInit {
                 timerProgressBar: true,
                 showConfirmButton: false
               });
-
+              this.pushNotificationService.EnviarNotificationAVariosUsuarios("supervisor","Pendiente de habilitación.","Tiene pendiente un cliente a la espera de habilitación.");
+              this.pushNotificationService.EnviarNotificationAVariosUsuarios("duenio","Pendiente de habilitación.","Tiene pendiente un cliente a la espera de habilitación.");
               this.Reiniciar();
               this.spinner = false;
             }, 2000);
