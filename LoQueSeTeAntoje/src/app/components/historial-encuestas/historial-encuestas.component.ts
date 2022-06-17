@@ -205,7 +205,7 @@ export class HistorialEncuestasComponent implements OnInit {
 
     setTimeout(() => {
       this.spinner = false;
-      this.router.navigateByUrl('principal');
+      this.router.navigateByUrl('homeCliente');
     }, 2000);
   }
 
