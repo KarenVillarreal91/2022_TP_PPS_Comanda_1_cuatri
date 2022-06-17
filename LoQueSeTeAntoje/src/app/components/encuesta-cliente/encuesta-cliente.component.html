@@ -15,7 +15,7 @@
 
 <ion-content slot="fixed">
   <div class="container-datos">
-    <form [formGroup]="form" (ngSubmit)="EnviarEncuesta()" *ngIf="!verEncuestas">
+    <form *ngIf="!encuestaCompletada" [formGroup]="form" (ngSubmit)="EnviarEncuesta()">
       <h3>Encuesta de empleados</h3><br>
 
       <ion-button type="button" class="omitir" fill="solid" expand="block" color="omitir" (click)="Omitir()">Omitir
@@ -98,9 +98,6 @@
           <ion-input type="file" accept="image/*" formControlName="foto3" (change)="SubirFoto3($event)"></ion-input>
 
         </ion-item>
-        <!-- <ion-label class="invalid" *ngIf="form.controls['foto'].errors?.['required'] && form.controls['foto'].touched">
-          Cargue una foto.
-        </ion-label> -->
       </div>
 
       <div class="inputdiv">
@@ -113,5 +110,9 @@
       <ion-button type="submit" class="ingreso" fill="solid" expand="block" color="enviar" id="enviar"
         style="margin-top: 23px;" [disabled]="form.invalid">Enviar</ion-button>
     </form>
+    <div *ngIf="encuestaCompletada">
+      <h3>Ya realizó la encuesta</h3><br>
+
+    </div>
   </div>
 </ion-content>

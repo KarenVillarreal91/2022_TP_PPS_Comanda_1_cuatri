@@ -250,6 +250,7 @@ export class UserService {
     let id = JSON.parse(this.getuserIdLocal());
     console.log(localStorage.getItem('idUsuario'));
     localStorage.removeItem('idUsuario');
+    localStorage.removeItem('encuestaCompletada');
     console.log(localStorage.getItem('idUsuario'));
     let subUsuarios = this.firestore.collection("usuarios", ref => ref.where('id', '==', id)).snapshotChanges().subscribe(async (user) => {
       let usuarioForUpdate = this.firestore.collection('usuarios').doc(`${user[0].payload.doc.id}`);
