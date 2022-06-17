@@ -8,6 +8,7 @@ import { ClientesListaDeEsperaComponent } from './components/clientes-lista-de-e
 import { EncuestaClienteComponent } from './components/encuesta-cliente/encuesta-cliente.component';
 import { EncuestaEmpleadosComponent } from './components/encuesta-empleados/encuesta-empleados.component';
 import { EncuestaSupervisorComponent } from './components/encuesta-supervisor/encuesta-supervisor.component';
+import { HistorialEncuestasComponent } from './components/historial-encuestas/historial-encuestas.component';
 import { HomeBartenderComponent } from './components/home-bartender/home-bartender.component';
 import { HomeClienteComponent } from './components/home-cliente/home-cliente.component';
 import { HomeCocineroComponent } from './components/home-cocinero/home-cocinero.component';
@@ -42,6 +43,7 @@ const routes: Routes = [
   {path: 'listaDeEspera', component: ClientesListaDeEsperaComponent},
   {path: 'juegoUno', component: JuegoUnoComponent},
   {path: 'juegoMayorMenor', component: MayoromenorComponent},
+  {path: 'historialEncuestas', component: HistorialEncuestasComponent},
 
 ];
 

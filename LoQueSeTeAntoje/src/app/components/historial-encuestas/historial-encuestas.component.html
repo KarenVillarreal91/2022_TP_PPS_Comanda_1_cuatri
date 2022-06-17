@@ -1,0 +1,57 @@
+<ion-header>
+  <ion-toolbar color="header">
+    <ion-title>
+      <ion-img style="width: 55px; height: 55px;" *ngIf="!spinner" src='assets/iconTransp2.png'></ion-img>
+      <ion-img class="rotate-center" style="width: 55px; height: 55px;" *ngIf="spinner" src='assets/iconTransp2.png'>
+      </ion-img>
+    </ion-title>
+    <ion-buttons slot="end">
+      <ion-menu-button style="margin: auto;" type="button" menu="menu" color="escanear">
+        <ion-icon name="menu"></ion-icon>
+      </ion-menu-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content slot="fixed">
+  <div class="container-datos">
+    <ion-button type="button" fill="solid" expand="block" color="enviar" (click)="Omitir()">Continuar</ion-button>
+
+    <ion-card>
+      <ion-card-header>
+        Limpieza
+      </ion-card-header>
+      <ion-card-content>
+        <canvas #limpiezaCanvas style="position: relative; height:20vh; width:40vw"></canvas>
+      </ion-card-content>
+    </ion-card>
+
+    <ion-card>
+      <ion-card-header>
+        Inconvenientes con otros empleados
+      </ion-card-header>
+      <ion-card-content>
+        <canvas #inconvenientesCanvas style="position: relative; height:20vh; width:40vw"></canvas>
+      </ion-card-content>
+    </ion-card>
+
+    <ion-card>
+      <ion-card-header>
+        ¿Se ordenaron las mesas?
+      </ion-card-header>
+      <ion-card-content>
+        <canvas #ordenCanvas style="position: relative; height:20vh; width:40vw"></canvas>
+      </ion-card-content>
+    </ion-card>
+
+    <ion-card>
+      <ion-card-header>
+        Quejas de los clientes
+      </ion-card-header>
+      <ion-card-content>
+        <canvas #quejasCanvas style="position: relative; height:20vh; width:40vw"></canvas>
+      </ion-card-content>
+    </ion-card>
+  </div>
+</ion-content>

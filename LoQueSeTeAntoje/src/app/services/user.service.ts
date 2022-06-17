@@ -9,22 +9,21 @@ import { Router } from '@angular/router';
 })
 export class UserService {
 
-  usuarioActual: any = {id: ''};
-  clientes:Array<any> = [];
-  empleados:Array<any> = [];
-  supervisores:Array<any> = [];
+  usuarioActual: any = { id: '' };
+  clientes: Array<any> = [];
+  empleados: Array<any> = [];
+  supervisores: Array<any> = [];
 
-  constructor(private auth: AngularFireAuth, private firestore: AngularFirestore, private storage: AngularFireStorage, private router:Router) 
-  { 
-    this.GetColeccion('clientes').subscribe((lista)=>{
+  constructor(private auth: AngularFireAuth, private firestore: AngularFirestore, private storage: AngularFireStorage, private router: Router) {
+    this.GetColeccion('clientes').subscribe((lista) => {
       this.clientes = lista;
     });
 
-    this.GetColeccion('empleados').subscribe((lista)=>{
+    this.GetColeccion('empleados').subscribe((lista) => {
       this.empleados = lista;
     });
 
-    this.GetColeccion('supervisorDuenio').subscribe((lista)=>{
+    this.GetColeccion('supervisorDuenio').subscribe((lista) => {
       this.supervisores = lista;
     });
   }
@@ -51,26 +50,25 @@ export class UserService {
   }
 
   async SubirDatos(datos: any, coleccion: string) {
-    let ret:any = false;
+    let ret: any = false;
 
-    this.firestore.collection(coleccion).add(datos).then((res)=>{
+    this.firestore.collection(coleccion).add(datos).then((res) => {
       ret = res.id;
-      this.EditarColeccion(res.id, {id: res.id}, coleccion);
+      this.EditarColeccion(res.id, { id: res.id }, coleccion);
     });
 
     return ret;
   }
 
-  EditarColeccion(id:string, datos:any, tipo:string)
-  {
+  EditarColeccion(id: string, datos: any, tipo: string) {
     return this.firestore.collection(tipo).doc(id).update(datos);
   }
 
   async SubirEncuestaEmpleado(datos: any, foto: FormData) {
     let path = `fotosEncuestas/${Date.now()}`;
-  
+
     await this.storage.upload(path, foto.get('foto'));
-  
+
     let storageSub = this.storage.ref(path).getDownloadURL().subscribe((data) => {
       datos.foto = data;
       this.firestore.collection('encuestaEmpleados').add(datos);
@@ -79,16 +77,26 @@ export class UserService {
   }
 
   async SubirEncuestaCliente(datos: any, fotos: FormData) {
-    let path = `fotosEncuestas/${Date.now()}`;
+    let path1 = `fotosEncuestas/${Date.now()}/1`;
+    let path2 = `fotosEncuestas/${Date.now()}/2`;
+    let path3 = `fotosEncuestas/${Date.now()}/3`;
 
-    await this.storage.upload(path, fotos.get('foto1'));
-    await this.storage.upload(path, fotos.get('foto2'));
-    await this.storage.upload(path, fotos.get('foto3'));
+    await this.storage.upload(path1, fotos.get('foto1'));
+    await this.storage.upload(path2, fotos.get('foto2'));
+    await this.storage.upload(path3, fotos.get('foto3'));
 
-    let storageSub = this.storage.ref(path).getDownloadURL().subscribe((data) => {
-      datos.foto = data;
-      this.firestore.collection('encuestaClientes').add(datos);
-      storageSub.unsubscribe();
+    let storageSub1 = this.storage.ref(path1).getDownloadURL().subscribe((data1) => {
+      datos.foto1 = data1;
+      let storageSub2 = this.storage.ref(path2).getDownloadURL().subscribe((data2) => {
+        datos.foto2 = data2;
+        let storageSub3 = this.storage.ref(path3).getDownloadURL().subscribe((data3) => {
+          datos.foto3 = data3;
+          this.firestore.collection('encuestaClientes').add(datos);
+          storageSub3.unsubscribe();
+        });
+        storageSub2.unsubscribe();
+      });
+      storageSub1.unsubscribe();
     });
   }
 
@@ -106,10 +114,10 @@ export class UserService {
           .then((url: any) => {
             user.foto = url;
             this.firestore.collection('empleados').add(user)
-            .then((dbUser) => {
-              let usuarioConTokenYTipo = {id:dbUser.id,tipo:user.tipo,token:''};
-              this.SubirUsuario(usuarioConTokenYTipo);
-            });
+              .then((dbUser) => {
+                let usuarioConTokenYTipo = { id: dbUser.id, tipo: user.tipo, token: '' };
+                this.SubirUsuario(usuarioConTokenYTipo);
+              });
           });
       });
     }
@@ -133,15 +141,15 @@ export class UserService {
             user.foto = url;
 
             this.firestore.collection('clientes').add(user)
-            .then((data)=>{
-              let usuarioConTokenYTipo = {id: data.id, tipo: user.tipo, token: ''};
-              this.SubirUsuario(usuarioConTokenYTipo);
-              if (user.habilitado="habilitado")//es anonimo se debe setear acá id, ademas se debe redireccionar ya que no necesita logueo
-              {
-                localStorage.setItem('idUsuario', JSON.stringify(this.usuarioActual.id));
-                this.router.navigateByUrl('qrIngreso');
-              }
-            });
+              .then((data) => {
+                let usuarioConTokenYTipo = { id: data.id, tipo: user.tipo, token: '' };
+                this.SubirUsuario(usuarioConTokenYTipo);
+                if (user.habilitado = "habilitado")//es anonimo se debe setear acá id, ademas se debe redireccionar ya que no necesita logueo
+                {
+                  localStorage.setItem('idUsuario', JSON.stringify(this.usuarioActual.id));
+                  this.router.navigateByUrl('qrIngreso');
+                }
+              });
           });
       });
     }
@@ -164,10 +172,10 @@ export class UserService {
           .then((url: any) => {
             user.foto = url;
             this.firestore.collection('supervisorDuenio').add(user)
-            .then((dbUser) => {
-              let usuarioConTokenYTipo = {id:dbUser.id,tipo:user.tipo,token:''};
-              this.SubirUsuario(usuarioConTokenYTipo);
-            });
+              .then((dbUser) => {
+                let usuarioConTokenYTipo = { id: dbUser.id, tipo: user.tipo, token: '' };
+                this.SubirUsuario(usuarioConTokenYTipo);
+              });
           });
       });
     }
@@ -199,75 +207,72 @@ export class UserService {
   getUsuarioActual() {
     return this.firestore.collection("clientes", ref => ref.where('email', '==', this.usuarioActual.email)).snapshotChanges();
   }
-  getUsuarioActualByID(id:string) {
+  getUsuarioActualByID(id: string) {
     return this.firestore.collection("usuarios", ref => ref.where('id', '==', id)).snapshotChanges();
   }
 
-  getuserIdLocal(){
+  getuserIdLocal() {
     return localStorage.getItem('idUsuario');
   }
 
-  async SubirUsuario(user:any){
+  async SubirUsuario(user: any) {
     this.firestore.collection('usuarios').add(user);
   }
 
-  async setearIdUsuario(){
-    let clientesSub = this.firestore.collection("clientes", ref => ref.where('email', '==', this.usuarioActual.email)).snapshotChanges().subscribe((us:any)=>{
-     if(us[0]!=undefined) {
-      localStorage.setItem('idUsuario', JSON.stringify(us[0].payload.doc.id));
-      console.log("clientes "+JSON.stringify(us[0].payload.doc.id));
-      this.usuarioActual.habilitado = us[0].payload.doc.data().habilitado;
-     }else{
-      let empleadosSub =this.firestore.collection("empleados", ref => ref.where('email', '==', this.usuarioActual.email)).snapshotChanges().subscribe((us:any)=>{
-        if(us[0]!=undefined) {
-          localStorage.setItem('idUsuario', JSON.stringify(us[0].payload.doc.id));
-          console.log("empleados "+JSON.stringify(us[0].payload.doc.id));
-         }else{
-          let supervisorDuenioSub =this.firestore.collection("supervisorDuenio", ref => ref.where('email', '==', this.usuarioActual.email)).snapshotChanges().subscribe((us:any)=>{
-            if(us[0]!=undefined) {
-              localStorage.setItem('idUsuario', JSON.stringify(us[0].payload.doc.id));
-              console.log("supervisor "+JSON.stringify(us[0].payload.doc.id));
-             }
-             supervisorDuenioSub.unsubscribe()
-           });
-         }
-         empleadosSub.unsubscribe()
-       });
-     }
-     clientesSub.unsubscribe()
+  async setearIdUsuario() {
+    let clientesSub = this.firestore.collection("clientes", ref => ref.where('email', '==', this.usuarioActual.email)).snapshotChanges().subscribe((us: any) => {
+      if (us[0] != undefined) {
+        localStorage.setItem('idUsuario', JSON.stringify(us[0].payload.doc.id));
+        console.log("clientes " + JSON.stringify(us[0].payload.doc.id));
+        this.usuarioActual.habilitado = us[0].payload.doc.data().habilitado;
+      } else {
+        let empleadosSub = this.firestore.collection("empleados", ref => ref.where('email', '==', this.usuarioActual.email)).snapshotChanges().subscribe((us: any) => {
+          if (us[0] != undefined) {
+            localStorage.setItem('idUsuario', JSON.stringify(us[0].payload.doc.id));
+            console.log("empleados " + JSON.stringify(us[0].payload.doc.id));
+          } else {
+            let supervisorDuenioSub = this.firestore.collection("supervisorDuenio", ref => ref.where('email', '==', this.usuarioActual.email)).snapshotChanges().subscribe((us: any) => {
+              if (us[0] != undefined) {
+                localStorage.setItem('idUsuario', JSON.stringify(us[0].payload.doc.id));
+                console.log("supervisor " + JSON.stringify(us[0].payload.doc.id));
+              }
+              supervisorDuenioSub.unsubscribe()
+            });
+          }
+          empleadosSub.unsubscribe()
+        });
+      }
+      clientesSub.unsubscribe()
     });
-  } 
-  
-  Desloguear(){
+  }
+
+  Desloguear() {
     let id = JSON.parse(this.getuserIdLocal());
     console.log(localStorage.getItem('idUsuario'));
     localStorage.removeItem('idUsuario');
     console.log(localStorage.getItem('idUsuario'));
-    let subUsuarios= this.firestore.collection("usuarios", ref => ref.where('id', '==', id)).snapshotChanges().subscribe(async (user) => {
+    let subUsuarios = this.firestore.collection("usuarios", ref => ref.where('id', '==', id)).snapshotChanges().subscribe(async (user) => {
       let usuarioForUpdate = this.firestore.collection('usuarios').doc(`${user[0].payload.doc.id}`);
       usuarioForUpdate.update({ token: '' })
-      .then(() => { })
-      .catch((error) => { });
+        .then(() => { })
+        .catch((error) => { });
       subUsuarios.unsubscribe()
     })
-   
+
   }
 
-  updatePedido(mesa:number, propina:number){
-    let pedidosSubscription= this.firestore.collection("pedidos", ref => ref.where('mesa', '==', mesa).where('estado', '==', "Entregado")).snapshotChanges().subscribe(async (pedido) => {
+  updatePedido(mesa: number, propina: number) {
+    let pedidosSubscription = this.firestore.collection("pedidos", ref => ref.where('mesa', '==', mesa).where('estado', '==', "Entregado")).snapshotChanges().subscribe(async (pedido) => {
       this.firestore.collection('pedidos').doc(`${pedido[0].payload.doc.id}`).update({ propina: propina });
       pedidosSubscription.unsubscribe();
     });
   }
 
-  EsCliente()
-  {
+  EsCliente() {
     let encontro = false;
 
-    for(let user of this.clientes)
-    {
-      if(user.uid == this.usuarioActual.id || user.id == this.usuarioActual.id)
-      {
+    for (let user of this.clientes) {
+      if (user.uid == this.usuarioActual.id || user.id == this.usuarioActual.id) {
         encontro = user;
         break;
       }
@@ -276,14 +281,11 @@ export class UserService {
     return encontro;
   }
 
-  EsEmpleado()
-  {
+  EsEmpleado() {
     let encontro = false;
 
-    for(let user of this.empleados)
-    {
-      if(user.email == this.usuarioActual.email)
-      {
+    for (let user of this.empleados) {
+      if (user.email == this.usuarioActual.email) {
         encontro = user;
         break;
       }
@@ -292,14 +294,11 @@ export class UserService {
     return encontro;
   }
 
-  EsSurpervisor()
-  {
+  EsSurpervisor() {
     let encontro = false;
 
-    for(let user of this.supervisores)
-    {
-      if(user.email == this.usuarioActual.email)
-      {
+    for (let user of this.supervisores) {
+      if (user.email == this.usuarioActual.email) {
         encontro = user;
         break;
       }
