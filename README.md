@@ -52,7 +52,7 @@
 * Juego (opcional?)
 
 #### Daniela Moreno (Beta)
-* Juego (opcional?) 
+* Juego (opcional?) ✔
 
 #### Matias Gravante (Gamma)
 * Juego (opcional?) ✔
