@@ -36,7 +36,7 @@
         <ion-icon class="iconBoton" name="cart-outline"></ion-icon>
         <h3>Realizar pedido</h3>
       </ion-button>
-      <ion-button routerLink="chat" type="button" fill="solid" expand="block" color="claro" style="height: 170px; margin-top: 10%;">
+      <ion-button routerLink="../chat" type="button" fill="solid" expand="block" color="claro" style="height: 170px; margin-top: 10%;">
         <ion-icon class="iconBoton" name="chatbubbles-outline"></ion-icon>
         <h3>Consultar al mozo</h3>
       </ion-button>
@@ -47,7 +47,7 @@
         <ion-icon class="iconBoton" name="document-text-outline"></ion-icon>
         <h3>Ver estado<br>del pedido</h3>
       </ion-button>
-      <ion-button routerLink="chat" type="button" fill="solid" expand="block" color="claro" style="height: 100px; margin-top: 10%;">
+      <ion-button routerLink="../chat" type="button" fill="solid" expand="block" color="claro" style="height: 100px; margin-top: 10%;">
         <ion-icon class="iconBoton" name="chatbubbles-outline"></ion-icon>
         <h3>Consultar al mozo</h3>
       </ion-button>
@@ -73,12 +73,12 @@
         <h4>Pedir la cuenta</h4>
       </ion-button>
 
-      <ion-button *ngIf="!this.usuario.encuestaCompletada" [disabled]="this.pedido.estado != 'Recibido'" routerLink="encuestaCliente" type="button" fill="solid" expand="block" color="claro" style="height: 80px; margin-top: 5%;">
+      <ion-button *ngIf="!this.usuario.encuestaCompletada" [disabled]="this.pedido.estado != 'Recibido'" routerLink="../encuestaCliente" type="button" fill="solid" expand="block" color="claro" style="height: 80px; margin-top: 5%;">
         <ion-icon class="iconBoton" name="clipboard-outline"></ion-icon>
         <h4>Realizar encuesta</h4>
       </ion-button>
 
-      <ion-button *ngIf="this.usuario.encuestaCompletada" routerLink="historialEncuestas" type="button" fill="solid" expand="block" color="claro" style="height: 80px; margin-top: 5%;">
+      <ion-button *ngIf="this.usuario.encuestaCompletada" routerLink="../historialEncuestas" type="button" fill="solid" expand="block" color="claro" style="height: 80px; margin-top: 5%;">
         <ion-icon class="iconBoton" name="clipboard-outline"></ion-icon>
         <h4>Ver encuestas</h4>
       </ion-button>
