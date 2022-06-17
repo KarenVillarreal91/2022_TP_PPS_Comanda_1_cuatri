@@ -40,10 +40,10 @@
 * Confirmar pedido (push n)
 
 #### Matias Gravante (Gamma)
-* QR propina
-* Encuesta cliente
+* QR propina ✔
+* Encuesta cliente ✔
 * Agregar clente registrado (gestion) ✔
-* Agregar cliente (push n)
+* Agregar cliente (push n) ✔
 
 ## Tercer semana
 ###### Fecha: 11/06/2022 a 18/06/2022
@@ -54,5 +54,5 @@
 * Juego (opcional?) 
 
 #### Matias Gravante (Gamma)
-* Juego (opcional?) 
+* Juego (opcional?) ✔
 
