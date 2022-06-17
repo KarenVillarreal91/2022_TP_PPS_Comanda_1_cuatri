@@ -43,13 +43,17 @@
     </div>
 
     <div *ngIf="this.pedido != '' && !verEstado">
-      <ion-button type="button" fill="solid" expand="block" color="claro" style="height: 170px; margin-top: 20%;" (click)="verEstado = true;">
+      <ion-button type="button" fill="solid" expand="block" color="claro" style="height: 100px; margin-top: 20%;" (click)="verEstado = true;">
         <ion-icon class="iconBoton" name="document-text-outline"></ion-icon>
         <h3>Ver estado<br>del pedido</h3>
       </ion-button>
-      <ion-button type="button" fill="solid" expand="block" color="claro" style="height: 170px; margin-top: 10%;">
+      <ion-button type="button" fill="solid" expand="block" color="claro" style="height: 100px; margin-top: 10%;">
         <ion-icon class="iconBoton" name="chatbubbles-outline"></ion-icon>
         <h3>Consultar al mozo</h3>
+      </ion-button>
+      <ion-button type="button" fill="solid" expand="block" color="claro" style="height: 100px; margin-top: 10%;">
+        <ion-icon class="iconBoton" name="game-controller-outline"></ion-icon>
+        <h3>Juegos</h3>
       </ion-button>
     </div>
 
@@ -59,14 +63,24 @@
         <h1><b class={{this.pedido.estado}}>{{this.pedido.estado}}</b></h1> <!-- Solicitado - En preparación - Listo - Entregado - Recibido - Pagado - Finalizado -->
       </div>
       
-      <ion-button *ngIf="this.pedido.estado == 'Entregado'" type="button" fill="solid" expand="block" color="claro" style="height: 80px; margin-top: 20%;" (click)="Recibido(pedido)">
+      <ion-button [disabled]="this.pedido.estado != 'Entregado'" type="button" fill="solid" expand="block" color="claro" style="height: 80px; margin-top: 10%;" (click)="Recibido(pedido)">
         <ion-icon class="iconBoton" name="checkmark"></ion-icon>
         <h4>Recibí mi pedido</h4>
       </ion-button>
 
-      <ion-button *ngIf="this.pedido.estado == 'Recibido'" type="button" fill="solid" expand="block" color="claro" style="height: 80px; margin-top: 20%;" (click)="cuenta = true;">
+      <ion-button [disabled]="this.pedido.estado != 'Recibido'" type="button" fill="solid" expand="block" color="claro" style="height: 80px; margin-top: 5%;" (click)="cuenta = true;">
         <ion-icon class="iconBoton" name="receipt-outline"></ion-icon>
         <h4>Pedir la cuenta</h4>
+      </ion-button>
+
+      <ion-button *ngIf="!this.usuario.encuestaCompletada" [disabled]="this.pedido.estado != 'Recibido'" routerLink="encuestaCliente" type="button" fill="solid" expand="block" color="claro" style="height: 80px; margin-top: 5%;">
+        <ion-icon class="iconBoton" name="clipboard-outline"></ion-icon>
+        <h4>Realizar encuesta</h4>
+      </ion-button>
+
+      <ion-button *ngIf="this.usuario.encuestaCompletada" routerLink="historialEncuestas" type="button" fill="solid" expand="block" color="claro" style="height: 80px; margin-top: 5%;">
+        <ion-icon class="iconBoton" name="clipboard-outline"></ion-icon>
+        <h4>Ver encuestas</h4>
       </ion-button>
     </div>
   </div>
@@ -89,10 +103,17 @@
       <ion-col size="6">{{producto.nombre}}</ion-col>
       <ion-col size="3">${{producto.precio * producto.cantidad}}</ion-col>
     </ion-row>
+
+    <ion-row class="ion-justify-content-center" style="margin-top: 13px;">
+      <ion-col size="3"></ion-col>
+      <ion-col size="6">Propina</ion-col>
+      <ion-col size="3">${{pedido.propina}}</ion-col>
+    </ion-row>
+
     <ion-row class="ion-justify-content-center" style="margin-top: 20%;">
       <ion-col size="2"></ion-col>
       <ion-col size="5" style="text-align: center; font-size: 25px;" >Total</ion-col>
-      <ion-col size="3" style="font-size: 25px;">${{pedido.total}}</ion-col>
+      <ion-col size="3" style="font-size: 25px;">${{pedido.total + pedido.propina}}</ion-col>
     </ion-row>
 
     <ion-row class="ion-justify-content-around" style="margin-top: 20%;">
@@ -100,8 +121,14 @@
         <ion-button color="transp" (click)="cuenta = false">Cancelar</ion-button>
       </ion-col>
       <ion-col size="4">
-        <ion-button color="enviar" (click)="Pagar(pedido)">Confirmar</ion-button>
+        <ion-button color="enviar" (click)="Pagar(pedido)">Pagar</ion-button>
       </ion-col>
     </ion-row>
+
+    <ion-fab horizontal="center" vertical="bottom" *ngIf="pedido.propina == 0">
+      <ion-fab-button data-desc="Propina" color="claro" (click)="escanearQrPropina()">
+        <ion-icon name="barcode-outline"></ion-icon>
+      </ion-fab-button>
+    </ion-fab>
   </div>
 </ion-content>

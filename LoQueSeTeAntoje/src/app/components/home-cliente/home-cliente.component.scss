@@ -39,6 +39,25 @@
 	margin-right: 10px;
 }
 
+ion-fab-button[data-desc] {
+	position: relative;
+	width: 68px;
+	height: 68px;
+	margin-bottom: 23%;
+  }
+  
+  ion-fab-button[data-desc]::after {
+	position: absolute;
+	content: attr(data-desc);
+	z-index: 1;
+	right: -10px;
+    bottom: 64px;
+    padding: 9px;
+    border-radius: 15px;
+    color: white;
+    font-size: 20px;
+  }
+
 .container-datos {
   width: 90%;
   padding: 10px;
