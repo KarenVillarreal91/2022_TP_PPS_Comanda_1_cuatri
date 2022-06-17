@@ -250,7 +250,7 @@ export class UserService {
     let id = JSON.parse(this.getuserIdLocal());
     console.log(localStorage.getItem('idUsuario'));
     localStorage.removeItem('idUsuario');
-    this.EditarColeccion(id, {encuestaComopletada: false}, 'clientes');
+    this.EditarColeccion(id, { encuestaComopletada: false }, 'clientes');
     console.log(localStorage.getItem('idUsuario'));
     let subUsuarios = this.firestore.collection("usuarios", ref => ref.where('id', '==', id)).snapshotChanges().subscribe(async (user) => {
       let usuarioForUpdate = this.firestore.collection('usuarios').doc(`${user[0].payload.doc.id}`);
@@ -259,7 +259,7 @@ export class UserService {
         .catch((error) => { });
       subUsuarios.unsubscribe()
     })
-
+    this.auth.signOut();
   }
 
   updatePedido(mesa: number, propina: number) {
@@ -306,5 +306,23 @@ export class UserService {
     }
 
     return encontro
+  }
+
+  obtenerUsuarioActual() {
+    let todos: any = [this.EsCliente(), this.EsEmpleado(), this.EsSurpervisor()]
+
+    if (todos[0]) {
+      this.usuarioActual = todos[0]
+    }
+    else {
+      if (todos[1]) {
+        this.usuarioActual = todos[1]
+      }
+      else {
+        this.usuarioActual = todos[2]
+      }
+    }
+
+
   }
 }
