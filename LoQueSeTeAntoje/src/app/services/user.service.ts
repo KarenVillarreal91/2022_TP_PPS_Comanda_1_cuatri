@@ -217,16 +217,19 @@ export class UserService {
       localStorage.setItem('idUsuario', JSON.stringify(us[0].payload.doc.id));
       console.log("clientes "+JSON.stringify(us[0].payload.doc.id));
       this.usuarioActual.habilitado = us[0].payload.doc.data().habilitado;
+      this.usuarioActual.tipo = us[0].payload.doc.data().tipo;
      }else{
       let empleadosSub =this.firestore.collection("empleados", ref => ref.where('email', '==', this.usuarioActual.email)).snapshotChanges().subscribe((us:any)=>{
         if(us[0]!=undefined) {
           localStorage.setItem('idUsuario', JSON.stringify(us[0].payload.doc.id));
           console.log("empleados "+JSON.stringify(us[0].payload.doc.id));
+          this.usuarioActual.tipo = us[0].payload.doc.data().tipo;
          }else{
           let supervisorDuenioSub =this.firestore.collection("supervisorDuenio", ref => ref.where('email', '==', this.usuarioActual.email)).snapshotChanges().subscribe((us:any)=>{
             if(us[0]!=undefined) {
               localStorage.setItem('idUsuario', JSON.stringify(us[0].payload.doc.id));
               console.log("supervisor "+JSON.stringify(us[0].payload.doc.id));
+              this.usuarioActual.tipo = us[0].payload.doc.data().tipo;
              }
              supervisorDuenioSub.unsubscribe()
            });

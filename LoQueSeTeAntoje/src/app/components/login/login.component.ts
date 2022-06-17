@@ -35,7 +35,6 @@ export class LoginComponent implements OnInit {
         {
           this.pushNotificationService.getUserForNotifications();
           this.userService.usuarioActual.mesa = '';
-          this.router.navigateByUrl('principal');
           this.logged = false;
           Swal.fire({
             title: 'Ingreso exitoso.',
@@ -49,6 +48,40 @@ export class LoginComponent implements OnInit {
             timerProgressBar: true,
             showConfirmButton: false
           });
+          switch(this.userService.usuarioActual.tipo) { 
+            case "cliente": { 
+              this.router.navigateByUrl('qrIngreso'); 
+               break; 
+            } 
+            case "metre": { 
+              this.router.navigateByUrl('homeMetre'); 
+               break; 
+            }
+            case "mozo": { 
+              this.router.navigateByUrl('homeMozo'); 
+               break; 
+            }
+            case "bartender": { 
+              this.router.navigateByUrl('homeBartender'); 
+               break; 
+            }
+            case "cocinero": { 
+              this.router.navigateByUrl('homeCocinero'); 
+               break; 
+            }
+            case "supervisor": { 
+              this.router.navigateByUrl('homeSupervisor'); 
+               break; 
+            }
+            case "duenio": { 
+              this.router.navigateByUrl('homeSupervisor'); 
+               break; 
+            }
+            default: { 
+              this.router.navigateByUrl('principal'); 
+               break; 
+            } 
+         }
         }else{
           if (this.userService.usuarioActual.habilitado=="noHabilitado"){
             this.logged = false;
