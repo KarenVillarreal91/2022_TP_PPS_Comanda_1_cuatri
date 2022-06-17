@@ -144,7 +144,7 @@ export class UserService {
               .then((data) => {
                 let usuarioConTokenYTipo = { id: data.id, tipo: user.tipo, token: '' };
                 this.SubirUsuario(usuarioConTokenYTipo);
-                if (user.habilitado = "habilitado")//es anonimo se debe setear acá id, ademas se debe redireccionar ya que no necesita logueo
+                if (user.habilitado == "habilitado")//es anonimo se debe setear acá id, ademas se debe redireccionar ya que no necesita logueo
                 {
                   localStorage.setItem('idUsuario', JSON.stringify(data.id));
                   this.router.navigateByUrl('qrIngreso');
