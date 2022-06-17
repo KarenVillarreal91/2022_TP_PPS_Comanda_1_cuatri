@@ -15,11 +15,8 @@
 
 <ion-content slot="fixed">
   <div class="container-datos">
-    <form *ngIf="!encuestaCompletada" [formGroup]="form" (ngSubmit)="EnviarEncuesta()">
-      <h3>Encuesta de empleados</h3><br>
-
-      <ion-button type="button" class="omitir" fill="solid" expand="block" color="omitir" (click)="Omitir()">Omitir
-      </ion-button>
+    <form [formGroup]="form" (ngSubmit)="EnviarEncuesta()">
+      <h3>Encuesta de clientes</h3><br>
 
       <div>
         <div class="inputdiv">
@@ -110,9 +107,5 @@
       <ion-button type="submit" class="ingreso" fill="solid" expand="block" color="enviar" id="enviar"
         style="margin-top: 23px;" [disabled]="form.invalid">Enviar</ion-button>
     </form>
-    <div *ngIf="encuestaCompletada">
-      <h3>Ya realizó la encuesta</h3><br>
-
-    </div>
   </div>
 </ion-content>

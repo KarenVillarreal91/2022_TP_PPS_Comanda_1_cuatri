@@ -21,9 +21,18 @@ export class HomeClienteComponent implements OnInit {
   cuenta:boolean = false;
   spinner:boolean = false;
 
-  constructor(private barcodeScanner: BarcodeScanner, public userService:UserService, private scanService:ScandniService, private router: Router) 
+  constructor(private barcodeScanner: BarcodeScanner, public userService:UserService, private scanService:ScandniService, public router: Router) 
   { 
-    this.usuario = this.userService.EsCliente();
+    userService.GetColeccion('clientes').subscribe((data)=>{
+      for (let user of data) 
+      {
+        if (user.uid == this.userService.usuarioActual.id || user.id == this.userService.usuarioActual.id) 
+        {
+          this.usuario = user;
+          break;
+        }
+      }  
+    })
   }
 
   ngOnInit() {}
@@ -39,9 +48,22 @@ export class HomeClienteComponent implements OnInit {
           this.userService.GetColeccion('pedidos').subscribe((pedidos)=>{
             for(let pedido of pedidos)
             {
-              if(pedido.mesa == this.usuario.mesa && pedido.estado != 'Finalizado')
+              if(pedido.mesa == this.usuario.mesa)
               {
-                this.pedido = pedido;
+                if(pedido.estado != 'Finalizado')
+                {
+                  this.pedido = pedido;
+                }
+                else
+                {
+                  if(this.usuario.encuestaCompletada)
+                  {
+                    this.pedido = '';
+                    this.escaneoMesa = false;
+                    this.router.navigateByUrl('qrIngreso');
+                  }
+                }
+
                 break;
               }
             }
@@ -67,6 +89,7 @@ export class HomeClienteComponent implements OnInit {
 
   RealizarPedido()
   {
+    this.escaneoMesa = false;
     this.router.navigateByUrl('realizarPedido');
   }
 
@@ -90,7 +113,7 @@ export class HomeClienteComponent implements OnInit {
     
     this.scanService.scan()
     .then((data:any) => {
-      this.propina = parseInt(data.text);
+      this.propina = this.pedido.total * parseFloat(data.text);
       this.propinaEscaneada = true;
       this.userService.EditarColeccion(this.pedido.id, {propina: this.propina}, 'pedidos');
       setTimeout(() => {
