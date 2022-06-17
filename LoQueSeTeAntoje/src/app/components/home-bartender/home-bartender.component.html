@@ -1,3 +1,36 @@
-<p>
-  home-bartender works!
-</p>
+<ion-header>
+  <ion-toolbar color="header">
+    <ion-title>
+      <ion-img style="width: 55px; height: 55px;" *ngIf="!spinner" src='assets/iconTransp2.png'></ion-img>
+      <ion-img class="rotate-center" style="width: 55px; height: 55px;" *ngIf="spinner" src='assets/iconTransp2.png'></ion-img>
+    </ion-title>
+    <ion-buttons slot="end">
+      <ion-menu-button style="margin: auto;" type="button" menu="menu" color="escanear"><ion-icon name="menu"></ion-icon></ion-menu-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content slot="fixed">
+  <div class="container-datos" *ngIf="pedidos">
+    <h3 class="titulo">Pedidos de bartender</h3>
+    <div class="card-body" *ngFor="let pedido of pedidos">
+      <div class="datos">
+        <h1>Mesa: <b style="color: #ffc84c;">{{pedido.mesa}}</b></h1>
+        <h3 *ngIf="tiempo > 0">Tiempo: <b>{{tiempo}}s</b></h3>
+        <div *ngFor="let prod of pedido.productos">
+          <div *ngIf="prod.tipo == 'bebida'">
+            <hr/><h5><b>{{prod.nombre}}</b></h5>
+              <p>Cantidad: {{prod.cantidad}}</p>
+              <img [src]="prod.fotos[0]" style="width: 126px; height: 126px; border-radius: 5%;"/>
+          </div>
+        </div>
+        <hr/><ion-button *ngIf="!pedido.enPreparacion" color="enviar" (click)="Preparar(pedido)">Preparar</ion-button>
+        <ion-button color="enviar" *ngIf="pedido.enPreparacion" [disabled]="tiempo != 0" (click)="Listo(pedido)">Productos listos</ion-button>
+      </div>
+    </div>
+    <div class="datos" *ngIf="pedidos.length == 0">
+      <ion-icon name="wine-outline"></ion-icon>
+      <h1>No hay pedidos por el momento</h1>
+    </div>
+  </div>
+</ion-content>

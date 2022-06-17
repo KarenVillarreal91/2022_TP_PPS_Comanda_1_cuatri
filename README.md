@@ -25,21 +25,26 @@
 #### Karen Villarreal (Alfa)
 * QR mesa
 * Realizar pedidos (gestion) ✔
-* Confirmar pedidos (gestion)
+* Confirmar pedidos (gestion) ✔
+* Home Bartender ✔
+* Home Mozo ✔
+* Home Cliente ✔
+* Home Cocinero ✔
 * Consultar mozo (push n)
 * Confirmar realizacion pedido (push n)
 
 #### Daniela Moreno (Beta)
-* QR ingreso
-* Ingresar al local (gestion)
-* Ingreso local (push n)
+* QR ingreso ✔
+* Ingresar al local (gestion) ✔
+* Ingreso local (push n) ✔
 * Confirmar pedido (push n)
 
 #### Matias Gravante (Gamma)
-* QR propina
-* Encuesta cliente
+* QR propina ✔
+* Encuesta cliente ✔
+* HIstorial encuestas clientes ✔
 * Agregar clente registrado (gestion) ✔
-* Agregar cliente (push n)
+* Agregar cliente (push n) ✔
 
 ## Tercer semana
 ###### Fecha: 11/06/2022 a 18/06/2022
@@ -47,8 +52,8 @@
 * Juego (opcional?)
 
 #### Daniela Moreno (Beta)
-* Juego (opcional?)
+* Juego (opcional?) ✔
 
 #### Matias Gravante (Gamma)
-* Juego (opcional?)
+* Juego (opcional?) ✔
 

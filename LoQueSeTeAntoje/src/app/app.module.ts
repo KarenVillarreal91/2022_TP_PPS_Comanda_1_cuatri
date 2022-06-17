@@ -34,6 +34,7 @@ import { HomeCocineroComponent } from './components/home-cocinero/home-cocinero.
 import { MayoromenorComponent } from './components/mayoromenor/mayoromenor.component';
 import { HomeMetreComponent } from './components/home-metre/home-metre.component';
 import { RealizarPedidoComponent } from './components/realizar-pedido/realizar-pedido.component';
+import { HistorialEncuestasComponent } from './components/historial-encuestas/historial-encuestas.component';
 
 @NgModule({
   declarations: [AppComponent,
@@ -51,6 +52,7 @@ import { RealizarPedidoComponent } from './components/realizar-pedido/realizar-p
   HomeBartenderComponent,
   HomeCocineroComponent,
   HomeMetreComponent,
+  HistorialEncuestasComponent,
   EncuestaEmpleadosComponent,
   EncuestaClienteComponent,
   EncuestaSupervisorComponent,

@@ -12,7 +12,7 @@
 
 <ion-content slot="fixed">
   <div class="container-datos">
-    <h3 class="titulo">Pedidos</h3>
+    <h3 class="titulo">Pedidos mozo</h3>
     <div class="card-body" *ngFor="let pedido of pedidos">
       <div class="datos">
         <h1><b class={{pedido.estado}}>{{pedido.estado}}</b></h1>
@@ -23,10 +23,14 @@
             <img [src]="prod.fotos[0]" style="width: 126px; height: 126px; border-radius: 5%;"/>
         </div>
         <hr/><h2>Total: <b>${{pedido.total}}</b></h2>
-        <hr/><ion-button *ngIf="pedido.estado == 'Solicitado'" color="enviar" (click)="Enviar()">Enviar a preparar</ion-button>
-        <ion-button *ngIf="pedido.estado == 'Listo'" color="enviar">Entregar a cliente</ion-button>
-        <ion-button *ngIf="pedido.estado == 'Pagado'" color="enviar">Confirmar pago</ion-button>
+        <hr/><ion-button *ngIf="pedido.estado == 'Solicitado'" color="enviar" (click)="Enviar(pedido)">Enviar a preparar</ion-button>
+        <ion-button *ngIf="pedido.estado == 'Listo'" color="enviar" (click)="Entregar(pedido)">Entregar a cliente</ion-button>
+        <ion-button *ngIf="pedido.estado == 'Pagado'" color="enviar" (click)="Finalizar(pedido)">Confirmar pago</ion-button>
       </div>
+    </div>
+    <div class="datos" *ngIf="pedidos.length == 0">
+      <ion-icon name="fast-food-outline"></ion-icon>
+      <h1 style="color: white;">No hay pedidos por el momento</h1>
     </div>
   </div>
 </ion-content>

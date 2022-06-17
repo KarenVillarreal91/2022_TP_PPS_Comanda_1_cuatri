@@ -1,10 +1,19 @@
 .ion-color-transp {
-	--ion-color-base: #ffeed62e;
-	--ion-color-base-rgb: rgba(163, 163, 163, 0.452);
+	--ion-color-base: #2e261bd1;
+	--ion-color-base-rgb: rgba(46, 38, 27, 0.82);
 	--ion-color-contrast: #ffffff;
 	--ion-color-contrast-rgb: rgb(255, 255, 255);
-	--ion-color-shade: #ffeed62e;
-	--ion-color-tint: #ffeed62e;
+	--ion-color-shade: #2e261bd1;
+	--ion-color-tint: #2e261bd1;
+}
+
+.ion-color-transp2 {
+	--ion-color-base: #ffeed600;
+	--ion-color-base-rgb: rgba(163, 163, 163, 0);
+	--ion-color-contrast: #ffffff;
+	--ion-color-contrast-rgb: rgb(255, 255, 255);
+	--ion-color-shade: #ffeed600;
+	--ion-color-tint: #ffeed600;
 }
 
 .ion-color-header {
@@ -25,7 +34,7 @@
 	--ion-color-tint: #ffc577;
 }
 
-.ion-color-claro {
+.ion-color-escanear {
 	--ion-color-base: #f1e0c9;
 	--ion-color-base-rgb: rgb(241, 224, 201);
 	--ion-color-contrast: #140c02;
@@ -34,13 +43,16 @@
 	--ion-color-tint: #f1e0c9;
 }
 
-.slides-md{
-  --bullet-background-active: #ffffff;
-  --bullet-background: #ffffff;
+.ion-color-omitir {
+	--ion-color-base: #d15353;
+	--ion-color-base-rgb: rgb(231, 97, 97);
+	--ion-color-contrast: #ffffff;
+	--ion-color-contrast-rgb: rgb(255, 255, 255);
+	--ion-color-shade: #d15353;
+	--ion-color-tint: #d15353;
 }
 
 .container-datos {
-  z-index: 1000;
   width: 90%;
   padding: 10px;
   background: #bbbbbb00;
@@ -48,22 +60,45 @@
   margin: auto; 
 }
 
-.container-detalle {
-  width: 100%;
-  height: 100%;
-  position: fixed;
-  z-index: 1100;
-  top: 0;
-  left: 0;
-  background-color: #0e0c09eb;
-  backdrop-filter: blur(5px);
-  padding: 50px 0;
-  text-align: center;
+ion-card{
+  background-color: #14120f2b;
+}
+
+ion-card-header{
+  color: #ececec;
+}
+
+ion-fab-button[data-desc2] {
+  position: relative;
+  width: 81px;
+  height: 74px;
+  margin-bottom: 22%;
+  margin-left: -6.8px;
+}
+
+ion-fab-button[data-desc] {
+  position: relative;
+  width: 68px;
+  height: 68px;
+  margin-bottom: 23%;
+}
+
+ion-fab-button[data-desc]::after {
+  position: absolute;
+  content: attr(data-desc);
+  z-index: 1;
+  right: -20px;
+  bottom: -27px;
+  padding: 9px;
+  border-radius: 15px;
 }
 
 ion-icon{
-  margin:auto;
-  font-size: 43px;
+  font-size: 30px;
+}
+
+ion-range{
+  padding-top: 20px;
 }
 
 .enviar{
@@ -71,6 +106,32 @@ ion-icon{
   width: 130px;
   margin-top: 20px;
   display: inline-flex;
+}
+
+.omitir{
+  width: 77px;
+  display: inline-block;
+  float: right;
+  margin-top: -17%;
+}
+
+.listado{
+  height: 40px; 
+  width: 120px;
+  margin-top: 20px;
+  margin-left: 48px;
+}
+
+.foto{
+  width: 110px;
+  height: 96px; 
+  display: inline-flex; 
+  margin-left: 50%; 
+  margin-top: -25%;
+}
+
+.invalid{
+  color:#b7444f;
 }
 
 ion-content{
@@ -94,66 +155,23 @@ ion-button {
     margin-bottom: 15px;
 }
 
-ion-label{
+.label{
+  font-size: 18px;
   color:rgb(201, 201, 201);
 }
 
-ion-footer{
-  z-index: 900;
-  height: 10%;
+.iconEst{
+  margin-right: 10px;
 }
 
-ion-footer ion-toolbar{
-  height: 100%;
-}
-
-ion-fab-button[data-desc] {
-  position: relative;
-  width: 65px;
-  height: 65px;
-}
-
-h4{
-  margin-top: 10px;
-  font-size: 23px;
-}
-
-h5{
-  margin-top: 5px;
-  margin-bottom: 5px;
-}
-
-.card-body{
+.inputdiv{
+  display: inline-table; 
   width: 100%;
-  padding: 5px;
-  display: inline-block;
-}
-
-.datos{
-  background-color: #ffdfb02e;
-  padding: 15px;
-  border-radius: 5px;
   text-align: center;
-}
-
-.titulo{
-  text-align: center;
-  background: #ffb3657d;
-  color: white;
-  padding: 5px;
-  border-radius: 5px;
-}
-
-hr{
-  border-width: 3px;
-}
-
-.Pagado{
-	color: #4ac450;
-}
-
-.Listo{
-	color: #4ac450;
+  background-color: #ffeed62e;
+  border-radius: 10px;
+  margin-bottom: 25px;
+  padding-top: 17px;
 }
 
 .rotate-center {
@@ -162,9 +180,3 @@ hr{
 }
 
 @-webkit-keyframes rotate-center{0%{-webkit-transform:rotate(0);transform:rotate(0)}100%{-webkit-transform:rotate(360deg);transform:rotate(360deg)}}@keyframes rotate-center{0%{-webkit-transform:rotate(0);transform:rotate(0)}100%{-webkit-transform:rotate(360deg);transform:rotate(360deg)}}
-
-.fade-in {
-	-webkit-animation: fade-out 1s cubic-bezier(0.785, 0.135, 0.150, 0.860) reverse both;
-	        animation: fade-out 1s cubic-bezier(0.785, 0.135, 0.150, 0.860) reverse both;
-}
-@-webkit-keyframes fade-out{0%{opacity:1}100%{opacity:0}}@keyframes fade-out{0%{opacity:1}100%{opacity:0}}

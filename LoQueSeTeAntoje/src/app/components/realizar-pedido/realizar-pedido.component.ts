@@ -19,7 +19,8 @@ export class RealizarPedidoComponent implements OnInit {
   tiempos:Array<number> = [0];
   tiempoTotal:number = 0;
   detalles:boolean = false;
-  
+  usuario:any;
+
   constructor(private router:Router, 
     public userService:UserService) 
   {  
@@ -36,6 +37,8 @@ export class RealizarPedidoComponent implements OnInit {
         }
       }
     });
+
+    this.usuario = this.userService.EsCliente();
   }
 
   ngOnInit() 
@@ -83,7 +86,7 @@ export class RealizarPedidoComponent implements OnInit {
 
   Enviar()
   {
-    this.userService.SubirDatos({total: this.precioTotal, propina: this.propina, tiempo: this.tiempoTotal, productos: this.productos, estado: 'Solicitado', mesa: this.userService.usuarioActual.mesa, parteCocinero: false, parteBartender: false}, 'pedidos')
+    this.userService.SubirDatos({total: this.precioTotal, propina: this.propina, tiempo: this.tiempoTotal, productos: this.productos, estado: 'Solicitado', mesa: this.usuario.mesa, parteCocinero: false, parteBartender: false}, 'pedidos')
     .then(()=>{
 
       this.spinner = true;

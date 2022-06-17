@@ -24,12 +24,12 @@
               <img [src]="prod.fotos[0]" style="width: 126px; height: 126px; border-radius: 5%;"/>
           </div>
         </div>
-        <hr/><ion-button *ngIf="pedido.estado == 'Aceptado'" color="enviar" (click)="Preparar(pedido)">Preparar</ion-button>
-        <ion-button color="enviar" *ngIf="pedido.estado == 'En preparación'" [disabled]="tiempo != 0" (click)="Listo(pedido)">Productos listos</ion-button>
+        <hr/><ion-button *ngIf="!pedido.enPreparacion" color="enviar" (click)="Preparar(pedido)">Preparar</ion-button>
+        <ion-button color="enviar" *ngIf="pedido.enPreparacion" [disabled]="tiempo != 0" (click)="Listo(pedido)">Productos listos</ion-button>
       </div>
     </div>
     <div class="datos" *ngIf="pedidos.length == 0">
-      <ion-icon name="fast-food-outline"></ion-icon>
+      <ion-icon name="restaurant-outline"></ion-icon>
       <h1>No hay pedidos por el momento</h1>
     </div>
   </div>
