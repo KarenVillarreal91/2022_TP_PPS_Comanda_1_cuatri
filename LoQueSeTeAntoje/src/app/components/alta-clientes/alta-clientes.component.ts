@@ -99,7 +99,7 @@ export class AltaClientesComponent implements OnInit {
     {
       let usuario = {nombre: this.formAnom.value.nombre, habilitado: 'habilitado', tipo: 'cliente',  enListaDeEspera: false, mesa: ''};
 
-      this.userService.SubirDatos(usuario, 'clientes')
+      this.userService.SubirCliente(usuario, this.dataUrl)
       .then((res)=>{
         this.userService.usuarioActual.id = res;
         
