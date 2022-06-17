@@ -18,6 +18,8 @@ export class HomeClienteComponent implements OnInit {
   propina = 0;
   propinaEscaneada = false;
   usuario:any;
+  cuenta:boolean = false;
+  spinner:boolean = false;
 
   constructor(private barcodeScanner: BarcodeScanner, public userService:UserService, private scanService:ScandniService, private router: Router) 
   { 
@@ -34,17 +36,15 @@ export class HomeClienteComponent implements OnInit {
       {
         if(this.usuario.mesa == datos.text)
         {
-          let pedidosS = this.userService.GetColeccion('pedidos').subscribe((pedidos)=>{
+          this.userService.GetColeccion('pedidos').subscribe((pedidos)=>{
             for(let pedido of pedidos)
             {
-              if(pedido.mesa == this.usuario.mesa)
+              if(pedido.mesa == this.usuario.mesa && pedido.estado != 'Finalizado')
               {
                 this.pedido = pedido;
                 break;
               }
             }
-      
-            pedidosS.unsubscribe();
           });
       
           this.escaneoMesa = true;
@@ -63,12 +63,27 @@ export class HomeClienteComponent implements OnInit {
         showConfirmButton: false
       });
     });
-
   }
 
   RealizarPedido()
   {
     this.router.navigateByUrl('realizarPedido');
+  }
+
+  Recibido(pedido:any)
+  {
+    this.userService.EditarColeccion(pedido.id, {estado: 'Recibido'}, 'pedidos');
+  }
+
+  Pagar(pedido:any)
+  {
+    this.spinner = true;
+
+    setTimeout(() => {
+      this.spinner = false;
+      this.cuenta = false;
+      this.userService.EditarColeccion(pedido.id, {estado: 'Pagado'}, 'pedidos');
+    }, 2000);
   }
 
   escanearQrPropina(){

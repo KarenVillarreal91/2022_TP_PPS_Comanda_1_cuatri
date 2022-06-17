@@ -1,7 +1,8 @@
 <ion-header>
   <ion-toolbar color="header">
     <ion-title>
-      <ion-img style="width: 55px; height: 55px;" src='assets/iconTransp2.png'></ion-img>
+      <ion-img style="width: 55px; height: 55px;" *ngIf="!spinner" src='assets/iconTransp2.png'></ion-img>
+      <ion-img class="rotate-center" style="width: 55px; height: 55px;" *ngIf="spinner" src='assets/iconTransp2.png'></ion-img>
     </ion-title>
     <ion-buttons slot="end">
       <ion-menu-button style="margin: auto;" type="button" menu="menu" color="claro"><ion-icon name="menu"></ion-icon></ion-menu-button>
@@ -55,18 +56,52 @@
     <div *ngIf="verEstado">
       <div class="estado" >
         <h2>Estado de su pedido</h2>
-        <h1><b class={{this.pedido.estado}}>{{this.pedido.estado}}</b></h1> <!-- Solicitado - Aceptado - En preparación - Listo - Entregado - Recibido - Pagado - Finalizado -->
+        <h1><b class={{this.pedido.estado}}>{{this.pedido.estado}}</b></h1> <!-- Solicitado - En preparación - Listo - Entregado - Recibido - Pagado - Finalizado -->
       </div>
       
-      <ion-button *ngIf="this.pedido.estado == 'Entregado'" type="button" fill="solid" expand="block" color="claro" style="height: 80px; margin-top: 20%;">
+      <ion-button *ngIf="this.pedido.estado == 'Entregado'" type="button" fill="solid" expand="block" color="claro" style="height: 80px; margin-top: 20%;" (click)="Recibido(pedido)">
         <ion-icon class="iconBoton" name="checkmark"></ion-icon>
         <h4>Recibí mi pedido</h4>
       </ion-button>
 
-      <ion-button *ngIf="this.pedido.estado == 'Recibido'" type="button" fill="solid" expand="block" color="claro" style="height: 80px; margin-top: 20%;">
+      <ion-button *ngIf="this.pedido.estado == 'Recibido'" type="button" fill="solid" expand="block" color="claro" style="height: 80px; margin-top: 20%;" (click)="cuenta = true;">
         <ion-icon class="iconBoton" name="receipt-outline"></ion-icon>
         <h4>Pedir la cuenta</h4>
       </ion-button>
     </div>
+  </div>
+
+  <div *ngIf="cuenta" class="container-detalle">  
+    <h3 class="titulo" style="margin: auto; margin-top: 15%; width:80%;">Detalle del pedido</h3>
+
+    <ion-row class="ion-justify-content-center" style="margin-top: 50px; margin-bottom: 15px;">
+      <ion-col size="3">Cantidad</ion-col>
+      <ion-col size="6">Producto</ion-col>
+      <ion-col size="3">Importe</ion-col>
+    </ion-row>
+    <ion-row class="ion-justify-content-center" >
+      <ion-col size="10">
+        <div style="width: 100%; height: 2px;"></div>
+      </ion-col>
+    </ion-row>
+    <ion-row *ngFor="let producto of pedido.productos" style="margin-top: 13px;" class="ion-justify-content-center">
+      <ion-col size="3">x{{producto.cantidad}}</ion-col>
+      <ion-col size="6">{{producto.nombre}}</ion-col>
+      <ion-col size="3">${{producto.precio * producto.cantidad}}</ion-col>
+    </ion-row>
+    <ion-row class="ion-justify-content-center" style="margin-top: 20%;">
+      <ion-col size="2"></ion-col>
+      <ion-col size="5" style="text-align: center; font-size: 25px;" >Total</ion-col>
+      <ion-col size="3" style="font-size: 25px;">${{pedido.total}}</ion-col>
+    </ion-row>
+
+    <ion-row class="ion-justify-content-around" style="margin-top: 20%;">
+      <ion-col size="4">
+        <ion-button color="transp" (click)="cuenta = false">Cancelar</ion-button>
+      </ion-col>
+      <ion-col size="4">
+        <ion-button color="enviar" (click)="Pagar(pedido)">Confirmar</ion-button>
+      </ion-col>
+    </ion-row>
   </div>
 </ion-content>
