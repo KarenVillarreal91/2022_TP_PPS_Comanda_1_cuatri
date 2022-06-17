@@ -12,21 +12,42 @@ import { UserService } from 'src/app/services/user.service';
 export class HomeMetreComponent implements OnInit {
 
   clientesEnEspera:Array<any> = [];
+  mesas:Array<any> = [];
+  mesaNumero:any;
   constructor(private db : AngularFirestore, private userS : UserService, private router:Router) 
   {
-    let sub = userS.GetColeccion('clientes').subscribe((data)=>{
+    this.getClientes();
+    this.getMesas();
+  }
+  ngOnInit() { }
+
+  AsignarMesa(mesa:any, cliente:any){
+    console.log(cliente + " cliente ");
+    console.log(mesa + " mesa");
+    cliente.enListaDeEspera=false;
+    cliente.mesa = mesa.numero.toString();//podria no setearlo
+    mesa.ocupada=true;
+    this.userS.EditarColeccion(cliente.id,cliente,"clientes");
+    this.userS.EditarColeccion(mesa.id,mesa,"mesas");
+  }
+  getMesas(){
+    let subMesas = this.userS.GetColeccion('mesas').subscribe((data:any)=>{
       for(let item of data)
+      {
+        if (!item.ocupada){
+
+          this.mesas.push(item);
+        }
+      }
+    });
+  }
+  getClientes(){
+    let clientes = this.userS.clientes;
+    for(let item of clientes)
       {
         if (item.enListaDeEspera){
           this.clientesEnEspera.push(item);
         }
       }
-      sub.unsubscribe();
-    });
-  }
-  ngOnInit() { }
-
-  AsignarMesa(cliente:any){
-    this.router.navigateByUrl('qrmesa');
   }
 }

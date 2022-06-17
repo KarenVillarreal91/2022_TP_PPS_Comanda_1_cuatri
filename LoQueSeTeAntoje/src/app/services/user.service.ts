@@ -138,7 +138,7 @@ export class UserService {
               this.SubirUsuario(usuarioConTokenYTipo);
               if (user.habilitado="habilitado")//es anonimo se debe setear acá id, ademas se debe redireccionar ya que no necesita logueo
               {
-                localStorage.setItem('idUsuario', JSON.stringify(this.usuarioActual.id));
+                localStorage.setItem('idUsuario', JSON.stringify(data.id));
                 this.router.navigateByUrl('qrIngreso');
               }
             });
@@ -204,6 +204,7 @@ export class UserService {
   }
 
   getuserIdLocal(){
+    console.log(localStorage.getItem('idUsuario'));
     return localStorage.getItem('idUsuario');
   }
 
