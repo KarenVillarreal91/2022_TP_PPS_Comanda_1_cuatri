@@ -35,6 +35,7 @@ import { MayoromenorComponent } from './components/mayoromenor/mayoromenor.compo
 import { HomeMetreComponent } from './components/home-metre/home-metre.component';
 import { RealizarPedidoComponent } from './components/realizar-pedido/realizar-pedido.component';
 import { HistorialEncuestasComponent } from './components/historial-encuestas/historial-encuestas.component';
+import { ChatComponent } from './components/chat/chat.component';
 
 @NgModule({
   declarations: [AppComponent,
@@ -59,7 +60,8 @@ import { HistorialEncuestasComponent } from './components/historial-encuestas/hi
   QrIngresoComponent,
   RealizarPedidoComponent,
   ClientesListaDeEsperaComponent,
-  JuegoUnoComponent],
+  JuegoUnoComponent,
+  ChatComponent],
   entryComponents: [],
   imports: [BrowserModule, 
     IonicModule.forRoot(), 

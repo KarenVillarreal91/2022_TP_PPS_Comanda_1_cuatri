@@ -4,6 +4,7 @@ import { AltaClientesComponent } from './components/alta-clientes/alta-clientes.
 import { AltaEmpleadosComponent } from './components/alta-empleados/alta-empleados.component';
 import { AltaMesaComponent } from './components/alta-mesa/alta-mesa.component';
 import { AltaSupervisorDuenioComponent } from './components/alta-supervisor-duenio/alta-supervisor-duenio.component';
+import { ChatComponent } from './components/chat/chat.component';
 import { ClientesListaDeEsperaComponent } from './components/clientes-lista-de-espera/clientes-lista-de-espera.component';
 import { EncuestaClienteComponent } from './components/encuesta-cliente/encuesta-cliente.component';
 import { EncuestaEmpleadosComponent } from './components/encuesta-empleados/encuesta-empleados.component';
@@ -46,6 +47,7 @@ const routes: Routes = [
   {path: 'juegoUno', component: JuegoUnoComponent},
   {path: 'juegoMayorMenor', component: MayoromenorComponent},
   {path: 'historialEncuestas', component: HistorialEncuestasComponent},
+  {path: 'chat', component: ChatComponent},
 
 ];
 

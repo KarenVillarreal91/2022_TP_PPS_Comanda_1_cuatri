@@ -29,8 +29,11 @@ export class HomeMetreComponent implements OnInit {
     mesa.ocupada=true;
     this.userS.EditarColeccion(cliente.id,cliente,"clientes");
     this.userS.EditarColeccion(mesa.id,mesa,"mesas");
+    this.getClientes();
+    this.getMesas();
   }
   getMesas(){
+    this.mesas=[];
     let subMesas = this.userS.GetColeccion('mesas').subscribe((data:any)=>{
       for(let item of data)
       {
@@ -39,15 +42,20 @@ export class HomeMetreComponent implements OnInit {
           this.mesas.push(item);
         }
       }
+      subMesas.unsubscribe();
     });
   }
   getClientes(){
-    let clientes = this.userS.clientes;
-    for(let item of clientes)
+    this.clientesEnEspera=[];
+    let subClientes = this.userS.GetColeccion('clientes').subscribe((data:any)=>{
+      for(let item of data)
       {
         if (item.enListaDeEspera){
+
           this.clientesEnEspera.push(item);
         }
       }
+      subClientes.unsubscribe();
+    });
   }
 }
