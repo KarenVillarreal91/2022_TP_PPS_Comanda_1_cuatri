@@ -1,0 +1,44 @@
+<ion-content slot="fixed">
+  <div class="container-datos">
+    <br>
+    <h1 class="titulo" style="margin: auto;">MAYOR O MENOR</h1>
+    <br>
+    <br><br><br>
+    <div class="row col-12 datos" style="margin: auto; width: 100%; height: 100%;">
+
+      <div class="card">
+        <div class="forcard">
+          <p [hidden]="!loader">Repartiendo....</p>
+          <ion-row [hidden]="loader">
+            <ion-col *ngFor="let card of Dcards"><img style="height:180px!important;" [src]="card.BlankCard"></ion-col>
+          </ion-row>
+        </div>
+      </div>
+      <br>
+    </div>
+    <br>
+    <div class="row">
+      <div class="col-12">
+        <h1 class="text-center">
+          {{message}}
+        </h1>
+      </div>
+
+      <div class="col-6 text-center">
+        <button class="btn btn-default btn-terciary" (click)="onSelectHigh()" [disabled]="alreadyPlayed" >Mayor</button>
+      </div>
+      <div class="col-6 text-center">
+        <button class="btn btn-default btn-secondary" (click)="onSelectLow()" [disabled]="alreadyPlayed">Menor</button>
+      </div>
+
+      <br>
+      <div class="text-center">
+        <h5 class="mat-color--red-700">Ganados: {{wins}} <br> Perdidos: {{losses}}</h5>
+      </div>
+      <br>
+      <div class="text-center" style="margin-top: 17px;">
+        <button class="btn btn-warning" (click)="onSelectTryAgain()">Nuevo Juego</button>
+      </div>
+    </div>
+  </div>
+</ion-content>

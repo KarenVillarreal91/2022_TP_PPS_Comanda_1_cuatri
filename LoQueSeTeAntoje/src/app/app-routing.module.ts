@@ -15,6 +15,7 @@ import { HomeMozoComponent } from './components/home-mozo/home-mozo.component';
 import { HomeSupervisorComponent } from './components/home-supervisor/home-supervisor.component';
 import { JuegoUnoComponent } from './components/juego-uno/juego-uno.component';
 import { LoginComponent } from './components/login/login.component';
+import { MayoromenorComponent } from './components/mayoromenor/mayoromenor.component';
 import { PrincipalComponent } from './components/principal/principal.component';
 import { QrIngresoComponent } from './components/qr-ingreso/qr-ingreso.component';
 import { RealizarPedidoComponent } from './components/realizar-pedido/realizar-pedido.component';
@@ -40,6 +41,7 @@ const routes: Routes = [
   {path: 'realizarPedido', component: RealizarPedidoComponent},
   {path: 'listaDeEspera', component: ClientesListaDeEsperaComponent},
   {path: 'juegoUno', component: JuegoUnoComponent},
+  {path: 'juegoMayorMenor', component: MayoromenorComponent},
 
 ];
 

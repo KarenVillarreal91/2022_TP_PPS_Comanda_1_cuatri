@@ -1,0 +1,226 @@
+.wins-losses.center-text {
+    justify-content: center;
+    text-align: center;
+    display: flex;
+}
+
+.mat-color--red-700 {
+    color: #d32f2f;
+}
+
+h5 {
+    font-size: x-large;
+    font-weight: 400;
+}
+
+.btn-terciary {
+    color: #212529;
+    background-color: rgb(6, 158, 14);
+    border-color: #5bc2c2
+}
+
+.btn-secondary {
+    color: #212529;
+    background-color: rgb(214, 34, 34);
+    border-color: #5bc2c2
+}
+
+
+.ion-color-transp {
+    --ion-color-base: #ffeed62e;
+    --ion-color-base-rgb: rgba(163, 163, 163, 0.452);
+    --ion-color-contrast: #ffffff;
+    --ion-color-contrast-rgb: rgb(255, 255, 255);
+    --ion-color-shade: #ffeed62e;
+    --ion-color-tint: #ffeed62e;
+}
+
+.ion-color-header {
+    --ion-color-base: #140c02;
+    --ion-color-base-rgb: rgb(20, 12, 2);
+    --ion-color-contrast: #ffffff;
+    --ion-color-contrast-rgb: rgb(255, 255, 255);
+    --ion-color-shade: #140c02;
+    --ion-color-tint: #140c02;
+}
+
+.ion-color-enviar {
+    --ion-color-base: #ffc577;
+    --ion-color-base-rgb: rgb(255, 197, 119);
+    --ion-color-contrast: #000000;
+    --ion-color-contrast-rgb: rgb(0, 0, 0);
+    --ion-color-shade: #ffc577;
+    --ion-color-tint: #ffc577;
+}
+
+.ion-color-claro {
+    --ion-color-base: #f1e0c9;
+    --ion-color-base-rgb: rgb(241, 224, 201);
+    --ion-color-contrast: #140c02;
+    --ion-color-contrast-rgb: rgb(20, 12, 2);
+    --ion-color-shade: #f1e0c9;
+    --ion-color-tint: #f1e0c9;
+}
+
+.slides-md {
+    --bullet-background-active: #ffffff;
+    --bullet-background: #ffffff;
+}
+
+.container-datos {
+    z-index: 1000;
+    width: 90%;
+    padding: 10px;
+    background: #bbbbbb00;
+    border-radius: 5px;
+    margin: auto;
+}
+
+.container-detalle {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    z-index: 1100;
+    top: 0;
+    left: 0;
+    background-color: #0e0c09eb;
+    backdrop-filter: blur(5px);
+    padding: 50px 0;
+    text-align: center;
+}
+
+ion-icon {
+    margin: auto;
+    font-size: 43px;
+}
+
+.enviar {
+    height: 40px;
+    width: 130px;
+    margin-top: 20px;
+    display: inline-flex;
+}
+
+ion-content {
+
+    --background: none;
+    background: url("../../../assets/fondo3.png");
+    background-size: cover;
+    background-position: center center;
+}
+
+ion-item {
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    margin-bottom: 7px;
+}
+
+ion-button {
+    margin-top: 5px;
+    margin-bottom: 15px;
+}
+
+ion-label {
+    color: rgb(201, 201, 201);
+}
+
+ion-footer {
+    z-index: 900;
+    height: 10%;
+}
+
+ion-footer ion-toolbar {
+    height: 100%;
+}
+
+ion-fab-button[data-desc] {
+    position: relative;
+    width: 65px;
+    height: 65px;
+}
+
+h4 {
+    margin-top: 10px;
+    font-size: 23px;
+}
+
+h5 {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.card-body {
+    width: 50%;
+    padding: 5px;
+    display: inline-block;
+}
+
+.datos {
+    background-color: #ffdfb02e;
+    padding: 15px;
+    border-radius: 5px;
+}
+
+.titulo {
+    text-align: center;
+    background: #ffb3657d;
+    color: white;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.rotate-center {
+    -webkit-animation: rotate-center 1s ease-in-out infinite both;
+    animation: rotate-center 1s ease-in-out infinite both;
+}
+
+@-webkit-keyframes rotate-center {
+    0% {
+        -webkit-transform: rotate(0);
+        transform: rotate(0)
+    }
+
+    100% {
+        -webkit-transform: rotate(360deg);
+        transform: rotate(360deg)
+    }
+}
+
+@keyframes rotate-center {
+    0% {
+        -webkit-transform: rotate(0);
+        transform: rotate(0)
+    }
+
+    100% {
+        -webkit-transform: rotate(360deg);
+        transform: rotate(360deg)
+    }
+}
+
+.fade-in {
+    -webkit-animation: fade-out 1s cubic-bezier(0.785, 0.135, 0.150, 0.860) reverse both;
+    animation: fade-out 1s cubic-bezier(0.785, 0.135, 0.150, 0.860) reverse both;
+}
+
+@-webkit-keyframes fade-out {
+    0% {
+        opacity: 1
+    }
+
+    100% {
+        opacity: 0
+    }
+}
+
+@keyframes fade-out {
+    0% {
+        opacity: 1
+    }
+
+    100% {
+        opacity: 0
+    }
+}

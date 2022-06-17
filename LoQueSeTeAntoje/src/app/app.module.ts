@@ -32,6 +32,7 @@ import { ClientesListaDeEsperaComponent } from './components/clientes-lista-de-e
 import { JuegoUnoComponent } from './components/juego-uno/juego-uno.component';
 import { HomeBartenderComponent } from './components/home-bartender/home-bartender.component';
 import { HomeCocineroComponent } from './components/home-cocinero/home-cocinero.component';
+import { MayoromenorComponent } from './components/mayoromenor/mayoromenor.component';
 
 @NgModule({
   declarations: [AppComponent,
@@ -41,6 +42,7 @@ import { HomeCocineroComponent } from './components/home-cocinero/home-cocinero.
   AltaMesaComponent,
   PrincipalComponent,
   SidebarComponent,
+  MayoromenorComponent,
   AltaSupervisorDuenioComponent,
   HomeSupervisorComponent,
   HomeClienteComponent,
