@@ -53,7 +53,6 @@ export class QrIngresoComponent implements OnInit {
                 showConfirmButton: false
               });
               this.pushNotificationService.EnviarNotificationAVariosUsuarios("metre","Cliente en lista de espera","Hay un nuevo cliente a la espera de asignación de mesa.");
-              this.router.navigateByUrl('homeCliente');
             }else{
               Swal.fire({
                 title: "Error ya se encuentra en la lista de espera.",
@@ -67,6 +66,7 @@ export class QrIngresoComponent implements OnInit {
                 showConfirmButton: false
               });
             }
+            this.router.navigateByUrl('homeCliente');
           }, 3000);
         }
       }).catch(error => {
