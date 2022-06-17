@@ -33,6 +33,7 @@ import { JuegoUnoComponent } from './components/juego-uno/juego-uno.component';
 import { HomeBartenderComponent } from './components/home-bartender/home-bartender.component';
 import { HomeCocineroComponent } from './components/home-cocinero/home-cocinero.component';
 import { MayoromenorComponent } from './components/mayoromenor/mayoromenor.component';
+import { HomeMetreComponent } from './components/home-metre/home-metre.component';
 
 @NgModule({
   declarations: [AppComponent,
@@ -49,6 +50,7 @@ import { MayoromenorComponent } from './components/mayoromenor/mayoromenor.compo
   HomeMozoComponent,
   HomeBartenderComponent,
   HomeCocineroComponent,
+  HomeMetreComponent,
   EncuestaEmpleadosComponent,
   EncuestaClienteComponent,
   EncuestaSupervisorComponent,

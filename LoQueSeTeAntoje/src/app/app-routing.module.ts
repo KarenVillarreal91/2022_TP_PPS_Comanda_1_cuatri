@@ -11,6 +11,7 @@ import { EncuestaSupervisorComponent } from './components/encuesta-supervisor/en
 import { HomeBartenderComponent } from './components/home-bartender/home-bartender.component';
 import { HomeClienteComponent } from './components/home-cliente/home-cliente.component';
 import { HomeCocineroComponent } from './components/home-cocinero/home-cocinero.component';
+import { HomeMetreComponent } from './components/home-metre/home-metre.component';
 import { HomeMozoComponent } from './components/home-mozo/home-mozo.component';
 import { HomeSupervisorComponent } from './components/home-supervisor/home-supervisor.component';
 import { JuegoUnoComponent } from './components/juego-uno/juego-uno.component';
@@ -32,6 +33,7 @@ const routes: Routes = [
   {path: 'homeMozo', component: HomeMozoComponent},
   {path: 'homeCocinero', component: HomeCocineroComponent},
   {path: 'homeBartender', component: HomeBartenderComponent},
+  {path: 'homeMetre', component: HomeMetreComponent},
   {path: 'altaClientes', component: AltaClientesComponent},
   {path: 'altaMesa', component: AltaMesaComponent},
   {path: 'encuestaEmpleados', component: EncuestaEmpleadosComponent},

@@ -1,0 +1,23 @@
+<ion-content slot="fixed">
+  <div class="container-datos">
+    <h3 class="titulo">Clientes en Espera</h3>
+    <div class="card-body" *ngFor="let item of clientesEnEspera">
+    <div class="datos">
+      <div class="foto">
+        <ion-slides mode="md" pager="md" scrollbar="md">
+          <ion-slide>
+            <div class="slide">
+              <img [src]="item.foto" style="width: 126px; height: 126px; border-radius: 5%;"/>
+            </div>
+          </ion-slide>
+        </ion-slides>
+      </div>
+      <p style="font-size: 20px; height: 46px;">{{item.nombre}}</p>
+      <div style="text-align: center;">
+        <ion-label>Asignar mesa</ion-label>
+        <ion-icon name="checkmark-circle" style="color: #ffc577; height: 45px; margin-left: 17px;" (click)="AsignarMesa(item)"></ion-icon>
+      </div>
+    </div>
+  </div>
+</div>
+</ion-content>
