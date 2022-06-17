@@ -11,12 +11,12 @@
 </ion-header>
 
 <ion-content slot="fixed">
-  <div class="container-datos">
-    <h3 class="titulo">Pedidos</h3>
-    <h1>{{tiempo}}</h1>
+  <div class="container-datos" *ngIf="pedidos">
+    <h3 class="titulo">Pedidos de cocinero</h3>
     <div class="card-body" *ngFor="let pedido of pedidos">
       <div class="datos">
         <h1>Mesa: <b style="color: #ffc84c;">{{pedido.mesa}}</b></h1>
+        <h3 *ngIf="tiempo > 0">Tiempo: <b>{{tiempo}}s</b></h3>
         <div *ngFor="let prod of pedido.productos">
           <div *ngIf="prod.tipo == 'plato'">
             <hr/><h5><b>{{prod.nombre}}</b></h5>
@@ -25,8 +25,12 @@
           </div>
         </div>
         <hr/><ion-button *ngIf="pedido.estado == 'Aceptado'" color="enviar" (click)="Preparar(pedido)">Preparar</ion-button>
-        <ion-button *ngIf="" color="enviar">Productos listos</ion-button>
+        <ion-button color="enviar" *ngIf="pedido.estado == 'En preparación'" [disabled]="tiempo != 0" (click)="Listo(pedido)">Productos listos</ion-button>
       </div>
+    </div>
+    <div class="datos" *ngIf="pedidos.length == 0">
+      <ion-icon name="fast-food-outline"></ion-icon>
+      <h1>No hay pedidos por el momento</h1>
     </div>
   </div>
 </ion-content>

@@ -22,7 +22,6 @@ import { EncuestaEmpleadosComponent } from './components/encuesta-empleados/encu
 import { EncuestaClienteComponent } from './components/encuesta-cliente/encuesta-cliente.component';
 import { EncuestaSupervisorComponent } from './components/encuesta-supervisor/encuesta-supervisor.component';
 import { QrIngresoComponent } from './components/qr-ingreso/qr-ingreso.component';
-import { RealizarPedidoComponent } from './components/realizar-pedido/realizar-pedido.component';
 import { HomeClienteComponent } from './components/home-cliente/home-cliente.component';
 import { HomeMozoComponent } from './components/home-mozo/home-mozo.component';
 
@@ -34,6 +33,7 @@ import { HomeBartenderComponent } from './components/home-bartender/home-bartend
 import { HomeCocineroComponent } from './components/home-cocinero/home-cocinero.component';
 import { MayoromenorComponent } from './components/mayoromenor/mayoromenor.component';
 import { HomeMetreComponent } from './components/home-metre/home-metre.component';
+import { RealizarPedidoComponent } from './components/realizar-pedido/realizar-pedido.component';
 
 @NgModule({
   declarations: [AppComponent,

@@ -28,14 +28,26 @@ export class HomeClienteComponent implements OnInit {
 
   async EscanearMesa() 
   {
-    /*
     this.scanService.scan()
     .then((datos) => {
       if(datos.text)
       {
-        if(this.userService.usuarioActual.mesa == datos.text)
+        if(this.usuario.mesa == datos.text)
         {
-          //Se activa el menu
+          let pedidosS = this.userService.GetColeccion('pedidos').subscribe((pedidos)=>{
+            for(let pedido of pedidos)
+            {
+              if(pedido.mesa == this.usuario.mesa)
+              {
+                this.pedido = pedido;
+                break;
+              }
+            }
+      
+            pedidosS.unsubscribe();
+          });
+      
+          this.escaneoMesa = true;
         }
       }
     }).catch(error => {
@@ -50,22 +62,8 @@ export class HomeClienteComponent implements OnInit {
         timerProgressBar: true,
         showConfirmButton: false
       });
-    }); */
-
-    let pedidosS = this.userService.GetColeccion('pedidos').subscribe((pedidos)=>{
-      for(let pedido of pedidos)
-      {
-        if(pedido.mesa == this.userService.usuarioActual.mesa)
-        {
-          this.pedido = pedido;
-          break;
-        }
-      }
-
-      pedidosS.unsubscribe();
     });
 
-    this.escaneoMesa = true;
   }
 
   RealizarPedido()
@@ -74,11 +72,12 @@ export class HomeClienteComponent implements OnInit {
   }
 
   escanearQrPropina(){
-    this.barcodeScanner.scan({formats:"QR_CODE,PDF_417"})
+    
+    this.scanService.scan()
     .then((data:any) => {
       this.propina = parseInt(data.text);
       this.propinaEscaneada = true;
-      this.userService.updatePedido(this.userService.usuarioActual.mesa, this.propina);
+      this.userService.EditarColeccion(this.pedido.id, {propina: this.propina}, 'pedidos');
       setTimeout(() => {
         Swal.fire({
           title: 'Propina agregada correctamente.',

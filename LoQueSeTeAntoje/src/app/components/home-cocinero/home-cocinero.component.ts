@@ -16,9 +16,11 @@ export class HomeCocineroComponent implements OnInit {
   constructor(private userService:UserService) 
   { 
     userService.GetColeccion('pedidos').subscribe((data:any)=>{
+      this.pedidos = [];
+
       for(let pedido of data)
       {
-        if(pedido.estado == 'En preparación' || pedido.estado == 'Aceptado')
+        if((pedido.estado == 'En preparación' || pedido.estado == 'Aceptado') && !pedido.parteCocinero)
         {
           for(let prod of pedido.productos)
           {
@@ -39,17 +41,6 @@ export class HomeCocineroComponent implements OnInit {
   {
     this.PararTiempo();
   }
-
-  EmpezarTiempo() {
-    this.intervalo = setInterval(() => {
-      if(this.tiempo > 0) {
-        this.tiempo--;
-      } else {
-        this.PararTiempo();
-        this.tiempo = 0;
-      }
-    },1000)
-  }
   
   PararTiempo() {
     clearInterval(this.intervalo);
@@ -58,6 +49,22 @@ export class HomeCocineroComponent implements OnInit {
   Preparar(pedido:any)
   {
     this.tiempo = pedido.tiempo;
-    this.EmpezarTiempo();
+    
+    this.userService.EditarColeccion(pedido.id, {estado: 'En preparación'}, 'pedidos').then(()=>{
+
+      this.intervalo = setInterval(() => {
+        if(this.tiempo > 0) {
+          this.tiempo--;
+        } else {
+          this.PararTiempo();
+          this.tiempo = 0;
+        }
+      },1000)
+    });
+  }
+
+  Listo(pedido:any)
+  {
+    this.userService.EditarColeccion(pedido.id, {parteCocinero: true}, 'pedidos');
   }
 }
