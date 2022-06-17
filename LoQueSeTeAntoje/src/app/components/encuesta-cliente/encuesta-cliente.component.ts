@@ -68,7 +68,7 @@ export class EncuestaClienteComponent implements OnInit {
         setTimeout(() => {
           let idUser = JSON.parse(this.userService.getuserIdLocal());
           this.userService.EditarColeccion(idUser, {encuestaCompletada: true}, 'clientes');
-          this.router.navigateByUrl('principal');
+          this.router.navigateByUrl('homeCliente');
         }, 2000);
       }).catch(error => {
         Swal.fire({
