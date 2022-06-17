@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { PushNotificationService } from 'src/app/services/push-notification.service';
 import { UserService } from 'src/app/services/user.service';
 import Swal from 'sweetalert2';
 
@@ -13,7 +14,7 @@ export class HomeMozoComponent implements OnInit {
   spinner:boolean = false;
   pedidos:Array<any> = [];
 
-  constructor(private router:Router, public userService:UserService) 
+  constructor(private router:Router, public userService:UserService, public pushNotificationService:PushNotificationService) 
   {  
     userService.GetColeccion('pedidos').subscribe((data:any)=>{
       this.pedidos = [];
@@ -32,7 +33,10 @@ export class HomeMozoComponent implements OnInit {
 
   Enviar(pedido:any)
   {
-    this.userService.EditarColeccion(pedido.id, {estado: 'En preparación'}, 'pedidos');
+    this.userService.EditarColeccion(pedido.id, {estado: 'En preparación'}, 'pedidos').then(()=>{
+      this.pushNotificationService.EnviarNotificationAVariosUsuarios("bartender","Pedido nuevo.","Tiene un pedido nuevo para preparar.");
+      this.pushNotificationService.EnviarNotificationAVariosUsuarios("cocinero","Pedido nuevo.","Tiene un pedido nuevo para preparar.");
+    });
   }
 
   Entregar(pedido:any)

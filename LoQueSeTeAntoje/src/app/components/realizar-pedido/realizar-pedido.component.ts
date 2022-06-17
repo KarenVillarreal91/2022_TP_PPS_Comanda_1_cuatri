@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { PushNotificationService } from 'src/app/services/push-notification.service';
 import { UserService } from 'src/app/services/user.service';
 import Swal from 'sweetalert2';
 
@@ -22,7 +23,8 @@ export class RealizarPedidoComponent implements OnInit {
   usuario:any;
 
   constructor(private router:Router, 
-    public userService:UserService) 
+    public userService:UserService,
+    private pushNotificationService:PushNotificationService) 
   {  
     userService.GetColeccion('productos').subscribe((data)=>{
       for(let item of data)
@@ -90,6 +92,8 @@ export class RealizarPedidoComponent implements OnInit {
     .then(()=>{
 
       this.spinner = true;
+
+      this.pushNotificationService.EnviarNotificationAVariosUsuarios("mozo","Pedido nuevo.","Tiene un pedido nuevo.");
 
       setTimeout(() => {
         this.spinner = false;

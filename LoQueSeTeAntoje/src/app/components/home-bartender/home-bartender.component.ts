@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { PushNotificationService } from 'src/app/services/push-notification.service';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -13,7 +14,7 @@ export class HomeBartenderComponent implements OnInit {
   intervalo:any;
   tiempo:number = 0;
 
-  constructor(private userService:UserService) 
+  constructor(private userService:UserService, private pushNotificationService:PushNotificationService) 
   { 
     userService.GetColeccion('pedidos').subscribe((data:any)=>{
       this.pedidos = [];
@@ -66,6 +67,7 @@ export class HomeBartenderComponent implements OnInit {
     if(pedido.parteCocinero)
     {
       this.userService.EditarColeccion(pedido.id, {estado: 'Listo', parteBartender: true}, 'pedidos');
+      this.pushNotificationService.EnviarNotificationAVariosUsuarios("mozo","Pedido nuevo.","Tiene un pedido listo para entregar.");
     }
     else
     {
