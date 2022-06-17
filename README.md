@@ -42,6 +42,7 @@
 #### Matias Gravante (Gamma)
 * QR propina ✔
 * Encuesta cliente ✔
+* HIstorial encuestas clientes ✔
 * Agregar clente registrado (gestion) ✔
 * Agregar cliente (push n) ✔
 
