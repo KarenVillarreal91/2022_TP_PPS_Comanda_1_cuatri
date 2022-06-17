@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +14,7 @@ export class UserService {
   empleados:Array<any> = [];
   supervisores:Array<any> = [];
 
-  constructor(private auth: AngularFireAuth, private firestore: AngularFirestore, private storage: AngularFireStorage) 
+  constructor(private auth: AngularFireAuth, private firestore: AngularFirestore, private storage: AngularFireStorage, private router:Router) 
   { 
     this.GetColeccion('clientes').subscribe((lista)=>{
       this.clientes = lista;
@@ -131,11 +132,15 @@ export class UserService {
           .then((url: any) => {
             user.foto = url;
 
-            this.SubirDatos(user, 'clientes')
+            this.firestore.collection('clientes').add(user)
             .then(()=>{
-              localStorage.setItem('idUsuario', JSON.stringify(this.usuarioActual.id));
               let usuarioConTokenYTipo = {id: this.usuarioActual.id, tipo: user.tipo, token: ''};
               this.SubirUsuario(usuarioConTokenYTipo);
+              if (user.habilitado="habilitado")//es anonimo se debe setear acá id, ademas se debe redireccionar ya que no necesita logueo
+              {
+                localStorage.setItem('idUsuario', JSON.stringify(this.usuarioActual.id));
+                this.router.navigateByUrl('qrIngreso');
+              }
             });
           });
       });
@@ -211,6 +216,7 @@ export class UserService {
      if(us[0]!=undefined) {
       localStorage.setItem('idUsuario', JSON.stringify(us[0].payload.doc.id));
       console.log("clientes "+JSON.stringify(us[0].payload.doc.id));
+      this.usuarioActual.habilitado = us[0].payload.doc.data().habilitado;
      }else{
       let empleadosSub =this.firestore.collection("empleados", ref => ref.where('email', '==', this.usuarioActual.email)).snapshotChanges().subscribe((us:any)=>{
         if(us[0]!=undefined) {
@@ -230,7 +236,6 @@ export class UserService {
      }
      clientesSub.unsubscribe()
     });
-     
   } 
   
   Desloguear(){
@@ -239,9 +244,12 @@ export class UserService {
     localStorage.removeItem('idUsuario');
     console.log(localStorage.getItem('idUsuario'));
     let subUsuarios= this.firestore.collection("usuarios", ref => ref.where('id', '==', id)).snapshotChanges().subscribe(async (user) => {
-      this.firestore.collection('usuarios').doc(`${user[0].payload.doc.id}`).update({ token: '' });
-      subUsuarios.unsubscribe();
-    });
+      let usuarioForUpdate = this.firestore.collection('usuarios').doc(`${user[0].payload.doc.id}`);
+      usuarioForUpdate.update({ token: '' })
+      .then(() => { })
+      .catch((error) => { });
+      subUsuarios.unsubscribe()
+    })
    
   }
 
@@ -258,7 +266,7 @@ export class UserService {
 
     for(let user of this.clientes)
     {
-      if(user.id == this.usuarioActual.id)
+      if(user.uid == this.usuarioActual.id || user.id == this.usuarioActual.id)
       {
         encontro = user;
         break;

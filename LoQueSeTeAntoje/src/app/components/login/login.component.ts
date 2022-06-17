@@ -26,15 +26,63 @@ export class LoginComponent implements OnInit {
     this.userService.Login(usuario)
     .then((res:any)=>{
       this.logged = true;
-
       this.userService.usuarioActual.id = res.user.uid;
-
       this.userService.setearIdUsuario();
+      
       setTimeout(() => {
-        this.pushNotificationService.getUserForNotifications();
-        this.userService.usuarioActual.mesa = '';
-        this.router.navigateByUrl('principal');
-        this.logged = false;
+        console.log(this.userService.usuarioActual.habilitado);
+        if (this.userService.usuarioActual.habilitado == undefined || this.userService.usuarioActual.habilitado =="habilitado")
+        {
+          this.pushNotificationService.getUserForNotifications();
+          this.userService.usuarioActual.mesa = '';
+          this.router.navigateByUrl('principal');
+          this.logged = false;
+          Swal.fire({
+            title: 'Ingreso exitoso.',
+            text: 'Ha ingresado correctamente.',
+            icon: 'success',
+            timer: 2000,
+            toast: true,
+            backdrop: false,
+            position: 'bottom',
+            grow: 'row',
+            timerProgressBar: true,
+            showConfirmButton: false
+          });
+        }else{
+          if (this.userService.usuarioActual.habilitado=="noHabilitado"){
+            this.logged = false;
+            Swal.fire({
+              title: 'Error',
+              text: 'El supervisor aún no ha habilitado su cuenta.',
+              icon: 'error',
+              timer: 2000,
+              toast: true,
+              backdrop: false,
+              position: 'bottom',
+              grow: 'row',
+              timerProgressBar: true,
+              showConfirmButton: false
+            });
+          }else{
+            if (this.userService.usuarioActual.habilitado="rechazado"){
+              this.logged = false;
+              Swal.fire({
+                title: 'Error',
+                text: 'Su cuenta ha sido rechazada.',
+                icon: 'error',
+                timer: 2000,
+                toast: true,
+                backdrop: false,
+                position: 'bottom',
+                grow: 'row',
+                timerProgressBar: true,
+                showConfirmButton: false
+              });
+            }
+          }
+        }
+       
       }, 2000);
     }).catch((error)=>{
       if(error.code == 'auth/wrong-password' || error.code == 'auth/user-not-found')

@@ -12,27 +12,26 @@
 
 <ion-content slot="fixed">
   <div class="container-datos">
-    <h3>Clientes sin habilitar</h3>
-    <hr style="background-color: var(--light-orange)">
-    <ion-grid class="ion-margin">
-      <ion-row *ngFor="let item of clientesValidos" style="justify-content: center">
-        <ion-card >
-          <ion-item>
-            <img [src]="item.foto" width="40px" height="40px" style="margin-right: 10px;">
-            <ion-label style="text-align: center">{{item.nombre}} {{item.apellido}}</ion-label>
-          </ion-item>
-          <ion-item>
-            <ion-row class="ion-justify-content-around">
-              <ion-col>
-                <ion-button color="warning" (click)="habilitarCliente(item)">Habilitar</ion-button>
-              </ion-col>
-              <ion-col>
-                <ion-button color="danger" (click)="rechazarCliente(item)">Rechazar</ion-button>
-              </ion-col>
-            </ion-row>
-          </ion-item>
-        </ion-card>
-      </ion-row>
-    </ion-grid>
+    <h3 class="titulo">Clientes sin habilitar</h3>
+    <div class="card-body" *ngFor="let item of clientesValidos">
+    <div class="datos">
+      <div class="foto">
+        <ion-slides mode="md" pager="md" scrollbar="md">
+          <ion-slide>
+            <div class="slide">
+              <img [src]="item.foto" style="width: 126px; height: 126px; border-radius: 5%;"/>
+            </div>
+          </ion-slide>
+        </ion-slides>
+      </div>
+      <p style="font-size: 20px; height: 46px;">{{item.nombre}}</p>
+      <div style="text-align: center;">
+        <ion-label>Habilitar</ion-label>
+        <ion-icon name="checkmark-circle" style="color: #8bff77; height: 45px; margin-left: 17px;" (click)="habilitarCliente(item)"></ion-icon>
+        <ion-label>Rechazar</ion-label>
+        <ion-icon name="close-circle-outline" style="color: #ff8577; height: 45px; margin-left: 17px;" (click)="rechazarCliente(item)"></ion-icon>
+      </div>
+    </div>
   </div>
+</div>
 </ion-content>

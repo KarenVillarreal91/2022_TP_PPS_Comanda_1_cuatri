@@ -29,6 +29,9 @@ import { HomeMozoComponent } from './components/home-mozo/home-mozo.component';
 import { getFirestore, provideFirestore } from '@angular/fire/firestore';
 import { HttpClientModule } from '@angular/common/http';
 import { ClientesListaDeEsperaComponent } from './components/clientes-lista-de-espera/clientes-lista-de-espera.component';
+import { JuegoUnoComponent } from './components/juego-uno/juego-uno.component';
+import { HomeBartenderComponent } from './components/home-bartender/home-bartender.component';
+import { HomeCocineroComponent } from './components/home-cocinero/home-cocinero.component';
 
 @NgModule({
   declarations: [AppComponent,
@@ -42,12 +45,15 @@ import { ClientesListaDeEsperaComponent } from './components/clientes-lista-de-e
   HomeSupervisorComponent,
   HomeClienteComponent,
   HomeMozoComponent,
+  HomeBartenderComponent,
+  HomeCocineroComponent,
   EncuestaEmpleadosComponent,
   EncuestaClienteComponent,
   EncuestaSupervisorComponent,
   QrIngresoComponent,
   RealizarPedidoComponent,
-  ClientesListaDeEsperaComponent],
+  ClientesListaDeEsperaComponent,
+  JuegoUnoComponent],
   entryComponents: [],
   imports: [BrowserModule, 
     IonicModule.forRoot(), 

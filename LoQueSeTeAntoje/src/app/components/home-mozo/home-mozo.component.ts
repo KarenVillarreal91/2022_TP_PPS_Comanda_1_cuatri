@@ -10,10 +10,25 @@ import { UserService } from 'src/app/services/user.service';
 export class HomeMozoComponent implements OnInit {
 
   spinner:boolean = false;
+  pedidos:Array<any> = [];
 
   constructor(private router:Router, public userService:UserService) 
-  {  }
+  {  
+    userService.GetColeccion('pedidos').subscribe((data:any)=>{
+      for(let pedido of data)
+      {
+        if(pedido.estado != 'Finalizado')
+        {
+          this.pedidos.push(pedido);
+        }
+      }
+    });
+  }
 
   ngOnInit() {}
 
+  Enviar()
+  {
+    
+  }
 }
