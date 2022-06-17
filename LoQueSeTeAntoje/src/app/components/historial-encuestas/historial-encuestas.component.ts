@@ -1,7 +1,7 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild, } from '@angular/core';
 import { Router } from '@angular/router';
-import { Chart } from 'chart.js';
 import { UserService } from 'src/app/services/user.service';
+import Chart from 'chart.js/auto';
 
 @Component({
   selector: 'app-historial-encuestas',
@@ -17,6 +17,9 @@ export class HistorialEncuestasComponent implements OnInit {
   constructor(public userService: UserService, private router: Router) { }
 
   ngOnInit() {
+
+  }
+  ngAfterViewInit(){
 
     let encuentasSub = this.userService.GetColeccion('encuestaClientes').subscribe((data) => {
       this.encuestas = data;

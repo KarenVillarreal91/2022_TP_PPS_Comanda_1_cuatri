@@ -1,7 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Chart, registerables } from 'chart.js';
 import { UserService } from 'src/app/services/user.service';
 import Swal from 'sweetalert2';
 @Component({
@@ -30,8 +29,6 @@ export class EncuestaClienteComponent implements OnInit {
       'foto2': [''],
       'foto3': ['']
     });
-
-    Chart.register(...registerables);
   }
 
   ngOnInit() { }
