@@ -133,8 +133,8 @@ export class UserService {
             user.foto = url;
 
             this.firestore.collection('clientes').add(user)
-            .then(()=>{
-              let usuarioConTokenYTipo = {id: this.usuarioActual.id, tipo: user.tipo, token: ''};
+            .then((data)=>{
+              let usuarioConTokenYTipo = {id: data.id, tipo: user.tipo, token: ''};
               this.SubirUsuario(usuarioConTokenYTipo);
               if (user.habilitado="habilitado")//es anonimo se debe setear acá id, ademas se debe redireccionar ya que no necesita logueo
               {
