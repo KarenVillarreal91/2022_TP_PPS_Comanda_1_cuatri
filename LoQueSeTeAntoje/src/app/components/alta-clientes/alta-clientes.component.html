@@ -97,6 +97,12 @@
           </ion-label>
         </div>
 
+        <div>
+          <ion-label>Foto</ion-label>
+          <ion-button type="button" class="ingreso" fill="solid" expand="block" color="escanear" style="width: 80px; height: 45px" (click)="SacarFoto()"><ion-icon name="camera"></ion-icon></ion-button>
+          <ion-img class="foto" [src]='this.dataUrl' id="foto"></ion-img>
+        </div>
+
       <ion-button type="submit" class="ingreso" fill="solid" expand="block" color="enviar" id="enviar" style="margin-top: 23px;" [disabled]="formAnom.invalid">Enviar</ion-button>
     </form>
   </div>
