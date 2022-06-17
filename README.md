@@ -25,14 +25,18 @@
 #### Karen Villarreal (Alfa)
 * QR mesa
 * Realizar pedidos (gestion) ✔
-* Confirmar pedidos (gestion)
+* Confirmar pedidos (gestion) ✔
+* Home Bartender ✔
+* Home Mozo ✔
+* Home Cliente ✔
+* Home Cocinero ✔
 * Consultar mozo (push n)
 * Confirmar realizacion pedido (push n)
 
 #### Daniela Moreno (Beta)
-* QR ingreso
-* Ingresar al local (gestion)
-* Ingreso local (push n)
+* QR ingreso ✔
+* Ingresar al local (gestion) ✔
+* Ingreso local (push n) ✔
 * Confirmar pedido (push n)
 
 #### Matias Gravante (Gamma)
@@ -47,8 +51,8 @@
 * Juego (opcional?)
 
 #### Daniela Moreno (Beta)
-* Juego (opcional?)
+* Juego (opcional?) 
 
 #### Matias Gravante (Gamma)
-* Juego (opcional?)
+* Juego (opcional?) 
 
