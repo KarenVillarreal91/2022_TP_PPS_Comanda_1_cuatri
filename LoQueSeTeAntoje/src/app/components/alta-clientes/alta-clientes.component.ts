@@ -97,7 +97,7 @@ export class AltaClientesComponent implements OnInit {
   async Registro() {
     if(this.anonimo)
     {
-      let usuario = {nombre: this.formAnom.value.nombre, habilitado: 'habilitado', tipo: 'cliente',  enListaDeEspera: false, mesa: ''};
+      let usuario = {nombre: this.formAnom.value.nombre, habilitado: 'habilitado', encuestaCompletada:false, tipo: 'cliente',  enListaDeEspera: false, mesa: ''};
 
       this.userService.SubirCliente(usuario, this.dataUrl)
       .then((res)=>{
@@ -128,7 +128,7 @@ export class AltaClientesComponent implements OnInit {
     }
     else
     {
-      let usuario:any = { email: this.form.value.email, password: this.form.value.password, nombre: this.form.value.nombre, apellido: this.form.value.apellido, dni: this.form.value.dni, habilitado: 'noHabilitado', tipo: 'cliente', enListaDeEspera: false, mesa: '' };
+      let usuario:any = { email: this.form.value.email, password: this.form.value.password, encuestaCompletada:false, nombre: this.form.value.nombre, apellido: this.form.value.apellido, dni: this.form.value.dni, habilitado: 'noHabilitado', tipo: 'cliente', enListaDeEspera: false, mesa: '' };
   
       this.userService.Registro(this.form.value)
         .then((res: any) => {

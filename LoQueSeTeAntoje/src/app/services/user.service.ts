@@ -141,15 +141,15 @@ export class UserService {
             user.foto = url;
 
             this.firestore.collection('clientes').add(user)
-            .then((data)=>{
-              let usuarioConTokenYTipo = {id: data.id, tipo: user.tipo, token: ''};
-              this.SubirUsuario(usuarioConTokenYTipo);
-              if (user.habilitado="habilitado")//es anonimo se debe setear acá id, ademas se debe redireccionar ya que no necesita logueo
-              {
-                localStorage.setItem('idUsuario', JSON.stringify(data.id));
-                this.router.navigateByUrl('qrIngreso');
-              }
-            });
+              .then((data) => {
+                let usuarioConTokenYTipo = { id: data.id, tipo: user.tipo, token: '' };
+                this.SubirUsuario(usuarioConTokenYTipo);
+                if (user.habilitado = "habilitado")//es anonimo se debe setear acá id, ademas se debe redireccionar ya que no necesita logueo
+                {
+                  localStorage.setItem('idUsuario', JSON.stringify(data.id));
+                  this.router.navigateByUrl('qrIngreso');
+                }
+              });
           });
       });
     }
@@ -219,33 +219,30 @@ export class UserService {
     this.firestore.collection('usuarios').add(user);
   }
 
-  async setearIdUsuario(){
-    let clientesSub = this.firestore.collection("clientes", ref => ref.where('email', '==', this.usuarioActual.email)).snapshotChanges().subscribe((us:any)=>{
-     if(us[0]!=undefined) {
-      localStorage.setItem('idUsuario', JSON.stringify(us[0].payload.doc.id));
-      console.log("clientes "+JSON.stringify(us[0].payload.doc.id));
-      this.usuarioActual.habilitado = us[0].payload.doc.data().habilitado;
-      this.usuarioActual.tipo = us[0].payload.doc.data().tipo;
-     }else{
-      let empleadosSub =this.firestore.collection("empleados", ref => ref.where('email', '==', this.usuarioActual.email)).snapshotChanges().subscribe((us:any)=>{
-        if(us[0]!=undefined) {
-          localStorage.setItem('idUsuario', JSON.stringify(us[0].payload.doc.id));
-          console.log("empleados "+JSON.stringify(us[0].payload.doc.id));
-          this.usuarioActual.tipo = us[0].payload.doc.data().tipo;
-         }else{
-          let supervisorDuenioSub =this.firestore.collection("supervisorDuenio", ref => ref.where('email', '==', this.usuarioActual.email)).snapshotChanges().subscribe((us:any)=>{
-            if(us[0]!=undefined) {
-              localStorage.setItem('idUsuario', JSON.stringify(us[0].payload.doc.id));
-              console.log("supervisor "+JSON.stringify(us[0].payload.doc.id));
-              this.usuarioActual.tipo = us[0].payload.doc.data().tipo;
-             }
-             supervisorDuenioSub.unsubscribe()
-           });
-         }
-         empleadosSub.unsubscribe()
-       });
-     }
-     clientesSub.unsubscribe()
+  async setearIdUsuario() {
+    let clientesSub = this.firestore.collection("clientes", ref => ref.where('email', '==', this.usuarioActual.email)).snapshotChanges().subscribe((us: any) => {
+      if (us[0] != undefined) {
+        localStorage.setItem('idUsuario', JSON.stringify(us[0].payload.doc.id));
+        console.log("clientes " + JSON.stringify(us[0].payload.doc.id));
+        this.usuarioActual.habilitado = us[0].payload.doc.data().habilitado;
+      } else {
+        let empleadosSub = this.firestore.collection("empleados", ref => ref.where('email', '==', this.usuarioActual.email)).snapshotChanges().subscribe((us: any) => {
+          if (us[0] != undefined) {
+            localStorage.setItem('idUsuario', JSON.stringify(us[0].payload.doc.id));
+            console.log("empleados " + JSON.stringify(us[0].payload.doc.id));
+          } else {
+            let supervisorDuenioSub = this.firestore.collection("supervisorDuenio", ref => ref.where('email', '==', this.usuarioActual.email)).snapshotChanges().subscribe((us: any) => {
+              if (us[0] != undefined) {
+                localStorage.setItem('idUsuario', JSON.stringify(us[0].payload.doc.id));
+                console.log("supervisor " + JSON.stringify(us[0].payload.doc.id));
+              }
+              supervisorDuenioSub.unsubscribe()
+            });
+          }
+          empleadosSub.unsubscribe()
+        });
+      }
+      clientesSub.unsubscribe()
     });
   }
 
@@ -253,7 +250,7 @@ export class UserService {
     let id = JSON.parse(this.getuserIdLocal());
     console.log(localStorage.getItem('idUsuario'));
     localStorage.removeItem('idUsuario');
-    localStorage.removeItem('encuestaCompletada');
+    this.EditarColeccion(id, {encuestaComopletada: false}, 'clientes');
     console.log(localStorage.getItem('idUsuario'));
     let subUsuarios = this.firestore.collection("usuarios", ref => ref.where('id', '==', id)).snapshotChanges().subscribe(async (user) => {
       let usuarioForUpdate = this.firestore.collection('usuarios').doc(`${user[0].payload.doc.id}`);

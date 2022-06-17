@@ -14,7 +14,6 @@ export class EncuestaClienteComponent implements OnInit {
   form!: FormGroup;
   fotos: FormData = new FormData();
   encuestas: Array<any> = [];
-  encuestaCompletada: boolean = ((JSON.parse(localStorage.getItem('encuestaCompletada')) === undefined)) ? false : JSON.parse(localStorage.getItem('encuestaCompletada'));
 
   constructor(private router: Router,
     public userService: UserService,
@@ -43,15 +42,6 @@ export class EncuestaClienteComponent implements OnInit {
     this.fotos.append('foto3', e.target.files[0]);
   }
 
-  Omitir() {
-    this.spinner = true;
-
-    setTimeout(() => {
-      this.spinner = false;
-      this.router.navigateByUrl('principal');
-    }, 2000);
-  }
-
   EnviarEncuesta() {
     this.userService.SubirEncuestaCliente(this.form.value, this.fotos)
       .then(() => {
@@ -76,8 +66,9 @@ export class EncuestaClienteComponent implements OnInit {
         }, 2000);
 
         setTimeout(() => {
-          localStorage.setItem('encuestaCompletada', JSON.stringify(true));
-          this.router.navigateByUrl('historialEncuestas');
+          let idUser = JSON.parse(this.userService.getuserIdLocal());
+          this.userService.EditarColeccion(idUser, {encuestaCompletada: true}, 'clientes');
+          this.router.navigateByUrl('principal');
         }, 2000);
       }).catch(error => {
         Swal.fire({
