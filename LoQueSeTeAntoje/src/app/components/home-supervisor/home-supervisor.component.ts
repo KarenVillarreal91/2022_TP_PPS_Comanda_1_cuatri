@@ -20,17 +20,20 @@ export class HomeSupervisorComponent implements OnInit {
   {
     this.coleccion = this.db.collection<any>('clientes');
     this.clientes = this.coleccion.valueChanges({idField: 'id'});
+    this.getClientes();
   }
 
   ngOnInit() 
   {
-    let clientesSub = this.clientes.subscribe((clientes : any) => {
-      this.clientesBD = clientes;
-      this.MapClientesNoHabilitados();
-      clientesSub.unsubscribe();
-    });
+    
   }
-
+getClientes(){
+  let clientesSub = this.clientes.subscribe((clientes : any) => {
+    this.clientesBD = clientes;
+    this.MapClientesNoHabilitados();
+    clientesSub.unsubscribe();
+  });
+}
   MapClientesNoHabilitados(){
 
     this.clientesValidos = [];
@@ -57,6 +60,8 @@ export class HomeSupervisorComponent implements OnInit {
       timerProgressBar: true,
       showConfirmButton: false
     });
+    this.getClientes();
+    this.MapClientesNoHabilitados();
   }
 
   rechazarCliente(item : any){
@@ -75,6 +80,8 @@ export class HomeSupervisorComponent implements OnInit {
       timerProgressBar: true,
       showConfirmButton: false
     });
+    this.getClientes();
+    this.MapClientesNoHabilitados();
   }
 
 }
