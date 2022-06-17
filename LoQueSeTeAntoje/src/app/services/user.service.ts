@@ -116,7 +116,8 @@ export class UserService {
         storage.getDownloadURL().toPromise()
           .then((url: any) => {
             user.foto = url;
-            this.SubirDatos(user, 'clientes')
+
+            this.firestore.collection('clientes').add(user)
             .then(()=>{
               let usuarioConTokenYTipo = {id: this.usuarioActual.id, tipo: user.tipo, token: ''};
               this.SubirUsuario(usuarioConTokenYTipo);
@@ -243,7 +244,7 @@ export class UserService {
 
     for(let user of this.clientes)
     {
-      if(user.id == this.usuarioActual.id)
+      if(user.uid == this.usuarioActual.id || user.id == this.usuarioActual.id)
       {
         encontro = user;
         break;

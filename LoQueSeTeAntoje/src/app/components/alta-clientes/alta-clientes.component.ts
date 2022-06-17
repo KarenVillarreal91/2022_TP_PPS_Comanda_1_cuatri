@@ -132,7 +132,7 @@ export class AltaClientesComponent implements OnInit {
   
       this.userService.Registro(this.form.value)
         .then((res: any) => {
-          usuario.id = res.user.uid;
+          usuario.uid = res.user.uid;
 
           this.userService.usuarioActual.id = usuario.id;
 

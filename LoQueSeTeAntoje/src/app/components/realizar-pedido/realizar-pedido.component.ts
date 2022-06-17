@@ -82,7 +82,7 @@ export class RealizarPedidoComponent implements OnInit {
 
   Enviar()
   {
-    this.userService.SubirDatos({total: this.precioTotal, tiempo: this.tiempoTotal, productos: this.productos, estado: 'Solicitado', mesa: this.userService.usuarioActual.mesa}, 'pedidos')
+    this.userService.SubirDatos({total: this.precioTotal, tiempo: this.tiempoTotal, productos: this.productos, estado: 'Solicitado', mesa: this.userService.usuarioActual.mesa, partesRealizadas: 0}, 'pedidos')
     .then(()=>{
 
       this.spinner = true;

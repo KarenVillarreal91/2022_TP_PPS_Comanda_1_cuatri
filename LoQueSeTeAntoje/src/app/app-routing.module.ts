@@ -7,7 +7,9 @@ import { AltaSupervisorDuenioComponent } from './components/alta-supervisor-duen
 import { ClientesListaDeEsperaComponent } from './components/clientes-lista-de-espera/clientes-lista-de-espera.component';
 import { EncuestaEmpleadosComponent } from './components/encuesta-empleados/encuesta-empleados.component';
 import { EncuestaSupervisorComponent } from './components/encuesta-supervisor/encuesta-supervisor.component';
+import { HomeBartenderComponent } from './components/home-bartender/home-bartender.component';
 import { HomeClienteComponent } from './components/home-cliente/home-cliente.component';
+import { HomeCocineroComponent } from './components/home-cocinero/home-cocinero.component';
 import { HomeMozoComponent } from './components/home-mozo/home-mozo.component';
 import { HomeSupervisorComponent } from './components/home-supervisor/home-supervisor.component';
 import { JuegoUnoComponent } from './components/juego-uno/juego-uno.component';
@@ -26,6 +28,8 @@ const routes: Routes = [
   {path: 'homeSupervisor', component: HomeSupervisorComponent},
   {path: 'homeCliente', component: HomeClienteComponent},
   {path: 'homeMozo', component: HomeMozoComponent},
+  {path: 'homeCocinero', component: HomeCocineroComponent},
+  {path: 'homeBartender', component: HomeBartenderComponent},
   {path: 'altaClientes', component: AltaClientesComponent},
   {path: 'altaMesa', component: AltaMesaComponent},
   {path: 'encuestaEmpleados', component: EncuestaEmpleadosComponent},
