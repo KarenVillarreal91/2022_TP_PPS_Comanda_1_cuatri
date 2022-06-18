@@ -134,7 +134,7 @@ export class AltaClientesComponent implements OnInit {
         .then((res: any) => {
           usuario.uid = res.user.uid;
 
-          this.userService.usuarioActual.id = usuario.uid;
+          // this.userService.usuarioActual.id = usuario.uid;
 
           this.userService.SubirCliente(usuario, this.dataUrl)
             .then(() => {
