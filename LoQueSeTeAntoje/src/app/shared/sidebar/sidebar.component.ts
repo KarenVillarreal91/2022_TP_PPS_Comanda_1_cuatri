@@ -14,7 +14,7 @@ export class SidebarComponent implements OnInit {
 
   constructor(public router:Router, public menu:MenuController, public userService:UserService) 
   { 
-    userService.obtenerUsuarioActual();
+    // userService.obtenerUsuarioActual();
   }
 
   ngOnInit() {}

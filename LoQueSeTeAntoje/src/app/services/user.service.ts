@@ -144,12 +144,13 @@ export class UserService {
             this.firestore.collection('clientes').add(user)
               .then((data) => {
                 this.EditarColeccion(data.id, { id: data.id }, 'clientes');
-                this.usuarioActual.id = data.id;
                 let usuarioConTokenYTipo = { id: data.id, tipo: user.tipo, token: '' };
                 this.SubirUsuario(usuarioConTokenYTipo);
                 if (user.habilitado == "habilitado")//es anonimo se debe setear acá id, ademas se debe redireccionar ya que no necesita logueo
                 {
                   localStorage.setItem('idUsuario', JSON.stringify(data.id));
+                  this.usuarioActual.id = data.id;
+                  this.obtenerUsuarioActual()
                   this.router.navigateByUrl('qrIngreso');
                 }
               });
