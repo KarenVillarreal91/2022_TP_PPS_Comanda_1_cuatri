@@ -15,7 +15,7 @@ export class UserService {
   empleados: Array<any> = [];
   supervisores: Array<any> = [];
 
-  constructor(private auth: AngularFireAuth, private firestore: AngularFirestore, private storage: AngularFireStorage, private router: Router, private database:AngularFireDatabase) {
+  constructor(private auth: AngularFireAuth, private firestore: AngularFirestore, private storage: AngularFireStorage, private router: Router, private database: AngularFireDatabase) {
     this.GetColeccion('clientes').subscribe((lista) => {
       this.clientes = lista;
     });
@@ -143,6 +143,7 @@ export class UserService {
 
             this.firestore.collection('clientes').add(user)
               .then((data) => {
+                this.EditarColeccion(data.id, { id: data.id }, 'clientes');
                 let usuarioConTokenYTipo = { id: data.id, tipo: user.tipo, token: '' };
                 this.SubirUsuario(usuarioConTokenYTipo);
                 if (user.habilitado == "habilitado")//es anonimo se debe setear acá id, ademas se debe redireccionar ya que no necesita logueo
@@ -325,14 +326,12 @@ export class UserService {
     }
   }
 
-  MandarMensaje(mensaje:any)
-  {
+  MandarMensaje(mensaje: any) {
     const itemRef = this.database.list('/chat');
     itemRef.push(mensaje);
   }
 
-  TraerMensajes()
-  {
+  TraerMensajes() {
     return this.database.list('/chat').valueChanges();
   }
 }
