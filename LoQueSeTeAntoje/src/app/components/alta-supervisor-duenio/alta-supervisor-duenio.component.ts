@@ -93,10 +93,11 @@ export class AltaSupervisorDuenioComponent implements OnInit {
 
   async Registro()
   {
-    let usuario = { email: this.form.value.email, password: this.form.value.password, nombre: this.form.value.nombre, apellido: this.form.value.apellido, dni: this.form.value.dni, cuil: this.form.value.cuil, tipo: this.form.value.tipo};
+    let usuario = {nombre: this.form.value.nombre, apellido: this.form.value.apellido, email: this.form.value.email, dni: this.form.value.dni, cuil: this.form.value.cuil, tipo: this.form.value.tipo};
 
     this.userService.Registro(this.form.value)
     .then((res:any)=>{
+
       this.userService.SubirSupervisorDuenio(usuario, this.dataUrl)
         .then(()=>{
           document.getElementById('enviar').setAttribute('disabled', 'disabled');
@@ -117,6 +118,7 @@ export class AltaSupervisorDuenioComponent implements OnInit {
             
             this.Reiniciar();
             this.spinner = false;
+            this.router.navigateByUrl("homeSupervisor");
           }, 2000);
         }).catch(error=>{
           console.log(error);

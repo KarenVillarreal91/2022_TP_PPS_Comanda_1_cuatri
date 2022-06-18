@@ -12,7 +12,7 @@
 
 <ion-content slot="fixed">
   <div class="container-datos">
-    <ion-button type="button" color="transp" shape="round" fill="solid" expand="block" routerLink="../altaSupervisor">Alta Supervisor</ion-button>
+    <ion-button type="button" color="transp" shape="round" fill="solid" expand="block" routerLink="../encuestaSupervisor">Encuesta Supervisor</ion-button>
     <h3 class="titulo">Clientes sin habilitar</h3>
     <div class="card-body" *ngFor="let item of clientesValidos">
     <div class="datos">
@@ -26,10 +26,12 @@
         </ion-slides>
       </div>
       <p style="font-size: 15px; height: 46px;">{{item.nombre}}</p>
-      <div class="">
-        <ion-icon name="checkmark-circle" style="color: #8bff77; height: 45px; margin-left: 17px;" (click)="habilitarCliente(item)"></ion-icon>
-        <ion-icon name="close-circle-outline" style="color: #ff8577; height: 45px; margin-left: 17px;" (click)="rechazarCliente(item)"></ion-icon>
-      </div>
+      <ion-item>
+        <ion-icon item-start size="large" name="checkmark-circle" style="color: #8bff77;" (click)="habilitarCliente(item)"></ion-icon>
+       
+        <ion-icon item-end size="large" name="close-circle-outline" style="color: #ff8577;" (click)="rechazarCliente(item)"></ion-icon>
+      </ion-item>
+      
     </div>
   </div>
 </div>

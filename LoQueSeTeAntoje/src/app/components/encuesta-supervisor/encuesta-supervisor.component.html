@@ -17,14 +17,14 @@
     <div class="inputdiv" style="padding-top: 6px;" >
       <ion-item color="transp2">
         <ion-label color='dark' position="floating" class="label">Selecione tipo de usuario a calificar</ion-label>
-          <ion-select  okText="Seleccionar" cancelText="Cancelar" [(ngModel)]="tipoUsuario" >
-            <ion-select-option value="cliente">Cliente</ion-select-option>
-            <ion-select-option value="empleado">Empleado</ion-select-option>
+          <ion-select  okText="Seleccionar" cancelText="Cancelar" [(ngModel)]="tipoUsuario" (ionChange)="AsignarTipo($event.target.value)">
+            <ion-select-option [value]="cliente">Cliente</ion-select-option>
+            <ion-select-option [value]="empleado">Empleado</ion-select-option>
           </ion-select>
       </ion-item>
     </div>
 
-    <div class="inputdiv" style="padding-top: 6px;" *ngIf="esCliente()">
+    <div class="inputdiv" style="padding-top: 6px;" *ngIf="tipoUsuario=='Cliente'  && !verEncuestas" >
       <ion-item color="transp2">
         <ion-label color='dark' position="floating" class="label">Clientes</ion-label>
           <ion-select okText="Seleccionar" cancelText="Cancelar" >
@@ -33,7 +33,7 @@
       </ion-item>
     </div>
 
-    <div class="inputdiv" style="padding-top: 6px;" *ngIf="!esCliente()">
+    <div class="inputdiv" style="padding-top: 6px;" *ngIf="tipoUsuario=='Empleado' && !verEncuestasEmpleados">
       <ion-item color="transp2">
         <ion-label color='dark' position="floating" class="label">Empleados</ion-label>
           <ion-select  okText="Seleccionar" cancelText="Cancelar">
@@ -43,7 +43,7 @@
     </div>
     
 
-    <form [formGroup]="form" (ngSubmit)="EnviarEncuesta()" *ngIf="!verEncuestas && esCliente()">
+    <form [formGroup]="form" (ngSubmit)="EnviarEncuesta()" *ngIf="!verEncuestas && tipoUsuario=='Cliente'">
       <br>
 
       <!-- <ion-button type="button" class="omitir" fill="solid" expand="block" color="omitir" (click)="Omitir()">Omitir</ion-button> -->
@@ -122,7 +122,7 @@
       <ion-button type="submit" class="ingreso" fill="solid" expand="block" color="enviar" id="enviar" style="margin-top: 23px;" [disabled]="form.invalid">Enviar</ion-button>
     </form>
 
-    <form [formGroup]="formEmpleados" (ngSubmit)="EnviarEncuestaEmpleados()" *ngIf="!verEncuestasEmpleados && !esCliente()">
+    <form [formGroup]="formEmpleados" (ngSubmit)="EnviarEncuestaEmpleados()" *ngIf="!verEncuestasEmpleados && tipoUsuario=='Empleado'">
       <br>
 
       <!-- <ion-button type="button" class="omitir" fill="solid" expand="block" color="omitir" (click)="Omitir()">Omitir</ion-button> -->
@@ -202,7 +202,7 @@
     </form>
   </div>
 
-  <div class="container-datos" *ngIf="verEncuestas && esCliente()">
+  <div class="container-datos" *ngIf="verEncuestas && tipoUsuario=='Cliente'">
     <ion-button type="button" fill="solid" expand="block" color="enviar" (click)="Omitir()">Continuar</ion-button>
 
     <ion-card>
@@ -219,7 +219,7 @@
        Viene seguido
       </ion-card-header>
       <ion-card-content>
-        <canvas #vecesQuevieneCanvas style="position: relative; height:20vh; width:40vw"></canvas>
+        <canvas #vecesQueVieneCanvas style="position: relative; height:20vh; width:40vw"></canvas>
       </ion-card-content>
     </ion-card>
 
@@ -242,7 +242,7 @@
     </ion-card>
   </div>
 
-  <div class="container-datos" *ngIf="verEncuestasEmpleados && !esCliente()" >
+  <div class="container-datos" *ngIf="verEncuestasEmpleados && tipoUsuario=='Empleado'" >
     <ion-button type="button" fill="solid" expand="block" color="enviar" (click)="Omitir()">Continuar</ion-button>
 
     <ion-card>

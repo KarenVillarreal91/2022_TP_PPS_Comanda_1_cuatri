@@ -1,3 +1,15 @@
+<ion-header>
+  <ion-toolbar color="header">
+    <ion-title>
+      <ion-img style="width: 55px; height: 55px;" *ngIf="!spinner" src='assets/iconTransp2.png'></ion-img>
+      <ion-img class="rotate-center" style="width: 55px; height: 55px;" *ngIf="spinner" src='assets/iconTransp2.png'></ion-img>
+    </ion-title>
+    <ion-buttons slot="end">
+      <ion-menu-button style="margin: auto;" type="button" menu="menu" color="escanear"><ion-icon name="menu"></ion-icon></ion-menu-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
 <ion-content slot="fixed">
   <div class="container-datos">
     <h3 class="titulo">Clientes en Espera</h3>
@@ -14,11 +26,11 @@
       </div>
       <p style="font-size: 20px; height: 46px;">{{itemCliente.nombre}}</p>
       <div style="text-align: center;">
-        <ion-label>Asignar mesa</ion-label>
+        <ion-label>Asignar</ion-label>
         <!-- <ion-icon name="checkmark-circle" style="color: #ffc577; height: 45px; margin-left: 17px;" (click)="AsignarMesa(item)"></ion-icon> -->
         
         <ion-item color="transp2">
-          <ion-label color='dark' position="floating" class="label">Mesas</ion-label>
+          <ion-label color='dark' position="floating" class="label">Mesa</ion-label>
             <ion-select okText="Seleccionar" cancelText="Cancelar" (ionChange)="AsignarMesa($event.target.value, itemCliente)">
               <ion-select-option [value]="item" *ngFor=" let item of mesas" >{{item.numero}}</ion-select-option>
             </ion-select>

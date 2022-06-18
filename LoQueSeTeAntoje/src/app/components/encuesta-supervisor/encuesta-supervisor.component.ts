@@ -22,14 +22,12 @@ export class EncuestaSupervisorComponent implements OnInit {
   encuestasEmpleados:Array<any> = [];
   verEncuestasEmpleados:boolean = false;
 
-  coleccionClientes : any;
-  clientes : any;
-  clientesBD : any;
-  clientesValidos : any[] = [];
-  coleccionEmpleados : any;
-  empleados : any;
-  empleadosBD : any;
-  empleadosActuales : any[] = [];
+  clientesValidos :Array <any> = [];
+  empleadosActuales :Array <any> = [];
+  // coleccionEmpleados : any;
+  // empleados : any;
+  // empleadosBD : any;
+  // empleadosActuales : any[] = [];
 
   tipoUsuario:string="";
 
@@ -38,10 +36,24 @@ export class EncuestaSupervisorComponent implements OnInit {
     private fb:FormBuilder,
     private db : AngularFirestore) 
     {
-      this.coleccionClientes = this.db.collection<any>('clientes');
-      this.clientes = this.coleccionClientes.valueChanges({idField: 'id'});
-      this.coleccionEmpleados = this.db.collection<any>('empleados');
-      this.empleados = this.coleccionClientes.valueChanges({idField: 'id'});
+      let sub = userService.GetColeccion('clientes').subscribe((data)=>{
+        for(let item of data)
+        {
+          if (item.habilitado){
+            this.clientesValidos.push(item);
+          }
+        }
+        sub.unsubscribe();
+      });
+
+      let subEmpleados = userService.GetColeccion('empleados').subscribe((data)=>{
+        for(let item of data)
+        {
+          this.empleadosActuales.push(item);
+        }
+        sub.unsubscribe();
+      });
+
 
       this.form = this.fb.group({
         'comportamiento':['',Validators.required],
@@ -49,7 +61,6 @@ export class EncuestaSupervisorComponent implements OnInit {
         'propina':[true],
         'comentario':[''],
         'comensales':['',Validators.required],
-        // 'persona':['',Validators.required]
       });
 
       this.formEmpleados = this.fb.group({
@@ -58,60 +69,31 @@ export class EncuestaSupervisorComponent implements OnInit {
         'llegaTarde':[true],
         'comentario':[''],
         'inconvenientes':['',Validators.required],
-        // 'persona':['',Validators.required]
       });
       Chart.register(...registerables);
     }
 
   ngOnInit() 
   {
-    let clientesSub = this.clientes.subscribe((clientes : any) => {
-      this.clientesBD = clientes;
-      this.MapClientesHabilitados();
-      clientesSub.unsubscribe();
-    });
-    let empleadosSub = this.empleados.subscribe((empleados : any) => {
-      this.empleadosBD = empleados;
-      this.MapEmpleados();
-      empleadosSub.unsubscribe();
-    });
+    this.verEncuestas=false;
+    this.verEncuestasEmpleados=false;
   }
 
-  esCliente(){
-    console.log("tipousuario "+this.tipoUsuario);
-    if (this.tipoUsuario=="cliente")  return true
-    return false
+  AsignarTipo(tipoUsuario:any){
+    console.log("tipousuario "+tipoUsuario);
+    console.log(this.tipoUsuario);
   }
-  MapClientesHabilitados()
-  {
-    this.clientesValidos = [];
-    for(let item of this.clientesBD){
-      if(item.habilitado == true){
-        this.clientesValidos.push(item);
-      }
-    }
-  }
-
-  MapEmpleados()
-  {
-    this.empleadosActuales = [];
-    for(let item of this.empleadosBD){
-      this.empleadosActuales.push(item);
-    }
-  }
-
-  // SubirFoto(e:any)
-  // {
-  //   this.foto.append('foto', e.target.files[0]);
-  // }
 
   Omitir()
   {
     this.spinner = true;
-    
+    this.verEncuestas=false;
+    this.verEncuestasEmpleados=false;
+    this.form.reset();
+    this.formEmpleados.reset();
     setTimeout(() => {
       this.spinner = false;
-      this.router.navigateByUrl('principal');
+      this.router.navigateByUrl('homeSupervisor');
     }, 2000);
   }
 
@@ -205,11 +187,12 @@ export class EncuestaSupervisorComponent implements OnInit {
   MostrarEncuestas()
   {
     let encuestas = this.userService.GetColeccion('encuestaClientesDesdeSupervisor').subscribe((data)=>{
+      console.log(data);
       this.encuestas = data;  
       this.barChartEncuestaComportamiento();   
-      this.doughnutChartVecesQueViene();
       this.doughnutChartPropina(); 
       this.doughnutChartComensales();
+      this.doughnutChartVecesQueViene();
       encuestas.unsubscribe();
     });
   }
