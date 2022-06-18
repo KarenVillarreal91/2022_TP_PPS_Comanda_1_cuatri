@@ -35,7 +35,6 @@ export class LoginComponent implements OnInit {
             case "cliente": {
               console.log(this.userService.usuarioActual.habilitado);
               if (this.userService.usuarioActual.habilitado == undefined || this.userService.usuarioActual.habilitado == "habilitado") {
-                this.userService.usuarioActual.mesa = '';
                 Swal.fire({
                   title: 'Ingreso exitoso.',
                   text: 'Ha ingresado correctamente.',
