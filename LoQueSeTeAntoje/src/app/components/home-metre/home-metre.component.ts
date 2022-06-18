@@ -47,7 +47,7 @@ export class HomeMetreComponent implements OnInit {
   }
   getClientes(){
     this.clientesEnEspera=[];
-    let subClientes = this.userS.GetColeccion('clientes').subscribe((data:any)=>{
+    this.userS.GetColeccion('clientes').subscribe((data:any)=>{
       for(let item of data)
       {
         if (item.enListaDeEspera){
@@ -55,7 +55,6 @@ export class HomeMetreComponent implements OnInit {
           this.clientesEnEspera.push(item);
         }
       }
-      subClientes.unsubscribe();
     });
   }
 }
