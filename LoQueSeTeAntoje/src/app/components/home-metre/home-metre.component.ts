@@ -11,33 +11,32 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class HomeMetreComponent implements OnInit {
 
-  clientesEnEspera:Array<any> = [];
-  mesas:Array<any> = [];
-  mesaNumero:any;
-  constructor(private db : AngularFirestore, private userS : UserService, private router:Router) 
-  {
+  clientesEnEspera: Array<any> = [];
+  mesas: Array<any> = [];
+  mesaNumero: any;
+  constructor(private db: AngularFirestore, private userS: UserService, private router: Router) {
     this.getClientes();
     this.getMesas();
   }
   ngOnInit() { }
 
-  AsignarMesa(mesa:any, cliente:any){
+  AsignarMesa(mesa: any, cliente: any) {
     console.log(cliente + " cliente ");
     console.log(mesa + " mesa");
-    cliente.enListaDeEspera=false;
+    cliente.enListaDeEspera = false;
     cliente.mesa = mesa.numero.toString();//podria no setearlo
-    mesa.ocupada=true;
-    this.userS.EditarColeccion(cliente.id,cliente,"clientes");
-    this.userS.EditarColeccion(mesa.id,mesa,"mesas");
+    mesa.ocupada = true;
+    this.userS.EditarColeccion(cliente.id, cliente, "clientes");
+    this.userS.EditarColeccion(mesa.id, mesa, "mesas");
     this.getClientes();
     this.getMesas();
   }
-  getMesas(){
-    this.mesas=[];
-    let subMesas = this.userS.GetColeccion('mesas').subscribe((data:any)=>{
-      for(let item of data)
-      {
-        if (!item.ocupada){
+  
+  getMesas() {
+    this.mesas = [];
+    let subMesas = this.userS.GetColeccion('mesas').subscribe((data: any) => {
+      for (let item of data) {
+        if (!item.ocupada) {
 
           this.mesas.push(item);
         }
@@ -45,16 +44,16 @@ export class HomeMetreComponent implements OnInit {
       subMesas.unsubscribe();
     });
   }
-  getClientes(){
-    this.clientesEnEspera=[];
-    this.userS.GetColeccion('clientes').subscribe((data:any)=>{
-      for(let item of data)
-      {
-        if (item.enListaDeEspera){
+  getClientes() {
+    this.clientesEnEspera = [];
+    let clientesSub = this.userS.GetColeccion('clientes').subscribe((data: any) => {
+      for (let item of data) {
+        if (item.enListaDeEspera) {
 
           this.clientesEnEspera.push(item);
         }
       }
+      clientesSub.unsubscribe();
     });
   }
 }

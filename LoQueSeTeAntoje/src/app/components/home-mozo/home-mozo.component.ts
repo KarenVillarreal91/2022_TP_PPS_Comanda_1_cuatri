@@ -53,6 +53,19 @@ export class HomeMozoComponent implements OnInit {
         if(cliente.mesa == pedido.mesa)
         {
           this.userService.EditarColeccion(cliente.id, {mesa: ''}, 'clientes');
+
+          this.userService.GetColeccion('mesas').subscribe((data:any)=>{      
+            for(let mesa of data)
+            {
+              if(mesa.numero == cliente.mesa)
+              {
+                this.userService.EditarColeccion(mesa.id, {ocupada: false}, 'mesas');
+                break;
+              }
+            }
+          });
+
+
           break;
         }
       }
