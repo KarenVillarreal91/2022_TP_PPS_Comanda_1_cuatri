@@ -1,24 +1,48 @@
+<ion-header>
+  <ion-toolbar color="header">
+    <ion-title>
+      <ion-img style="width: 55px; height: 55px;" src='assets/iconTransp2.png'></ion-img>
+    </ion-title>
+    <ion-buttons slot="end">
+      <ion-menu-button style="margin: auto;" type="button" menu="menu" color="claro"><ion-icon name="menu"></ion-icon></ion-menu-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
 <ion-content slot="fixed">
   <div class="container-datos">
     <h3 class="titulo">Mensajes</h3>
-  </div>
-  <div >
-    <div *ngFor="let men of mensajes">
-      <div class="flex-row p-3 datos"> 
-          <div class="chat ml-2 p-3">{{men.mensaje}}
-            <br>
-            <ion-note style="font-size: 0.6rem;">
-              {{men.tipo}} 
-            </ion-note>
-          </div>
+    
+    <div *ngFor="let mensaje of mensajes">
+      <div *ngIf="userService.usuarioActual.tipo != 'cliente'">
+        <div class="mensajeDerecha" *ngIf="mensaje.mesa == ''">
+          <p style="margin-bottom: 10px;color:#ff6b6b;">Mozo</p>
+          <p style="display: inline; color:#f7f7f7">{{mensaje.message}}</p>
+        </div>
+        <div class="mensajeIzquierda" *ngIf="mensaje.mesa != ''">
+          <p style="margin-bottom: 10px;color:#fffa5c;">Mesa {{mensaje.mesa}}</p>
+          <p style="display: inline; color:#f7f7f7">{{mensaje.message}}</p>
+        </div>
+      </div>
+      <div *ngIf="userService.usuarioActual.tipo == 'cliente'">
+        <div class="mensajeIzquierda" *ngIf="mensaje.mesa == ''">
+          <p style="margin-bottom: 10px;color:#fffa5c;">Mozo</p>
+          <p style="display: inline; color:#f7f7f7">{{mensaje.message}}</p>
+        </div>
+        <div class="mensajeDerecha" *ngIf="mensaje.mesa != ''">
+          <p style="margin-bottom: 10px;color:#ff6b6b;">Mesa {{mensaje.mesa}}</p>
+          <p style="display: inline; color:#f7f7f7">{{mensaje.message}}</p>
+        </div>
       </div>
     </div>
-    <div class="form-group px-3">
-      <textarea class="form-control" rows="5" placeholder="Escriba su mensaje" [(ngModel)]='mensaje'></textarea>
-      <ion-button color="success" (click)="mandarMensaje()" expand="block">Enviar</ion-button>
-   </div>
   </div>
 </ion-content>
+<ion-footer>
+  <ion-item color="enviar">
+    <ion-input type='text' placeholder="Mensaje" [(ngModel)]="mensaje"></ion-input><ion-icon style="font-size: 30px;" name="send" (click)="MandarMensaje()"></ion-icon>
+  </ion-item>
+</ion-footer>
+
 
 
 

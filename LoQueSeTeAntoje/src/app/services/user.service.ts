@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
+import { AngularFireDatabase } from '@angular/fire/compat/database';
 import { Router } from '@angular/router';
 
 @Injectable({
@@ -14,7 +15,7 @@ export class UserService {
   empleados: Array<any> = [];
   supervisores: Array<any> = [];
 
-  constructor(private auth: AngularFireAuth, private firestore: AngularFirestore, private storage: AngularFireStorage, private router: Router) {
+  constructor(private auth: AngularFireAuth, private firestore: AngularFirestore, private storage: AngularFireStorage, private router: Router, private database:AngularFireDatabase) {
     this.GetColeccion('clientes').subscribe((lista) => {
       this.clientes = lista;
     });
@@ -322,7 +323,16 @@ export class UserService {
         this.usuarioActual = todos[2]
       }
     }
+  }
 
+  MandarMensaje(mensaje:any)
+  {
+    const itemRef = this.database.list('/chat');
+    itemRef.push(mensaje);
+  }
 
+  TraerMensajes()
+  {
+    return this.database.list('/chat').valueChanges();
   }
 }

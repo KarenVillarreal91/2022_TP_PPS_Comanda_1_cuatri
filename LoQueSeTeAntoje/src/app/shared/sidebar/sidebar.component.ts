@@ -13,7 +13,9 @@ export class SidebarComponent implements OnInit {
   spinner:boolean = false;
 
   constructor(public router:Router, public menu:MenuController, public userService:UserService) 
-  { }
+  { 
+    userService.obtenerUsuarioActual();
+  }
 
   ngOnInit() {}
 
@@ -32,5 +34,11 @@ export class SidebarComponent implements OnInit {
       this.menu.close();
       this.router.navigateByUrl('login');
     }, 2000);
+  }
+
+  Redireccion(red:string)
+  {
+    this.menu.close();
+    this.router.navigateByUrl(red);
   }
 }

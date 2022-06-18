@@ -12,84 +12,34 @@ import { PushNotificationService } from 'src/app/services/push-notification.serv
 export class ChatComponent implements OnInit {
   mensajes:Array<any> = [];
   mensaje: string;
-  data:any;
-  error:string="No puedes enviar mensajes vacios.";
-  hayError:boolean=false;
-  spinner:boolean=true;
+  spinner:boolean = false;
   usuario:any;
-  constructor(private userS : UserService, private pushNotification: PushNotificationService) {
-    this.getUser();
-    this.getMensajes();
+  
+  constructor(public userService : UserService, private pushNotification: PushNotificationService) {
+    
+    this.userService.TraerMensajes().subscribe((data)=>{
+      this.mensajes = data.sort((a:any,b:any)=> a.sort - b.sort);
+    });
    }
 
   ngOnInit() {}
 
-  getUser(){
-    if (this.userS.usuarioActual.tipo=="cliente"){
-      this.userS.GetColeccion('clientes').subscribe((data)=>{
-        for (let user of data) 
-        {
-          if (user.uid == this.userS.usuarioActual.id || user.id == this.userS.usuarioActual.id) 
-          {
-            this.usuario = user;
-            break;
-          }
-        }  
-      })
-    }else{
-      if (this.userS.usuarioActual.tipo=="mozo"){
-        this.userS.GetColeccion('empleados').subscribe((data)=>{
-          for (let user of data) 
-          {
-            if (user.uid == this.userS.usuarioActual.id || user.id == this.userS.usuarioActual.id) 
-            {
-              this.usuario = user;
-              break;
-            }
-          }  
-        })
-      }
-    }
+  MandarMensaje()
+  {  
+    let mesa = '';
     
-  }
-  getMensajes(){
-    this.mensajes=[];
-    let subMensajes = this.userS.GetColeccion('chat').subscribe((data:any)=>{
-      for(let item of data)
-      {
-        this.mensajes.push(item);
-      }
-      subMensajes.unsubscribe();
-    });
-  }
-
-  mandarMensaje(){
-    let datos;
-    if (this.mensaje=="" || this.mensaje==null)
+    if(this.userService.usuarioActual.tipo == 'cliente')
     {
-      console.log("error");
-      this.hayError=true;
-    }else{
-      if (this.userS.usuarioActual.tipo=="cliente"){
-        datos = {mensaje: this.mensaje, emisor: JSON.parse(this.userS.getuserIdLocal()),tipo: this.userS.usuarioActual.tipo, mesa:this.usuario.mesa};
-      }else{
-        if (this.userS.usuarioActual.tipo=="mozo"){
-          datos = {mensaje: this.mensaje, emisor: JSON.parse(this.userS.getuserIdLocal()),tipo: this.userS.usuarioActual.tipo, mesa:""};
-        }
-      }
-      
-      console.log(datos);
-      if (this.userS.usuarioActual.tipo=="cliente")
-      {
-        this.pushNotification.EnviarNotificationAVariosUsuarios("mozo","Nueva consulta de cliente",this.mensaje);
-      }
-      this.userS.SubirDatos(datos,"chat");
-      this.mensaje="";
-      this.hayError=false;
-      this.getMensajes();
+      mesa = this.userService.usuarioActual.mesa;
     }
 
+    const mensajeObj = {  
+      message: this.mensaje,
+      mesa: mesa,
+      sort: Date.now()
+    }
+
+    this.mensaje = '';
+    this.userService.MandarMensaje(mensajeObj);
   }
-
-
 }

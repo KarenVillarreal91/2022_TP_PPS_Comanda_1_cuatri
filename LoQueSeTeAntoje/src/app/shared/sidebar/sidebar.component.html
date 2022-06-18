@@ -3,16 +3,26 @@
     <ion-header>
       <ion-toolbar color="header">
         <ion-title>
-          <ion-img style="width: 55px; height: 55px;" *ngIf="!spinner" src='assets/iconTransp2.png'></ion-img>
-          <ion-img class="rotate-center" style="width: 55px; height: 55px;" *ngIf="spinner" src='assets/iconTransp2.png'></ion-img>
+          <ion-grid>
+            <ion-row>
+              <ion-col size="3">
+                <ion-img style="margin-top: -5px;" *ngIf="!spinner" src='assets/iconTransp2.png'></ion-img>
+                <ion-img style="margin-top: -5px;" class="rotate-center" *ngIf="spinner" src='assets/iconTransp2.png'></ion-img>
+              </ion-col>
+              <ion-col size="8">
+                <p class="titulo">{{userService.usuarioActual.tipo | titlecase}}</p>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
         </ion-title>
       </ion-toolbar>
     </ion-header>
     <ion-content>
       <ion-list>
-        <ion-item>Menu Item</ion-item>
-        <ion-item>Menu Item</ion-item>
-        <ion-item>Menu Item</ion-item>
+        <ion-item *ngIf="userService.EsCliente() && userService.usuarioActual.encuestaCompletada" (click)="Redireccion('historialEncuestas')">Ver encuestas</ion-item>
+        <ion-item *ngIf="userService.usuarioActual.tipo == 'mozo'" (click)="Redireccion('chat')">Consultas</ion-item>
+        <ion-item *ngIf="userService.usuarioActual.tipo == 'supervisor'" (click)="Redireccion('altaEmpleados')">Alta de empleado</ion-item>
+        <ion-item *ngIf="userService.usuarioActual.tipo == 'supervisor'" (click)="Redireccion('altaSupervisor')">Alta de supervisor</ion-item>
       </ion-list>
     </ion-content>
     <ion-footer>
