@@ -101,7 +101,7 @@ export class AltaClientesComponent implements OnInit {
 
       this.userService.SubirCliente(usuario, this.dataUrl)
       .then((res)=>{
-        this.userService.usuarioActual.id = res;
+        this.userService.obtenerUsuarioActual();
         
         document.getElementById('enviar').setAttribute('disabled', 'disabled');
         this.spinner = true;
