@@ -13,6 +13,7 @@ import { HistorialEncuestasComponent } from './components/historial-encuestas/hi
 import { HomeBartenderComponent } from './components/home-bartender/home-bartender.component';
 import { HomeClienteComponent } from './components/home-cliente/home-cliente.component';
 import { HomeCocineroComponent } from './components/home-cocinero/home-cocinero.component';
+import { HomeJUegosComponent } from './components/home-juegos/home-juegos.component';
 import { HomeMetreComponent } from './components/home-metre/home-metre.component';
 import { HomeMozoComponent } from './components/home-mozo/home-mozo.component';
 import { HomeSupervisorComponent } from './components/home-supervisor/home-supervisor.component';
@@ -48,6 +49,7 @@ const routes: Routes = [
   {path: 'juegoMayorMenor', component: MayoromenorComponent},
   {path: 'historialEncuestas', component: HistorialEncuestasComponent},
   {path: 'chat', component: ChatComponent},
+  {path: 'homeJuegos', component: HomeJUegosComponent},
 
 ];
 

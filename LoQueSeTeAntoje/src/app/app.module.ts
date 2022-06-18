@@ -36,6 +36,7 @@ import { HomeMetreComponent } from './components/home-metre/home-metre.component
 import { RealizarPedidoComponent } from './components/realizar-pedido/realizar-pedido.component';
 import { HistorialEncuestasComponent } from './components/historial-encuestas/historial-encuestas.component';
 import { ChatComponent } from './components/chat/chat.component';
+import { HomeJUegosComponent } from './components/home-juegos/home-juegos.component';
 
 @NgModule({
   declarations: [AppComponent,
@@ -45,6 +46,7 @@ import { ChatComponent } from './components/chat/chat.component';
   AltaMesaComponent,
   PrincipalComponent,
   SidebarComponent,
+  HomeJUegosComponent,
   MayoromenorComponent,
   AltaSupervisorDuenioComponent,
   HomeSupervisorComponent,
