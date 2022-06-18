@@ -1,0 +1,53 @@
+<ion-header>
+  <ion-toolbar color="header">
+    <ion-title>
+      <ion-img style="width: 55px; height: 55px;" *ngIf="!spinner" src='assets/iconTransp2.png'></ion-img>
+      <ion-img class="rotate-center" style="width: 55px; height: 55px;" *ngIf="spinner" src='assets/iconTransp2.png'></ion-img>
+    </ion-title>
+    <ion-buttons slot="end">
+      <ion-menu-button style="margin: auto;" type="button" menu="menu" color="escanear"><ion-icon name="menu"></ion-icon></ion-menu-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content slot="fixed">
+  <div class="container-datos">
+    <h3 class="titulo">Sala de Juegos</h3>
+    <div class="card-body">
+      <div class="datos">
+        <div class="foto">
+          <ion-slides >
+            <ion-slide>
+              <div class="slide">
+                <ion-img src='assets/colors.jpg' style="width: 100px; height: 130px; border-radius: 5%;" (click)="irColors()">
+                </ion-img>
+              </div>
+            </ion-slide>
+          </ion-slides>
+        </div>
+        <div style="text-align: center;">
+          <ion-label>Colors</ion-label>          
+        </div>
+      </div>
+
+    </div>
+    <div class="card-body">
+      <div class="datos">
+        <div class="foto">
+          <ion-slides >
+            <ion-slide>
+              <div class="slide">
+                <ion-img src='assets/HigherLower.png' style="width: 100px; height: 130px; border-radius: 5%;" (click)="irMayorMenor()">
+                </ion-img>
+              </div>
+            </ion-slide>
+          </ion-slides>
+        </div>
+        <div style="text-align: center;">
+          <ion-label>Mayor o Menor</ion-label>          
+        </div>
+      </div>
+
+    </div>
+  </div>
+</ion-content>

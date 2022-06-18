@@ -43,8 +43,9 @@
 * QR propina ✔
 * Encuesta cliente ✔
 * HIstorial encuestas clientes ✔
-* Agregar clente registrado (gestion) ✔
+* Agregar cliente registrado (gestion) ✔
 * Agregar cliente (push n) ✔
+* Home juegos ✔
 
 ## Tercer semana
 ###### Fecha: 11/06/2022 a 18/06/2022
