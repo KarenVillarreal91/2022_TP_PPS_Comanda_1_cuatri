@@ -16,9 +16,6 @@ export class ChatComponent implements OnInit {
   usuario:any;
   
   constructor(public userService : UserService, private pushNotification: PushNotificationService) {
-    // this.getUser();
-    // this.getMensajes();
-
     this.userService.TraerMensajes().subscribe((data)=>{
       this.mensajes = data.sort((a:any,b:any)=> a.sort - b.sort);
     });
@@ -33,7 +30,7 @@ export class ChatComponent implements OnInit {
     if(this.userService.usuarioActual.tipo == 'cliente')
     {
       mesa = this.userService.usuarioActual.mesa;
-      this.pushNotification.EnviarNotificationAVariosUsuarios("mozo","Nueva consulta de cliente.", this.mensaje);
+      //this.pushNotification.EnviarNotificationAVariosUsuarios("mozo","Nueva consulta de cliente.", this.mensaje);
     }
 
     const mensajeObj = {  

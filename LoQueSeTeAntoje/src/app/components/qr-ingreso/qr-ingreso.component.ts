@@ -30,17 +30,11 @@ export class QrIngresoComponent implements OnInit {
     this.scanService.scan()
       .then((datos) => {
         if (datos.text=='qrIngresoAListaDeEspera')
-        {
-          let userId = JSON.parse(this.userService.getuserIdLocal());
-          let user:any;
-          let coleccion = this.firestore.collection("clientes").doc(userId).valueChanges({idField: 'id'});
-          coleccion.forEach((data:any)=>{user = data;});
-          //no me gusta, se aceptan sugerencias
+        {        
           setTimeout(() => {
-            if (!user.enListaDeEspera)
+            if(!this.userService.usuarioActual.enListaDeEspera)
             {
-              user.enListaDeEspera=true;
-              this.userService.updateUser(userId, user, 'clientes');
+              this.userService.EditarColeccion(this.userService.usuarioActual.id,{enListaDeEspera: true} , 'clientes');
               Swal.fire({
                 title: "Ha ingresado a la lista de espera.",
                 icon: 'success',
@@ -53,21 +47,10 @@ export class QrIngresoComponent implements OnInit {
                 showConfirmButton: false
               });
               this.pushNotificationService.EnviarNotificationAVariosUsuarios("metre","Cliente en lista de espera","Hay un nuevo cliente a la espera de asignación de mesa.");
-            }else{
-              Swal.fire({
-                title: "Error ya se encuentra en la lista de espera.",
-                icon: 'error',
-                timer: 4000,
-                toast: true,
-                backdrop: false,
-                position: 'bottom',
-                grow: 'row',
-                timerProgressBar: true,
-                showConfirmButton: false
-              });
             }
+            
             this.router.navigateByUrl('homeCliente');
-          }, 3000);
+          }, 2000);
         }
       }).catch(error => {
         Swal.fire({
