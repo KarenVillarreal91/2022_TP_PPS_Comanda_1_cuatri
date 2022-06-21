@@ -21,6 +21,7 @@
       <ion-list>
         <ion-item *ngIf="userService.EsCliente() && userService.usuarioActual.encuestaCompletada" (click)="Redireccion('historialEncuestas')">Ver encuestas</ion-item>
         <ion-item *ngIf="userService.usuarioActual.tipo == 'mozo'" (click)="Redireccion('chat')">Consultas</ion-item>
+        <ion-item *ngIf="userService.usuarioActual.tipo == 'cliente'" (click)="Redireccion('chat')">Consultas</ion-item>
         <ion-item *ngIf="userService.usuarioActual.tipo == 'supervisor'" (click)="Redireccion('altaEmpleados')">Alta de empleado</ion-item>
         <ion-item *ngIf="userService.usuarioActual.tipo == 'supervisor'" (click)="Redireccion('altaSupervisor')">Alta de supervisor</ion-item>
       </ion-list>
