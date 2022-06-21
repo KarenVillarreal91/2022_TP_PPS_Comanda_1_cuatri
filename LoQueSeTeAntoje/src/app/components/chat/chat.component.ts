@@ -30,7 +30,7 @@ export class ChatComponent implements OnInit {
     if(this.userService.usuarioActual.tipo == 'cliente')
     {
       mesa = this.userService.usuarioActual.mesa;
-      //this.pushNotification.EnviarNotificationAVariosUsuarios("mozo","Nueva consulta de cliente.", this.mensaje);
+      this.pushNotification.EnviarNotificationAVariosUsuarios("mozo","Nueva consulta de cliente.", this.mensaje);
     }
 
     const mensajeObj = {  
