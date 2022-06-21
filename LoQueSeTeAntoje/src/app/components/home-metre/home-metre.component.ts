@@ -41,7 +41,7 @@ export class HomeMetreComponent implements OnInit {
           this.mesas.push(item);
         }
       }
-      subMesas.unsubscribe();
+      //subMesas.unsubscribe();
     });
   }
   getClientes() {
@@ -53,7 +53,7 @@ export class HomeMetreComponent implements OnInit {
           this.clientesEnEspera.push(item);
         }
       }
-      clientesSub.unsubscribe();
+      //clientesSub.unsubscribe();
     });
   }
 }

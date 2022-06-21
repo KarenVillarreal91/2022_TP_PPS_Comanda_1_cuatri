@@ -140,21 +140,42 @@ export class PushNotificationService {
     });
     
   }
+  
   EnviarNotificationAVariosUsuarios(tipo: string, titulo: string, body: string) {
-    let usuariosTokens: Array<any> = [];
-    let sub = this.firestore.collection("usuarios", ref => ref.where('tipo', '==', tipo)).snapshotChanges().subscribe(async (user:any) => {
-      usuariosTokens.push(user[0].payload.doc.data().token);
-      let push =this.sendPushNotification({
-        registration_ids: usuariosTokens,
+    let sub = this.firestore.collection("usuarios", ref => ref.where('tipo', '==', tipo)).snapshotChanges().subscribe(async (usuarios:any) => {
+      usuarios.forEach(user => {
+        console.log(user.payload.doc.data().tipo);
+        let token = user.payload.doc.data().token;
+        
+      let push = this.sendPushNotification({
+        to:token,
         notification: {
           title: titulo,
           body: body
         }
-      }).subscribe((data) => {//sin el subscribe la notificacion no llega
+      }).subscribe((data) => {
         console.log(data);
         push.unsubscribe();
       });
       sub.unsubscribe();
+      });
     });
   }
+  // EnviarNotificationAVariosUsuarios(tipo: string, titulo: string, body: string) {
+  //   let usuariosTokens: Array<any> = [];
+  //   let sub = this.firestore.collection("usuarios", ref => ref.where('tipo', '==', tipo)).snapshotChanges().subscribe(async (user:any) => {
+  //     usuariosTokens.push(user[0].payload.doc.data().token);
+  //     let push =this.sendPushNotification({
+  //       registration_ids: usuariosTokens,
+  //       notification: {
+  //         title: titulo,
+  //         body: body
+  //       }
+  //     }).subscribe((data) => {//sin el subscribe la notificacion no llega
+  //       console.log(data);
+  //       push.unsubscribe();
+  //     });
+  //     sub.unsubscribe();
+  //   });
+  // }
 }
