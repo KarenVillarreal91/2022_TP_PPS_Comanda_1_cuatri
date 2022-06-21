@@ -26,6 +26,7 @@ export class ChatComponent implements OnInit {
   MandarMensaje()
   {  
     let mesa = '';
+    this.userService.obtenerUsuarioActual()
     
     if(this.userService.usuarioActual.tipo == 'cliente')
     {
