@@ -122,6 +122,6 @@ El cliente puede ver el estado de su pedido actual, confirmar el pedido recibido
 ## Notificación y Correo
 <p  align="center">
 <img src="https://cdn.discordapp.com/attachments/748217770432266260/987673256519675914/IMG_20220618_075941.jpg" width="400"/>
-<img src="https://cdn.discordapp.com/attachments/748217770432266260/987681667391049788/unknown.png" width="450"/>
+<img src="https://cdn.discordapp.com/attachments/748217770432266260/988918341504729108/unknown.png" width="450"/>
 </p>
 
