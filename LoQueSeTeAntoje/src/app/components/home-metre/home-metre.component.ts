@@ -33,20 +33,23 @@ export class HomeMetreComponent implements OnInit {
   }
   
   getMesas() {
-    this.mesas = [];
+    
     let subMesas = this.userS.GetColeccion('mesas').subscribe((data: any) => {
+      this.mesas = [];
       for (let item of data) {
         if (!item.ocupada) {
 
           this.mesas.push(item);
         }
       }
+
       //subMesas.unsubscribe();
     });
   }
   getClientes() {
-    this.clientesEnEspera = [];
+    
     let clientesSub = this.userS.GetColeccion('clientes').subscribe((data: any) => {
+      this.clientesEnEspera = [];
       for (let item of data) {
         if (item.enListaDeEspera) {
 
