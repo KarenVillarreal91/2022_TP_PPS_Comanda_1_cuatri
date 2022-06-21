@@ -113,7 +113,7 @@ export class HomeClienteComponent implements OnInit {
     
     this.scanService.scan()
     .then((data:any) => {
-      this.propina = this.pedido.total * 0.05;
+      this.propina = this.pedido.total * parseFloat(data.text);
       this.propinaEscaneada = true;
       this.userService.EditarColeccion(this.pedido.id, {propina: this.propina}, 'pedidos');
       setTimeout(() => {
