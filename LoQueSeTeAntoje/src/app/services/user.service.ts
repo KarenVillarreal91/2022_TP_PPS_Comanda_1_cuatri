@@ -251,8 +251,8 @@ export class UserService {
   }
 
   Desloguear() {
-    let id = JSON.parse(this.getuserIdLocal());
-    console.log(localStorage.getItem('idUsuario'));
+    this.obtenerUsuarioActual()
+    let id = this.usuarioActual.id;
     localStorage.removeItem('idUsuario');
     this.EditarColeccion(id, { encuestaComopletada: false }, 'clientes');
     console.log(localStorage.getItem('idUsuario'));
